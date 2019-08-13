@@ -1,0 +1,10 @@
+You have to attach the following zip files:
+
+/home/karahbit/radical.pilot/examples/rp.session.js-156-87.jetstream-cloud.org.karahbit.018111.0001/
+
+/home/karahbit/radical.pilot.sandbox/rp.session.js-156-87.jetstream-cloud.org.karahbit.018111.0001/
+
+Also, the log for the error is in:
+
+pmgr.000.log
+/home/karahbit/radical.pilot/examples/rp.session.js-156-87.jetstream-cloud.org.karahbit.018111.0001/pmgr.0000.log
