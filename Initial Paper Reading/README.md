@@ -13,3 +13,9 @@
 #6 HyperSpace: Distributed Bayesian Hyperparameter Optimization
 
 #7 FACTS
+
+#8 Scaling deep learning for science
+
+#9 Evolving Deep Networks Using HPC
+
+#10 HyperSpace
