@@ -1,0 +1,19 @@
+Week 2 - 9/27/2019
+
+Containers:
+- Started reading about Singularity on their official website:
+    Quick Guide and GitHub examples: https://sylabs.io/docs/
+
+HPO:
+- I have a clearer understanding of HPO from an engineering perspective:
+    Thanks Matteo
+- Started thinking about funcional requirements, utilizing Dask as an example
+    with SciKit-Learn as the HPO engine (library)
+- Collected a list of 10 HPO libraries that RADICAL-Learn can possible use
+
+RCT/General:
+- Reconfigured workspace to use existing machine at two.radical-project.org
+    instead of a VM
+- Ran 16 batches with 8 tasks each on EnTK
+- Read about concepts of distributed/parallel computing:
+    http://www.cs.cmu.edu/afs/cs/academic/class/15210-f15/www/tapp.html
