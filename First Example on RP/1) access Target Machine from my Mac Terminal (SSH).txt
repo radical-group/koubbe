@@ -1,18 +1,22 @@
-How to access Jetstream Atmosphere from my Mac Terminal:
+How to access Target Machine from my Mac Terminal:
 
 1) from my Mac Terminal:  cd .ssh
 2) from my Mac Terminal: Generate new RSA key ==> ssh-keygen -t rsa
 3)  from my Mac Terminal: Get your Public RSA key ==> vi /Users/karahbit/.ssh/id_rsa.pub
+(can use less instead of vi to make sure not to edit my key)
 4) Copy the content of the RSA key
 5) log in to the Target Machine
 6) From Target Machine: cd .ssh
 7) From Target Machine: vi authorized_keys
 8) paste it in the end of the file (leave a space between paragraphs)
+9) chmod 600 authorized_keys
 
 Now, every time I want to access Jetstream Atmosphere from my Mac Terminal, I just do this:
 	ssh karahbit@129.114.104.13
 
 (the IP Address I got it from my VM instance in Jetstream website). All I need to do is install RCT from Jetstream Atmosphere
+
+Note: Instead of using Jetstream Atmosphere, I could use RADICAL's machines (ask for login and initial password, then change it using passwd command). The server name is two.radical-project.org. Retrieve the IP using ping or host command followed by the server name.
 
 
 How to access Bridges?

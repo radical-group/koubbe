@@ -1,0 +1,2 @@
+To transfer files from Local host remote Host:
+scp ~/Desktop/1.py karahbit@138.201.86.166:~
