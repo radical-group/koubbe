@@ -1,11 +1,17 @@
 from radical.entk import Pipeline, Stage, Task, AppManager
 import os
+import time
+
 
 # ------------------------------------------------------------------------------
 # Set default verbosity
 if os.environ.get('RADICAL_ENTK_VERBOSE') == None:
     os.environ['RADICAL_ENTK_REPORT'] = 'True'
 
+os.environ['RADICAL_ENTK_PROFILE'] = "True"
+os.environ['RADICAL_LOG_LVL'] = "DEBUG"
+os.environ['RADICAL_LOG_TGT'] = "radical.log"
+os.environ['RADICAL_PROFILE'] = "TRUE"
 
 # Description of how the RabbitMQ process is accessible
 # No need to change/set any variables if you installed RabbitMQ has a system
@@ -27,17 +33,16 @@ def generate_pipeline():
     s1.name = 's1'
     s1_task_uids = []
 
-    # Create a Task object which creates a file named 'output.txt' of size 1 MB
-    t1 = Task()
-    t1.name = 't1'
-    t1.executable = '/bin/date'
-
     for cnt in range(128):
 
         # Create a Task object
         t1 = Task()
         t1.name = 't%s' % (cnt + 1)
-        t1.executable = '/bin/date'
+        # to make a python script executable: 
+        # 1) add to first line "shebang": #!/usr/bin/env python
+        # 2) chmod +x SerialCode.py
+        # The executable always has to be in the Target Machine
+        t1.executable = '~/SerialCode.py'
 
         # Add the Task to the Stage
         s1.add_tasks(t1)
@@ -50,6 +55,8 @@ def generate_pipeline():
 
 if __name__ == '__main__':
 
+    start_time = time.time()
+
     # Create Application Manager
     appman = AppManager(hostname=hostname, port=port)
 
@@ -61,10 +68,12 @@ if __name__ == '__main__':
     #    'resource': 'ncsa.bw_aprun',
     #    'walltime': 10,
     #    'cpus': 32,
-    #'project': 'bamm',
-    #'queue': 'high'
-	'resource': 'local.localhost',
-	'walltime': 10,
+    'project': 'mc3bggp',
+    'queue': 'RM',
+    'access_schema' : 'gsissh',
+	'resource': 'xsede.bridges',
+    #'resource': 'local.localhost',
+	'walltime': 30,
 	'cpus':128
     }
 
@@ -77,3 +86,5 @@ if __name__ == '__main__':
 
     # Run the Application Manager
     appman.run()
+
+    print("--- %s seconds ---" % (time.time() - start_time))

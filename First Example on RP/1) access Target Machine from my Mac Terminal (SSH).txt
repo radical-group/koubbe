@@ -18,10 +18,13 @@ Now, every time I want to access Jetstream Atmosphere from my Mac Terminal, I ju
 
 Note: Instead of using Jetstream Atmosphere, I could use RADICAL's machines (ask for login and initial password, then change it using passwd command). The server name is two.radical-project.org. Retrieve the IP using ping or host command followed by the server name.
 
+Also: Do setup a password-less ssh login from the Target Machine to itself (for local.localhost)
+
 
 How to access Bridges?
 
 1) From Jetstream Atmosphere: Generate certificate for 72 hours ==> myproxy-logon -s myproxy.xsede.org -l karahbit -t 72
+(enter XSEDE profile password)
 2) From Jetstream Atmosphere: 
 sudo ln -s /usr/local/globus-6/bin/gsiscp /usr/bin/gsiscp
 sudo ln -s /usr/local/globus-6/bin/gsisftp /usr/bin/gsisftp
@@ -37,7 +40,7 @@ export PATH="$PATH:/usr/local/globus-6/bin/"
 4) Run the task in Bridges (with the resources modified for it):
 export RADICAL_PILOT_VERBOSE=DEBUG
 export RADICAL_PILOT_PROFILE=TRUE
-in /home/karahbit/ve/share/radical.pilot/examples/ ===>
+in /home/karahbit/ve/share/radical.pilot/examples/00_getting_started.py ===>
         pd_init = {'resource'      : 'xsede.bridges',
                    'runtime'       : 30,  # pilot runtime (min)
                    'exit_on_error' : True,
@@ -48,3 +51,22 @@ in /home/karahbit/ve/share/radical.pilot/examples/ ===>
                   }
 and run:
 python 00_getting_started.py
+
+To see queue's names (partitions), run from bridges:
+sinfo
+squeue -u karahbit
+To se project names, run from bridges:
+projects
+
+If running with anaconda on localhost:
+/home/karahbit/ve/share/radical.pilot/examples/config.json ===>
+Add after local.localhost:
+    "local.localhost_anaconda":{
+        "project"  : null,
+        "queue"    : null,
+        "schema"   : null,
+        "cores"    : 1,
+        "gpus"     : 2
+    },
+and run:
+python 00_getting_started.py local.localhost_anaconda
