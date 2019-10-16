@@ -1,0 +1,8 @@
+To transfer files from Local host to remote Host:
+scp ~/Desktop/1.py karahbit@138.201.86.166:~
+
+
+If the remote resource connection is through gsissh, transfer from local machine to remote like this:
+gsiscp -P 2222 ~/do_nothing.py karahbit@bridges.psc.xsede.org:~
+
+radical-analytics-check: utility to see all states and events of my session
