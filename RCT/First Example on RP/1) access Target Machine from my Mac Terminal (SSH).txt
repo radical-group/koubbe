@@ -70,3 +70,20 @@ Add after local.localhost:
     },
 and run:
 python 00_getting_started.py local.localhost_anaconda
+
+
+How to access XSEDE SSO Hub?
+ssh -l aymen login.xsede.org
+authenticate through Duo
+
+
+How to access Comet?
+gsissh comet.sdsc.xsede.org
+
+
+Check credential status
+grid-proxy-info
+
+
+Check list of hosts
+xsede-gsissh-hosts

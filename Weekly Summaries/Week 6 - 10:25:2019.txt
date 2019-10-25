@@ -1,0 +1,18 @@
+Below is some progress that I have done so far on my corresponding work.
+
+For a deeper analysis on HPO/Container topics, please I urge all of you to take a look at this document and provide your feedback:
+
+https://docs.google.com/document/d/1-ur3uM9ppCqDhMpl3prp_6WaU2EtkEm7sFOmoP9ik2A/edit?usp=sharing
+
+https://docs.google.com/document/d/19mAfrbeDUb82jpLY5bWqHZb6azC-CLVqApMTNtkbq64/edit?usp=sharing
+
+HPO:
+1. Started thinking and elaborating Functional Requirements Document (FRD) for HPO Module of RADICAL-Learning library
+2. I want to run first program using HyperSpace on a specific use case (e.g., Jumana’s) and make sure we are good until that point.
+
+Containers:
+
+1. Installed, created, imported and used first containerized application using Singularity on Comet
+2. This question still needs answer:
+What is boutiques (Tristan)? What can we learn from it? Should we spent time on it?
+

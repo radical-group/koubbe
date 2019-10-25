@@ -1,0 +1,48 @@
+RCT:
+
+Played with RCT analytics to extract TTC, TTX, overheads times and plots on basic examples.
+
+
+
+HPO:
+
+1. Compiled a list of HPO engines.
+
+2. Based on ease of use, search space options, algorithms, documentation, and visualization, decided to start exploration with Scikit-Optimize.
+
+3. Deep study of HyperSpace: what it is, what it does and how it does it.
+
+4. HyperSpace only needs to:
+1. Define an objective function.
+2. Define a parameter search space.
+3. Call one of HyperSpace’s minimization functions, passing it the objective function and search space.
+
+5. Answered the question: At what level do we introduce concurrency for our optimization, at EnTK level or at task level?
+R: the logical path to follow is to treat each hyperspace optimization as an independent task, and set up a bag (stage) of tasks inside a single pipeline. With this, we take full advantage of EnTK and achieve concurrency at EnTK level, while still making use of HyperSpaceâ€™s spaces creation and optimization through Scikit-Optimize.
+
+Resources used:
+https://scikit-optimize.github.io
+https://examples.dask.org/machine-learning/hyperparam-opt.html
+https://towardsdatascience.com/hyperparameter-optimization-in-python-part-0-introduction-c4b66791614b
+https://github.com/jdakka/hyperspace-RCT
+https://github.com/yngtodd/hyperspace
+https://buildmedia.readthedocs.org/media/pdf/hyperspace/latest/hyperspace.pdf
+https://towardsdatascience.com/an-introductory-example-of-bayesian-optimization-in-python-with-hyperopt-aae40fff4ff0
+https://medium.com/criteo-labs/hyper-parameter-optimization-algorithms-2fe447525903
+
+
+
+Containers:
+
+1. I followed tutorial on singularity. Still need to install on Comet:
+https://www.sdsc.edu/education_and_training/tutorials1/singularity.html
+http://www.hpcadvisorycouncil.com/events/2017/stanford-workshop/pdf/GMKurtzer_Singularity_Keynote_Tuesday_02072017.pdf#43
+
+2. This question needs answer:
+What is boutiques (Tristan)? What can we learn from it? Should we spent time on it?
+
+
+
+FACTS:
+Followed tutorial on Python Packaging:
+https://python-packaging.readthedocs.io/en/latest/
