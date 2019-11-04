@@ -1,0 +1,7 @@
+I owed you my summary from last Friday.
+
+So far, I have been working on the general outline for my presentation coming ahead, oriented to produce results according to it. This includes characterization and results comparison of HyperSpace, and technical testing of Singularity with an example containerized application on HPC.
+
+Shantenu: I would like you to take a look at the FRD I am attaching. Since I do not have a specific use case yet for my HPO module, I am not sure of the specific requirements it needs to comply with, especially the scalability. I would like to discuss this further with you.
+
+I am going to continue working on these things this week. If anyone can come up with any requirements, I would appreciate the feedback.
