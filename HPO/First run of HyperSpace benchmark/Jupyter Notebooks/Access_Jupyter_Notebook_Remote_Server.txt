@@ -1,0 +1,35 @@
+ ssh karahbit@two.radical-project.org
+ conda activate radical.hpo
+ jupyter notebook --ip="*" --port=8889 --no-browser
+ 
+access in the local web browser: 
+ <jetstream_vm_ip>:8889
+
+
+we can access the remote notebook as if it were a local notebook by using 
+port forwarding:
+
+in the background:
+ nohup ssh -N -f -L 8889:localhost:8889 karahbit@two.radical-project.org
+in an active Terminal:
+ ssh -L 8889:localhost:8889 karahbit@two.radical-project.org
+
+access in the local web browser:
+ http://localhost:8889/
+
+to stop Jupyter Notebook on the remote server:
+ jupyter notebook stop 8889
+or
+ pkill -u karahbit jupyter
+
+
+To make everything easier, add the following lines to your ~/.bashrc file:
+ alias port_forward='nohup ssh -N -f -L localhost:8889:localhost:8889 username:password@remote_server_ip'
+ alias remote_notebook_start='nohup ssh -f username:password@remote_server_ip "cd rne; . virtual_environment/bin/activate; jupyter notebook --no-browser --port=8889"; port_forward'
+ alias remote_notebook_stop='ssh username:password@remote_server_ip "pkill -u username jupyter"'
+
+
+if SSH Tunnel oppened in the background, to kill it:
+grabb pid: 
+ ps aux | grep ssh | grep 8889
+ kill <pid>

@@ -1,0 +1,25 @@
+Install HyperSpace on two.radical-project.org to plot 
+(after running experiments on bridges):
+
+$ wget https://repo.continuum.io/miniconda/Miniconda3-latest-Linux-x86_64.sh
+$ bash Miniconda3-latest-Linux-x86_64.sh
+$ conda create --name radical.hpo python=3.6
+$ conda activate radical.hpo
+$ conda install scikit-learn
+$ conda install mpi4py -c conda-forge
+$ conda install seaborn
+$ git clone https://github.com/yngtodd/hyperspace.git
+$ cd hyperspace
+$ python setup.py install
+
+
+To tar/untar folders and files:
+$ tar -czvf name-of-archive.tar.gz /path/to/directory-or-file
+and
+$ tar -xzvf archive.tar.gz
+
+Transfer file from Bridges to Two:
+$ gsiscp -P 2222 karahbit@bridges.psc.xsede.org:~/results.tar.gz ~
+
+To transfer files from Local host to remote Host:
+$ scp karahbit@138.201.86.166:~/results.png ~/Desktop

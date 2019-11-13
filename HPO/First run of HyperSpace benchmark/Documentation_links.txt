@@ -1,0 +1,2 @@
+https://www.psc.edu/bridges/user-guide/running-jobs
+https://www.open-mpi.org/doc/v4.0/man1/mpirun.1.php

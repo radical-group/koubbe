@@ -1,0 +1,22 @@
+Install stress-ng on Bridges log-in node
+
+$ wget http://kernel.ubuntu.com/~cking/tarballs/stress-ng/stress-ng-0.09.34.tar.xz
+$ tar xvf stress-ng-0.09.34.tar.xz
+$ cd stress-ng-0.09.34
+$ make
+
+Request 1 node on RM partition for 8 hours:
+$ interact -p RM -n 1 -t 8:00:00
+
+Measure Total Time of Execution of stress-ng python script through MPI:
+/usr/bin/time -v mpirun -n 2 python3 helloworld.py
+
+To see core usage on each node:
+$ ssh r001
+$ htop
+
+
+Measure Total Time of Execution of python script through MPI:
+$ /usr/bin/time -v mpirun -n 4 python3 benchmark.py --ndims 2 --results /home/karahbit
+
+    --> see Elapsed Time (Wall Clock)
