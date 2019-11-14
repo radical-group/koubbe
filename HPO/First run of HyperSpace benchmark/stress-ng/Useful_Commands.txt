@@ -5,8 +5,8 @@ $ tar xvf stress-ng-0.09.34.tar.xz
 $ cd stress-ng-0.09.34
 $ make
 
-Request 1 node on RM partition for 8 hours:
-$ interact -p RM -n 1 -t 8:00:00
+Request 1 node, 4 cores on RM partition for 8 hours:
+$ interact -p RM -N 1 -n 4 -t 8:00:00
 
 Measure Total Time of Execution of stress-ng python script through MPI:
 /usr/bin/time -v mpirun -n 2 python3 helloworld.py
