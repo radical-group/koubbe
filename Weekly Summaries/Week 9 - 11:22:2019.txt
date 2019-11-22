@@ -1,0 +1,11 @@
+HPO
+
+- Updated work done so far with complete information and feedback from last
+presentation. You can find the updated document on Google Docs.
+- Read papers about Bayesian Optimization theory 
+
+Containers
+
+- Installed Singularity on RADICAL machines, created first containerized 
+application and deployed on Comet.
+- Read papers about containers on HPCs
