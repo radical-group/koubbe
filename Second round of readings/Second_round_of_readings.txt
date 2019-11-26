@@ -1,0 +1,7 @@
+1. IBM Bayesian Optimization Accelerator
+2. Beyond Bigger, Faster, Cheaper Machines: Intelligent Simulation
+3. IBM Bayesian Optimization FAQ
+4. Evaluation of Linux Container and full virtualization for HPC Applications in PRACE 5IP
+5. Containers and New Orchestration Paradigms for Isolated Environments in HPC (CANOPIE HPC):
+https://sc19.supercomputing.org/session/?sess=sess136
+6. Accelerating design, training of deep learning networks (Use case for RADICAL-Learn)
