@@ -1,0 +1,13 @@
+Singularity:
+- Updated Google doc with complete information about the topic
+- Created my first containerized application “Hello World" on a local server, and launched on HPC cluster
+
+Research Day:
+- Read papers about ICEBERG, Cancer work and Summit Runtime in order to update poster to present, alongside Kartik, on Research Day. The following are references used for said purpose:
+https://radical-lab.slack.com/files/U2PLNRU79/FR2CNV8Q7/prrte-jsrun.pdf?origin_team=T2PJSJLAY&origin_channel=DNR6FNYN4
+https://sc19.supercomputing.org/app/uploads/2018/11/ogimage_1200.png
+https://iceberg-project.github.io
+
+Boutiques:
+- Started initial readings about the framework and the theory behind it:
+https://boutiques.github.io
