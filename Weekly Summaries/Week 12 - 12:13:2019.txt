@@ -1,0 +1,12 @@
+FACTS:
+- Have been helping Greg with running simple "modules" on XSEDE Bridges,
+  and verifying correct functionality.
+- Work in progress: Branching from the repo, packaging and merging back.
+
+Containers:
+- After studying Boutiques, I have learned that it can be useful for deploying 
+  RCT inside a container image. However, for my immediate goal of characterizing
+  performance of containerized tasks through RP, I am going to leave Boutiques
+  temporarily on a side.
+- Work in progress: For the above goal, I have been working on the design of the 
+  necessary experiments to be run, as well as performing said experiments.

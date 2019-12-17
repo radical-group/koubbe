@@ -19,3 +19,5 @@ radical-analytics-check: utility to see all states and events of my session
 
 - go back to previous directory:
 	$ cd -
+
+- more command: used to view the text files in the command prompt, displaying one screen at a time in case the file is large (For example log files)

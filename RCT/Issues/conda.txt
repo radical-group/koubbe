@@ -1,0 +1,44 @@
+Hello,
+
+I am trying to run:
+
+python 00_getting_started.py
+with
+
+Python 2.7.16 :: Anaconda, Inc.
+and
+
+/home/karahbit/miniconda2/envs/ve/lib/python2.7/site-packages/radical/saga
+/home/karahbit/miniconda2/envs/ve/lib/python2.7/site-packages/radical/pilot
+/home/karahbit/miniconda2/envs/ve/lib/python2.7/site-packages/radical/utils
+
+  python               : 2.7.16
+  pythonpath           : 
+  virtualenv           : ve
+
+  radical.pilot        : 0.72.2
+  radical.saga         : 0.70.0
+  radical.utils        : 0.70.1
+but for some reason, it's failing with:
+
+Traceback (most recent call last):
+File "00_getting_started.py", line 101, in <module>
+umgr.wait_units()
+File "/home/karahbit/miniconda2/envs/ve/lib/python2.7/site-packages/radical/pilot/unit_manager.py", line 877, in wait_units
+time.sleep (0.1)
+KeyboardInterrupt
+I have attached two sessions as zip files.
+
+Also, I noticed the following:
+
+Running it first just with virtualenv works ok.
+Running it with virtualenv, then installing Miniconda and running with it works too.
+After doing option 2, I deleted the virtualenv and ran again with Miniconda and still worked.
+Any inputs?
+Thanks a lot.
+
+local_session.zip
+radical_sandbox_session.zip
+
+
+Conclusion: Try above or basically all in or nothing with conda

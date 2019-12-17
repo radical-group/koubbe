@@ -1,0 +1,13 @@
+Oh, this is unexpected: it means that RP is attempting to use a session ID which was already used before. Did you by any chance also remove $HOME/.radical/? Some data are stored there which help RP to keep session IDs unique.
+
+You have two options at this point: purge the old sessions from MongoDB, or try until it succeeds. The latter sounds stupid, I know - but each try will increase the session ID counter, and eventually you's reach the range of unused IDs again (you need to run the same number of attempts before the ID state file got removed).
+
+I hope this is not too confusing... :/ Thanks for your patience!
+
+We have this tool in RP:
+$ ./bin/radical-pilot-close-session -h
+
+      usage      : ./bin/radical-pilot-close-session [-d <dburl>] [-m <mode>] [-a <age>] [-s <sid>]
+      example    : ./bin/radical-pilot-close-session -a 3d -m purge
+                   purge all sessions older than 3 days in the default database
+...

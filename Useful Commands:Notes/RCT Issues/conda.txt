@@ -1,0 +1,96 @@
+Hello,
+
+I am trying to run:
+
+python 00_getting_started.py
+with
+
+Python 2.7.16 :: Anaconda, Inc.
+and
+
+/home/karahbit/miniconda2/envs/ve/lib/python2.7/site-packages/radical/saga
+/home/karahbit/miniconda2/envs/ve/lib/python2.7/site-packages/radical/pilot
+/home/karahbit/miniconda2/envs/ve/lib/python2.7/site-packages/radical/utils
+
+  python               : 2.7.16
+  pythonpath           : 
+  virtualenv           : ve
+
+  radical.pilot        : 0.72.2
+  radical.saga         : 0.70.0
+  radical.utils        : 0.70.1
+but for some reason, it's failing with:
+
+Traceback (most recent call last):
+File "00_getting_started.py", line 101, in <module>
+umgr.wait_units()
+File "/home/karahbit/miniconda2/envs/ve/lib/python2.7/site-packages/radical/pilot/unit_manager.py", line 877, in wait_units
+time.sleep (0.1)
+KeyboardInterrupt
+I have attached two sessions as zip files.
+
+Also, I noticed the following:
+
+Running it first just with virtualenv works ok.
+Running it with virtualenv, then installing Miniconda and running with it works too.
+After doing option 2, I deleted the virtualenv and ran again with Miniconda and still worked.
+Any inputs?
+Thanks a lot.
+
+local_session.zip
+radical_sandbox_session.zip
+
+
+Conclusion: Try above or basically all in or nothing with conda
+
+Reason of failure: When running RP for the first time, it attempts to create a VE on the agent side, failing since it uses conda's distribution of python while inside virtualenv.
+
+To see this:
+$ cd radical.pilot.sandbox/rp.session.two.karahbit.018243.0011/pilot.0000/
+$ more bootstrap_0.out 
+
+This gives as output:
+
+# Create virtualenv
+# cmd: /home/karahbit/miniconda3/bin/python virtualenv-1.9/virtualenv.py /home/karahbit/radical.pilot.sandbox/ve.local.localhost.0.73.1
+#
+Fatal Python error: initsite: Failed to import the site module
+Traceback (most recent call last):
+  File "/home/karahbit/radical.pilot.sandbox/ve.local.localhost.0.73.1/lib/python3.7/site.py", line 67, in <module>
+    import os
+  File "/home/karahbit/radical.pilot.sandbox/ve.local.localhost.0.73.1/lib/python3.7/os.py", line 661, in <module>
+    from _collections_abc import MutableMapping
+ModuleNotFoundError: No module named '_collections_abc'
+virtualenv-1.9/virtualenv.py:1188: DeprecationWarning: the imp module is deprecated in favour of importlib; see the module's documentation for altern
+ative uses
+  import imp
+Using base prefix '/home/karahbit/miniconda3'
+New python executable in /home/karahbit/radical.pilot.sandbox/ve.local.localhost.0.73.1/bin/python
+ERROR: The executable /home/karahbit/radical.pilot.sandbox/ve.local.localhost.0.73.1/bin/python is not functioning
+ERROR: It thinks sys.prefix is '/home/karahbit/radical.pilot.sandbox/rp.session.two.karahbit.018243.0011/pilot.0000' (should be '/home/karahbit/radic
+al.pilot.sandbox/ve.local.localhost.0.73.1')
+ERROR: virtualenv is not compatible with this system or executable
+#
+# ERROR
+# no fallback command available
+#
+# -------------------------------------------------------------------
+ERROR: Couldn't create virtualenv
+Error on virtenv creation -- abort
+removed '/home/karahbit/radical.pilot.sandbox/ve.local.localhost.0.73.1.lock'
+
+
+Solution: Remove conda from .bashrc and also rm -rf radical.pilot.sandbox/
+
+Solution2: If on the agent side, my Python is an Anaconda distribution (agent is localhost):
+/home/karahbit/ve/share/radical.pilot/examples/config.json ===>
+Add after local.localhost:
+    "local.localhost_anaconda":{
+        "project"  : null,
+        "queue"    : null,
+        "schema"   : null,
+        "cores"    : 1,
+        "gpus"     : 2
+    },
+and run:
+python 00_getting_started.py local.localhost_anaconda
