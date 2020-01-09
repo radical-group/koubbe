@@ -1,4 +1,4 @@
-- gsissh is broken on one.radical-project.org
+- gsissh is broken on one.radical-project.org, but there I have sudo access
 
 - To transfer files from Local host to remote Host:
 	$ scp ~/Desktop/1.py karahbit@138.201.86.166:~
@@ -21,3 +21,21 @@ radical-analytics-check: utility to see all states and events of my session
 	$ cd -
 
 - more command: used to view the text files in the command prompt, displaying one screen at a time in case the file is large (For example log files)
+
+- To zip and transfer files from server to local machine:
+
+zip -r local_session.zip rp.session.two.karahbit.018169.0000
+scp karahbit@138.201.86.166:~/miniconda2/envs/conda_env1/share/radical.pilot/examples/local_session.zip ~/Desktop
+
+
+zip -r radical_sandbox_session.zip rp.session.two.karahbit.018169.0000
+scp karahbit@138.201.86.166:~/radical.pilot.sandbox/radical_sandbox_session.zip ~/Desktop
+
+- To tar files:
+tar -czvf name-of-archive.tar.gz /path/to/directory-or-file
+
+- to untar:
+tar -xzvf archive.tar.gz
+
+- to copy recursively to another directory:
+cp -R * /home/tom/backup

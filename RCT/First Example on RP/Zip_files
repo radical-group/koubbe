@@ -13,9 +13,9 @@ pmgr.000.log
 
 To zip and transfer files from server to local machine:
 
-zip local_session.zip rp.session.two.karahbit.018169.0000
+zip -r local_session.zip rp.session.two.karahbit.018169.0000
 scp karahbit@138.201.86.166:~/miniconda2/envs/conda_env1/share/radical.pilot/examples/local_session.zip ~/Desktop
 
 
-zip radical_sandbox_session.zip rp.session.two.karahbit.018169.0000
+zip -r radical_sandbox_session.zip rp.session.two.karahbit.018169.0000
 scp karahbit@138.201.86.166:~/radical.pilot.sandbox/radical_sandbox_session.zip ~/Desktop
