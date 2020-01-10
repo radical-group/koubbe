@@ -1,0 +1,8 @@
+FACTS:
+- Fixed issues with RP on Python 2, necessary to run a simple FACTS module on
+  localhost
+- Ran said FACTS module on localhost successfully
+- Completed FACTS repo packaging
+
+HPO:
+- Started performing agreed experiments regarding containerization via RCT
