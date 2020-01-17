@@ -1,0 +1,10 @@
+Containers:
+- Performed experiment 1: running stress command on multiple
+  core selections, with and without containerizing the executable
+  on a local machine.
+
+Discussed with Shantenu:
+- Started putting together a presentation with progress so far on
+  FACTS, HPO, Containers, in order to construct an initial outline or 
+  framework for my thesis.
+- Time constraint on my thesis: 6/30/2020.
