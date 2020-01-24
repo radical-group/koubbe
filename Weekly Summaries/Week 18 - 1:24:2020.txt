@@ -1,0 +1,13 @@
+Containers:
+- Finished performance comparison of  containerized stress/MPI applications.
+  on both local machine and Bridges.
+- I am currently elaborating a brief presentation that includes these results
+  for Tuesday 1/28.
+
+FACTS:
+- Discussed with Greg and Matteo the different issues that need to be addressed
+  regarding the framework.
+
+Technical Report:
+- Elaborated an initial proposal for my report and the remaining work to be
+  done until June.
