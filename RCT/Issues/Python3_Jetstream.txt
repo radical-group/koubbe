@@ -1,0 +1,23 @@
+Possible commands needed to make it work:
+
+1) Install latest version of Python3
+
+2) fatal error: Python.h: No such file or directory
+	sudo apt-get install python3-dev
+
+3) on Jetstream, make sure openMPI is installed:
+	sudo apt-get install --reinstall openmpi-bin libopenmpi-dev
+
+4) For EnTK, RabbitMQ is needed:
+This tutorial will help you to install RabbitMQ on Ubuntu 18.04 LTS and 16.04 LTS systems.
+
+Step 1 – Install RabbitMQ on Ubuntu
+
+First of all, enable RabbitMQ PPA repository on your system. Also, import rabbitmq signing key on your system. Use the following commands to do this.
+
+echo 'deb http://www.rabbitmq.com/debian/ testing main' | sudo tee /etc/apt/sources.list.d/rabbitmq.list
+wget -O- https://www.rabbitmq.com/rabbitmq-release-signing-key.asc | sudo apt-key add -
+After that update apt cache and install RabbitMQ server on your system.
+
+sudo apt-get update
+sudo apt-get install rabbitmq-server

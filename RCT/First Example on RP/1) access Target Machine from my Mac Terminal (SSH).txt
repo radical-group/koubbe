@@ -36,7 +36,7 @@ sudo ln -s /usr/local/globus-6/bin/gsissh-keyscan /usr/bin/gsissh-keyscan
 
 Do Andre's command instead of above:
 export PATH="$PATH:/usr/local/globus-6/bin/"
-3) From Jetstream Atmosphere: gsissh -p 2222 bridges.psc.xsede.org
+3) From Jetstream Atmosphere: gsissh -p 2222 bridges.psc.xsede.org
 4) Run the task in Bridges (with the resources modified for it):
 export RADICAL_PILOT_VERBOSE=DEBUG
 export RADICAL_PILOT_PROFILE=TRUE
@@ -87,3 +87,19 @@ grid-proxy-info
 
 Check list of hosts
 xsede-gsissh-hosts
+
+How to access Stampede2?
+ssh tg859507@stampede2.tacc.utexas.edu
+after setting up phone number:
+gsissh -p 2222 stampede2.tacc.xsede.org
+to enable python3:
+module load python3
+To submit to Stampede2:
+            pd_init = {'resource'   : xsede.stampede2_ssh,
+                    'runtime'       : 10,  # pilot runtime (min)
+                    'exit_on_error' : True,
+                    'project'       : 'TG-MCB090174',
+                    'queue'         : 'development',
+                    'access_schema' : 'gsissh',
+                    'cores'         : 8
+                    }

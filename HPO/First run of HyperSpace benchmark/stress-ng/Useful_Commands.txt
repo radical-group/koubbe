@@ -8,6 +8,9 @@ $ make
 Request 1 node, 4 cores on RM partition for 8 hours:
 $ interact -p RM -N 1 -n 4 -t 8:00:00
 
+if Stampede2:
+$ idev -p normal -N 2 -n 8 -m 150 # normal queue, 2 nodes, 8 total tasks, 150 minutes
+
 Measure Total Time of Execution of stress-ng python script through MPI:
 /usr/bin/time -v mpirun -n 2 python3 helloworld.py
 

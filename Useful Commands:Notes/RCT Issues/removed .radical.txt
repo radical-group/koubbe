@@ -11,3 +11,7 @@ $ ./bin/radical-pilot-close-session -h
       example    : ./bin/radical-pilot-close-session -a 3d -m purge
                    purge all sessions older than 3 days in the default database
 ...
+
+
+
+The session count is also stored in ~/.radical/utils/.cnt file. Just modify it manually.

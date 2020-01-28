@@ -31,8 +31,8 @@ if os.environ.get('RADICAL_ENTK_VERBOSE') == None:
 verbose  = os.environ.get('RADICAL_ENTK_VERBOSE', 'REPORT')
 os.environ['RADICAL_ENTK_VERBOSE'] = verbose
 
-# don't do anymore --> os.environ['RADICAL_ENTK_VERBOSE'] = DEBUG
-# don't do anymore --> os.environ['RADICAL_ENTK_PROFILE'] = "True"
+os.environ['RADICAL_ENTK_VERBOSE'] = DEBUG
+os.environ['RADICAL_ENTK_PROFILE'] = "True"
 os.environ['RADICAL_LOG_LVL'] = "DEBUG"
 os.environ['RADICAL_LOG_TGT'] = "radical.log"
 os.environ['RADICAL_PROFILE'] = "TRUE"
@@ -47,8 +47,12 @@ if os.environ.get('RADICAL_PILOT_VERBOSE') == None:
 verbose  = os.environ.get('RADICAL_PILOT_VERBOSE', 'REPORT')
 os.environ['RADICAL_PILOT_VERBOSE'] = verbose
 
-# don't do anymore --> os.environ['RADICAL_PILOT_VERBOSE'] = DEBUG
-# don't do anymore --> os.environ['RADICAL_PILOT_PROFILE'] = "True"
+os.environ['RADICAL_PILOT_VERBOSE'] = DEBUG
+os.environ['RADICAL_PILOT_PROFILE'] = "True"
 os.environ['RADICAL_LOG_LVL'] = "DEBUG"
 os.environ['RADICAL_LOG_TGT'] = "radical.log"
 os.environ['RADICAL_PROFILE'] = "TRUE"
+
+
+Export MongoDB:
+export RADICAL_PILOT_DBURL=mongodb://rct:rct_test@two.radical-project.org/rct_test
