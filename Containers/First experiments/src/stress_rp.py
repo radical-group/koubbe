@@ -24,9 +24,10 @@ if __name__ == '__main__':
     report.title('Getting Started (RP version %s)' % rp.version)
 
     # use the resource specified as argument, fall back to localhost
-    if   len(sys.argv)  > 2: report.exit('Usage:\t%s [resource]\n\n' % sys.argv[0])
-    elif len(sys.argv) == 2: resource = sys.argv[1]
-    else                   : resource = 'local.localhost'
+    if   len(sys.argv)  > 3: report.exit('Usage:\t%s [cores] [resource]\n\n' % sys.argv[0])
+    elif len(sys.argv) == 3: cores = int(sys.argv[1]); resource = sys.argv[2]
+    elif len(sys.argv) == 2: cores = int(sys.argv[1]); resource = 'local.localhost'
+    else                   : cores = 1; resource = 'local.localhost'
 
     # Create a new session. No need to try/except this: if session creation
     # fails, there is not much we can do anyways...
@@ -49,7 +50,7 @@ if __name__ == '__main__':
             pd_init = {'resource'      : resource,
                     'runtime'       : 10,  # pilot runtime (min)
                     'exit_on_error' : True,
-                    'cores'         : 8
+                    'cores'         : cores
                     }
         else:
             pd_init = {'resource'      : resource,
@@ -60,7 +61,7 @@ if __name__ == '__main__':
                     'project'       : 'mc3bggp',
                     'queue'         : 'RM',
                     'access_schema' : 'gsissh',
-                    'cores'         : 1
+                    'cores'         : cores
                     }
         pdesc = rp.ComputePilotDescription(pd_init)
 
@@ -75,7 +76,7 @@ if __name__ == '__main__':
 
         # Create a workload of ComputeUnits.
 
-        n = 1   # number of units to run
+        n = cores   # number of units to run
         report.info('create %d unit description(s)\n\t' % n)
 
         cuds = list()
@@ -84,19 +85,27 @@ if __name__ == '__main__':
             # create a new CU description, and fill it.
             # Here we don't use dict initialization.
             cud = rp.ComputeUnitDescription()
-            #cud.pre_exec    = ['module load python3', 'export PATH=/home1/06651/tg859507/stress-ng-0.10.16:$PATH']
-            #cud.pre_exec    = ['export PATH=/home/karahbit/stress-ng-0.10.16:$PATH']
-            #cud.executable  = ['stress-ng']
-            #cud.arguments   = ['-c', '1', '-t', '100']
-            #cud.executable  = ['docker']
-            #cud.arguments   = ['container', 'run', '--rm', 'alexeiled/stress-ng', '-c', '1', '-t', '100']
-            cud.pre_exec    = ['module load singularity']
-            cud.executable  = ['python3']
-            cud.arguments   = ['/home/karahbit/singularity_stress.py']
-            #cud.executable  = ['singularity']
-            #cud.arguments   = ['version']
-            #cud.arguments   = ['exec', '~/alexeiled_stress-ng_alpine-2020-01-14-b494d591b80f.simg', '/stress-ng', '-c', '1', '-t', '100']
+            #---------- Executable_Stampede2 --------------------
+            #cud.pre_exec     = ['module load python3', 'export PATH=/home1/06651/tg859507/stress-ng-0.10.16:$PATH'] #Stampede2
+            #cud.executable   = ['stress-ng']
+            #cud.arguments    = ['-c', '1', '-t', '100']
+            #---------- Executable_two.radical-project ----------
+            #cud.pre_exec     = ['export PATH=/home/karahbit/stress-ng-0.10.16:$PATH']
+            #cud.executable   = ['stress-ng']
+            #cud.arguments    = ['-c', '1', '-t', '100']
+            #---------- Docker_two.radical-project --------------
+            #cud.executable   = ['docker']
+            #cud.arguments    = ['container', 'run', '--rm', 'alexeiled/stress-ng', '-c', '1', '-t', '100']
+            #---------- Executable_Bridges ----------
+            cud.pre_exec     = ['export PATH=/home/karahbit/stress-ng-0.10.16:$PATH']
+            cud.executable   = ['stress-ng']
+            cud.arguments    = ['-c', '1', '-t', '100']
+            #---------- Singularity_Bridges ---------------------
+            #cud.pre_exec      = ['module load singularity']
+            #cud.executable    = ['python3']
+            #cud.arguments     = ['/home/karahbit/stress_exec.py']
             cud.cpu_processes = 1
+            cud.cpu_threads   = 1
             cuds.append(cud)
             report.progress()
         report.ok('>>ok\n')

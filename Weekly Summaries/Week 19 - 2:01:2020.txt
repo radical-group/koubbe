@@ -1,0 +1,8 @@
+Containers:
+- This week I gave my initial presentation showing background and results regarding containerization on HPCs via RCT.
+- Given the feedback received for the presentation, I have been adjusting the workflow of my experiments to include error bars (10 runs for each experiment)
+- I continue running the multiple combination of experiments on Bridges in order to give an update on results next week.
+
+FACTS:
+- Approval and merge of python packaging branch. 
+- Coordinating in order to start elaboration of unit testing on base structure of the framework. 

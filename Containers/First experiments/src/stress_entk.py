@@ -17,6 +17,8 @@ if os.environ.get('RADICAL_ENTK_VERBOSE') == None:
 # process. If you are running RabbitMQ under a docker container or another
 # VM, set "RMQ_HOSTNAME" and "RMQ_PORT" in the session where you are running
 # this script.
+#hostname = os.environ.get('RMQ_HOSTNAME', 'two.radical-project.org')
+#port = int(os.environ.get('RMQ_PORT', 33235))
 hostname = os.environ.get('RMQ_HOSTNAME', 'localhost')
 port = int(os.environ.get('RMQ_PORT', 5672))
 

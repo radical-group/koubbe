@@ -1,0 +1,3 @@
+If we want to load that Docker container from the archived tar file in the future, we can use the docker load command:
+
+docker load --input stress-ng.tar

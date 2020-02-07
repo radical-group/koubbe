@@ -1,0 +1,8 @@
+To convert from Docker to Singularity container, run the following:
+
+$ docker run \
+    -v /var/run/docker.sock:/var/run/docker.sock \
+    -v $PWD:/output \
+    --privileged -t --rm \
+    singularityware/docker2singularity \
+    alexeiled/stress-ng:alpine

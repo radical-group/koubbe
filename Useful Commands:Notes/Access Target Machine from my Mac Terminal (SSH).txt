@@ -55,6 +55,7 @@ python 00_getting_started.py
 To see queue's names (partitions), run from bridges:
 sinfo
 squeue -u karahbit
+squeue -u karahbit --long
 To se project names, run from bridges:
 projects
 

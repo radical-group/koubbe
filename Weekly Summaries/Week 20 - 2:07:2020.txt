@@ -1,0 +1,5 @@
+I have been working my way around running MPI executables using the latest version of RP, in order to conclude my second round of experimentation. In the meantime, I have updated results of containerized executables on Bridges that I would like to discuss:
+
+https://docs.google.com/presentation/d/1ZA0dlyVj5jCw4b_unFurkM9Q9E7sMrNNn_DfLtdanfA/edit?usp=sharing
+
+Please, take a look at the last two slides containing the charts. Every measurement has been performed 10 times in order to have an accurate estimate. Error bars have been included as well.
