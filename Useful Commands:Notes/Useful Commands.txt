@@ -39,3 +39,6 @@ tar -xzvf archive.tar.gz
 
 - to copy recursively to another directory:
 cp -R * /home/tom/backup
+
+
+- There is a file in .radical/radical.utils/cnt that allows me to modify the session number in case I encounter the error of duplicate keys on the database

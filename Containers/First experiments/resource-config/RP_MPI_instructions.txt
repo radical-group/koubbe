@@ -1,0 +1,39 @@
+I have tried many combinations to run my MPI executable using RP, and I am pretty sure I got the unit description right. However, I keep seeing the error “unrecognized argument x” in the unit folder, STDERR file.
+
+Some details: I am using the Intel 19.5 MPI implementation (Bridges module "intel/19.5"). Also, I am using the base conda environment with the mpi4py package installed. If I run the command directly on a Bridges Compute Node, for example:
+
+mpirun -ppn 2 -host r001,r002 python mpi_hello.py
+It works.
+
+My radical-stack:
+
+  python               : 3.7.6
+  pythonpath           : 
+  virtualenv           : /home/karahbit/rct3_mpi_test
+
+  radical.pilot        : 1.0.0-v1.0.0-102-gf58b012@devel
+  radical.saga         : 1.0.1
+  radical.utils        : 1.0.0-v1.0.0-31-ga6ecd7a@devel
+And my session files:
+radical_remote_session.zip
+radical_local_session.zip
+ @andre-merzky
+   
+Member
+andre-merzky commented 1 hour ago • 
+edited 
+Thanks for attaching the unit sandbox, now that makes sense.
+
+The resource config you use for bridges does a module load mpi/gcc_openmpi, and then detects the module's mpirun and selects it to launch your task. However, your task's pre_exec seems to include module unload mpi/gcc_openmpi, thus negating the module load done by the agent, and the selected mpirun becomes invalid.
+
+removing that module unload should result in a valid mpirun. If you need a different MPI implementation to run your tasks, then you will need to provide a different resource config which loads the respective module in the agent bootstrapper, so that the agent can detect and use the respective mpirun. You can create a new file in ~/.radical/pilot/configs/resource_george.json and copy the bridges section from src/radical/pilot/configs/resource_xsede.json into that new file, change it, and then use the resource label george.bridges instead of xsede.bridges.
+ @andre-merzky andre-merzky added comp:agent:executor  priority:medium  topic:configuration  type:question labels 44 minutes ago
+@andre-merzky andre-merzky self-assigned this 44 minutes ago
+@karahbit
+   
+Member
+Author
+karahbit commented 31 seconds ago
+IT WORKED! Thank you so much, this is exactly what I needed. I had no knowledge about how the modules were preloaded by default or about the agent bootstrapper, but your step by step instructions solved my issue.
+
+I need to use the Intel MPI implementation because there is some sort of incompatibility between the current mpi4py package and Open MPI.

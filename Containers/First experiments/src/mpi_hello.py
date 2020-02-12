@@ -1,21 +1,24 @@
 #!/usr/bin/env python
-"""
-Parallel Hello World
-"""
+
+# This is an example MPI4Py program that is used
+# by different examples and tests.
+
+import time
 
 from mpi4py import MPI
-#import sys
-#import time
-#import os
 
-comm = MPI.COMM_WORLD
-size = MPI.COMM_WORLD.Get_size()
-rank = MPI.COMM_WORLD.Get_rank()
-host = MPI.Get_processor_name().split('.')[0]
 
-# to execute: 
-# $ interact -p RM -N 1 -n 4 -t 8:00:00
-# $ /usr/bin/time -v mpirun -n 2 python mpi_hello.py
-print("Hello, World! I am process %d of %d on %s.\n" % (rank, size, host))
+# ------------------------------------------------------------------------------
+#
+if __name__ == '__main__':
 
-comm.Barrier()   # wait for everybody to synchronize here
+    host  = MPI.Get_processor_name().split('.')[0]
+    comm  = MPI.COMM_WORLD
+
+    time.sleep(1)
+
+    print("%d/%d/%s"  % (comm.rank+1, comm.size, host))
+
+    comm.Barrier()   # wait for everybody to synchronize here
+
+# ------------------------------------------------------------------------------
