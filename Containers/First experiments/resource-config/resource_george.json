@@ -31,7 +31,6 @@
         "mpi_launch_method"           : "MPIRUN",
         "pre_bootstrap_0"             : ["module purge",
                                          "module load gcc",
-                                         "module load intel",
                                          "module load slurm",
                                          "module load anaconda3"
                                         ],

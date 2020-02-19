@@ -87,23 +87,20 @@ if __name__ == '__main__':
             # create a new CU description, and fill it.
             # Here we don't use dict initialization.
             cud = rp.ComputeUnitDescription()
+            cud.pre_exec    = []   # for mpi4py package
+            cud.pre_exec   += ['export PATH="/home/karahbit/miniconda3/bin:$PATH"']
+            cud.pre_exec   += ['export LD_LIBRARY_PATH="/home/karahbit/miniconda3/lib:$LD_LIBRARY_PATH"']
+            cud.pre_exec   += ['source activate base']
+            cud.pre_exec    = ['module load singularity']
+            cud.executable   = 'python'
             #---------- CPP_Executable_Bridges ------
             # To run, place executable in Bridges and compile: $ mpicc -o mpi_hello_world mpi_hello_world.c
             # if on Bridges directly, run with: mpirun -ppn 2 -host r001,r002 ./mpi_hello_world 
             #cud.pre_exec    = ['module load mpi/gcc_openmpi']
             #cud.executable  = '/home/karahbit/mpi_hello_world'
             #---------- Executable_Bridges ----------
-            cud.pre_exec    = []   # for mpi4py package
-            cud.pre_exec   += ['export PATH="/home/karahbit/miniconda3/bin:$PATH"']
-            cud.pre_exec   += ['export LD_LIBRARY_PATH="/home/karahbit/miniconda3/lib:$LD_LIBRARY_PATH"']
-            cud.pre_exec   += ['source activate base']
-            ##cud.pre_exec += ['module unload mpi/gcc_openmpi']
-            ##cud.pre_exec   += ['module load intel']
-            cud.executable   = 'python'
             cud.arguments    = ['/home/karahbit/mpi_hello.py']
-            #---------- Singularity_Bridges ---------------------
-            #cud.pre_exec      = ['module load singularity']
-            #cud.executable    = ['python3']
+            #---------- Singularity_Bridges ---------
             #cud.arguments     = ['/home/karahbit/mpi_exec.py']
             cud.cpu_processes       = p_num
             cud.cpu_process_type    = rp.MPI
