@@ -95,7 +95,8 @@ if __name__ == '__main__':
             cud.executable   = 'python'
             #---------- CPP_Executable_Bridges ------
             # To run, place executable in Bridges and compile: $ mpicc -o mpi_hello_world mpi_hello_world.c
-            # if on Bridges directly, run with: mpirun -ppn 2 -host r001,r002 ./mpi_hello_world 
+            # if on Bridges directly, run with: mpirun -n 4 -ppn 2 -host r001,r002 ./mpi_hello_world 
+            # -ppn option only if Intel MPI, for openmpi use mpirun -n 4 --map-by ppr:2:node ./mpi_hello_world
             #cud.pre_exec    = ['module load mpi/gcc_openmpi']
             #cud.executable  = '/home/karahbit/mpi_hello_world'
             #---------- Executable_Bridges ----------

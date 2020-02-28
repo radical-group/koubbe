@@ -1,0 +1,10 @@
+For the past week, I have been working on deploying Singularity containerized 
+MPI applications through RP. Turns out there are multiple methods of doing so,
+so given our requirements, I have been reviewing and benchmarking the best ways
+to do so for our RCT tools. In the process, I have been fixing MPI bugs that 
+show up on RP.
+
+An excellent User Guide I have been following to build and deploy containerized 
+MPI applications on HPC clusters is:
+
+https://sylabs.io/guides/3.5/user-guide/index.html

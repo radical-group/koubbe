@@ -1,3 +1,13 @@
+To install Jupyter Notebook:
+pip install jupyter
+
+To remove a package with the unused dependencies:
+# install pip-autoremove
+pip install pip-autoremove
+# remove "somepackage" plus its dependencies:
+pip-autoremove somepackage -y
+
+
  ssh karahbit@two.radical-project.org
  conda activate radical.hpo
  jupyter notebook --ip="*" --port=8889 --no-browser
@@ -7,7 +17,7 @@ access in the local web browser:
 
 
 we can access the remote notebook as if it were a local notebook by using 
-port forwarding:
+port forwarding (on a new terminal in local host):
 
 in the background:
  nohup ssh -N -f -L 8889:localhost:8889 karahbit@two.radical-project.org
@@ -16,6 +26,8 @@ in an active Terminal:
 
 access in the local web browser:
  http://localhost:8889/
+
+Note: if the port is being used, I might not be able to access it
 
 to stop Jupyter Notebook on the remote server:
  jupyter notebook stop 8889

@@ -1,0 +1,26 @@
+I have been working on making Singularity containerized MPI applications work
+on Bridges. 
+
+In order for it to work, there are two approaches on building the
+container: Hybrid mode and Bind mode. Hybrid mode needs to have the same MPI
+implementation installed on both host and container. Bind mode allows the use of
+the MPI of the host by using bindings given at the execution of the container.
+
+This week, I have been trying to make both of them work with the three MPI 
+implementations available on Bridges: Intel MPI, Open MPI and MPICH.
+
+The first implementation that I tried was Open MPI, and after some trickery it 
+worked fine on both modes for single node. However, it is not working on 
+multiple nodes. I even opened tickets on Singularity and Bridges support 
+regarding the issue. I think that the Open MPI version on Bridges is too old and
+newer versions offer better support for Singularity. Working with Intel and 
+MPICH now, I was able to make them both work on hybrid and bind mode.
+
+Conclusion: For now, we are able to create Singularity containers from scratch,
+install all that we need from a definition file, including MPI, and launch our 
+applications on Bridges. Or simply we could grab any container base image like 
+Centos and bind mount MPI into it at execution time.
+
+Next step: I am going to stick with Intel since that is the default on Bridges
+and proceed (finally) to do performance comparison with non containerized
+applications via RP on Bridges.
