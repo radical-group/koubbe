@@ -87,22 +87,20 @@ if __name__ == '__main__':
             # create a new CU description, and fill it.
             # Here we don't use dict initialization.
             cud = rp.ComputeUnitDescription()
-            cud.pre_exec    = []   # for mpi4py package
-            cud.pre_exec   += ['export PATH="/home/karahbit/miniconda3/bin:$PATH"']
-            cud.pre_exec   += ['export LD_LIBRARY_PATH="/home/karahbit/miniconda3/lib:$LD_LIBRARY_PATH"']
-            cud.pre_exec   += ['source activate base']
-            cud.pre_exec    = ['module load singularity']
-            cud.executable   = 'python'
-            #---------- CPP_Executable_Bridges ------
+            #---------- Executable_Bridges ----------
             # To run, place executable in Bridges and compile: $ mpicc -o mpi_hello_world mpi_hello_world.c
             # if on Bridges directly, run with: mpirun -n 4 -ppn 2 -host r001,r002 ./mpi_hello_world 
-            # -ppn option only if Intel MPI, for openmpi use mpirun -n 4 --map-by ppr:2:node ./mpi_hello_world
-            #cud.pre_exec    = ['module load mpi/gcc_openmpi']
-            #cud.executable  = '/home/karahbit/mpi_hello_world'
-            #---------- Executable_Bridges ----------
-            cud.arguments    = ['/home/karahbit/mpi_hello.py']
+            cud.executable  = '/home/karahbit/hello_world_intel'
             #---------- Singularity_Bridges ---------
-            #cud.arguments     = ['/home/karahbit/mpi_exec.py']
+            #cud.pre_exec    = []
+            #cud.pre_exec   += ['export SINGULARITYENV_PREPEND_PATH=/opt/intel/compilers_and_libraries_2019.5.281/linux/mpi/intel64/bin']
+            #cud.pre_exec   += ['export SINGULARITYENV_LD_LIBRARY_PATH=/opt/intel/compilers_and_libraries_2019.5.281/linux/mpi/intel64/lib:/opt/intel/compilers_and_libraries_2019.5.281/linux/mpi/intel64/libfabric/lib']
+            #cud.executable   = 'singularity'
+            #cud.arguments    = []
+            #cud.arguments   += ['exec']
+            #cud.arguments   += ['--bind', '/opt/intel/compilers_and_libraries_2019.5.281/linux/mpi/intel64']
+            #cud.arguments   += ['/home/karahbit/centos-openmpi.sif']
+            #cud.arguments   += ['/home/karahbit/hello_world_intel']
             cud.cpu_processes       = p_num
             cud.cpu_process_type    = rp.MPI
             cud.cpu_threads         = t_num

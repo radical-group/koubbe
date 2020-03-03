@@ -32,7 +32,9 @@
         "pre_bootstrap_0"             : ["module purge",
                                          "module load gcc",
                                          "module load slurm",
-                                         "module load anaconda3"
+                                         "module load anaconda3",
+                                         "module load singularity",
+                                         "module load intel"
                                         ],
         "default_remote_workdir"      : "$SCRATCH",
         "valid_roots"                 : ["/home", "/pylon1", "/pylon5"],
