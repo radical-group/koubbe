@@ -1,0 +1,7 @@
+To build a singularity image from a definition file (on localhost):
+
+$ sudo singularity build ubuntu-mpich3-2.def ubuntu-mpich3-2.def
+
+To run the MPI application in hybrid mode (on Bridges login node):
+
+$ sbatch my_job.sh

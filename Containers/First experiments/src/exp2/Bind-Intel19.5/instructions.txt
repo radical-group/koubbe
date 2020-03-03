@@ -1,0 +1,20 @@
+On Bridges login node:
+
+$ singularity build centos-openmpi.sif docker://centos:centos7
+ 
+$ wget https://raw.githubusercontent.com/wesleykendall/mpitutorial/gh-pages/tutorials/mpi-hello-world/code/mpi_hello_world.c
+
+$ interact -p RM -N 2 -n 8 -t 8:00:00
+
+
+On compute node:
+
+$ module load singularity
+
+$ export SINGULARITYENV_PREPEND_PATH=/opt/intel/compilers_and_libraries_2019.5.281/linux/mpi/intel64/bin/
+
+$ export SINGULARITYENV_LD_LIBRARY_PATH=/opt/intel/compilers_and_libraries_2019.5.281/linux/mpi/intel64/lib:/opt/intel/compilers_and_libraries_2019.5.281/linux/mpi/intel64/libfabric/lib
+
+$ mpicc mpi_hello_world.c -o hello_world_intel
+
+$ mpirun -n 4 -ppn 2 singularity exec --bind /opt/intel/compilers_and_libraries_2019.5.281/linux/mpi/intel64 $HOME/centos-openmpi.sif $HOME/hello_world_intel
