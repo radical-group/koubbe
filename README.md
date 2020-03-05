@@ -93,28 +93,23 @@ To run experiment 1, make sure stress-ng executable is installed on Bridges and 
  $ ./stress_rp.sh
  ```
 
-note: modify [stress_rp.py](https://github.com/radical-group/koubbe/blob/master/Containers/First%20experiments/src/exp1/stress_rp.py) accordingly to run via RP the  executable or the containerized executable.
+note: stress_rp.sh is located [here](https://github.com/radical-group/koubbe/blob/master/Containers/First%20experiments/src/exp1/stress_rp.sh).
+
+note2: modify [stress_rp.py](https://github.com/radical-group/koubbe/blob/master/Containers/First%20experiments/src/exp1/stress_rp.py) accordingly to run via RP the executable or the containerized executable.
 
 ### Experiment 2
 
-To run experiment 2 on Bridges, execute on login node:
+We are going to run a Singularity containerized MPI executable on Bind mode [(what is Bind mode?)](https://sylabs.io/guides/3.5/user-guide/mpi.html). Same as with experiment 1, we are going to execute on local machine:
 
 ```
-$ module load singularity  
-$ singularity build centos-openmpi.sif docker://centos:centos7  
-$ wget https://raw.githubusercontent.com/wesleykendall/mpitutorial/gh-pages/tutorials/mpi-hello-world/code/mpi_hello_world.c  
-$ interact -p RM -N 2 -n 8 -t 8:00:00
-```
+ $ ./mpi_rp.sh
+ ```
+ 
+note: For further instructions on how to build the container and install/compile the executable, go [here](https://github.com/radical-group/koubbe/blob/master/Containers/First%20experiments/src/exp2/Bind-Intel19.5/instructions.txt)
+ 
+note2: mpi_rp.sh is located [here](https://github.com/radical-group/koubbe/blob/master/Containers/First%20experiments/src/exp2/Bind-Intel19.5/mpi_rp.sh)
 
-Now, on compute node:
-
-```
-$ module load singularity  
-$ export SINGULARITYENV_PREPEND_PATH=/opt/intel/compilers_and_libraries_2019.5.281/linux/mpi/intel64/bin/  
-$ export SINGULARITYENV_LD_LIBRARY_PATH=/opt/intel/compilers_and_libraries_2019.5.281/linux/mpi/intel64/lib:/opt/intel/compilers_and_libraries_2019.5.281/linux/mpi/intel64/libfabric/lib  
-$ mpicc mpi_hello_world.c -o hello_world_intel  
-$ mpirun -n 4 -ppn 2 singularity exec --bind /opt/intel/compilers_and_libraries_2019.5.281/linux/mpi/intel64 $HOME/centos-openmpi.sif $HOME/hello_world_intel
-```
+note3: modify [mpi_rp.py](https://github.com/radical-group/koubbe/blob/master/Containers/First%20experiments/src/exp2/Bind-Intel19.5/mpi_rp.py) accordingly to run via RP the executable or the containerized executable.
 
 ## FACTS
 
