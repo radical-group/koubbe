@@ -1,5 +1,7 @@
 On Bridges login node:
 
+$ module load singularity
+
 $ singularity build centos-openmpi.sif docker://centos:centos7
  
 $ wget https://raw.githubusercontent.com/wesleykendall/mpitutorial/gh-pages/tutorials/mpi-hello-world/code/mpi_hello_world.c
