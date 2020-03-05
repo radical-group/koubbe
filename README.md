@@ -40,6 +40,8 @@ Here I wrote three suggested applications to get familiar with EnTK (the duratio
  1. 128 tasks concurrently, where each task is 1 core  
  2. 8 tasks where each task is 16 cores 
  3. 16 concurrent batches of 8 tasks (each of 1 core, but where in each batch each task runs sequentially i.e., one after the other.
+ 
+ The results of these applications are posted [here](https://github.com/radical-group/koubbe/blob/master/RCT/First%20Example%20on%20EnTK/results/results.pdf)
 
 ## Hyperparameter Optimization (HPO)
 
