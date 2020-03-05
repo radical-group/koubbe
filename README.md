@@ -17,17 +17,21 @@ Below you have a brief summary of the main work that I have been doing during my
 
 Download RCT stack as per instructed on [EnTK installation website](https://radicalentk.readthedocs.io/en/latest/install.html):
 
+```
 $ virtualenv -p python3.7 \<VE name\>  
 $ source \<path-to-VE\>/bin/activate  
 $ pip install radical.entk  
 $ pip install radical.analytics
+```
 
 ### Simple RP exercise
 
 Here I ran the getting started example provided with RP and verified correct functionality:
 
+```
 $ cd \<path-to-VE\>/radical.pilot/examples  
 $ python 00_getting_started.py xsede.bridges
+```
 
 ### Simple EnTK exercise
 
@@ -44,26 +48,34 @@ In order to see my Initial Presentation on HPO, please visit [HPO Initial Presen
 To install HyperSpace (on Bridges login node, make sure MPICH or OpenMPI is available):
 
 If Anaconda (or Miniconda) not installed:  
+```
 $ wget https://repo.continuum.io/miniconda/Miniconda3-latest-Linux-x86_64.sh  
 $ bash Miniconda3-latest-Linux-x86_64.sh  
+```
 
 Else:  
+```
 $ conda create --name \<VE name\> python=3.7  
 $ conda activate \<VE name\>  
 $ pip install mpi4py  
 $ git clone https://github.com/yngtodd/hyperspace.git  
 $ cd hyperspace  
 $ pip install .
+```
 
 First thing I did was to reproduce results for the HyperSpace Styblinski-Tang benchmark (on Bridges compute node):
 
- 1. cd benchmarks/styblinskitang/hyperdrive
- 2. mpirun -n 4 python3 benchmark.py --ndims 2 --results \</path/to/save/results\>
+```
+$ cd benchmarks/styblinskitang/hyperdrive   
+$ mpirun -n 4 python3 benchmark.py --ndims 2 --results \</path/to/save/results\>   
+```
 
 In order to visualize the results, install HyperSpace on your local machine this time and follow:
 
-$ conda install mpi4py (through conda this time so MPI packages get installed as well)
-$ conda install scikit-learn seaborn
+```
+$ conda install mpi4py (through conda this time so MPI packages get installed as well)   
+$ conda install scikit-learn seaborn   
+```
 
 Follow the Jupyter Notebook located in the repo [here](https://github.com/radical-group/koubbe/blob/master/HPO/HyperSpace/First%20benchmark/results/vis_results.ipynb) in order to visualize results
 
@@ -77,7 +89,9 @@ The experiments design is located [here](https://github.com/radical-group/koubbe
 
 To run experiment 1, make sure stress-ng executable is installed on Bridges and radical stack is installed on local machine. Then, execute on local machine:
 
+```
  $ ./stress_rp.sh
+ ```
 
 note: modify [stress_rp.py](https://github.com/radical-group/koubbe/blob/master/Containers/First%20experiments/src/exp1/stress_rp.py) accordingly to run via RP the  executable or the containerized executable.
 
@@ -85,18 +99,22 @@ note: modify [stress_rp.py](https://github.com/radical-group/koubbe/blob/master/
 
 To run experiment 2 on Bridges, execute on login node:
 
+```
 $ module load singularity  
 $ singularity build centos-openmpi.sif docker://centos:centos7  
 $ wget https://raw.githubusercontent.com/wesleykendall/mpitutorial/gh-pages/tutorials/mpi-hello-world/code/mpi_hello_world.c  
 $ interact -p RM -N 2 -n 8 -t 8:00:00
+```
 
 Now, on compute node:
 
+```
 $ module load singularity  
 $ export SINGULARITYENV_PREPEND_PATH=/opt/intel/compilers_and_libraries_2019.5.281/linux/mpi/intel64/bin/  
 $ export SINGULARITYENV_LD_LIBRARY_PATH=/opt/intel/compilers_and_libraries_2019.5.281/linux/mpi/intel64/lib:/opt/intel/compilers_and_libraries_2019.5.281/linux/mpi/intel64/libfabric/lib  
 $ mpicc mpi_hello_world.c -o hello_world_intel  
 $ mpirun -n 4 -ppn 2 singularity exec --bind /opt/intel/compilers_and_libraries_2019.5.281/linux/mpi/intel64 $HOME/centos-openmpi.sif $HOME/hello_world_intel
+```
 
 ## FACTS
 
@@ -112,38 +130,51 @@ Here you have general information about my work, readings, meetings, weekly summ
 
 To install stress-ng on Bridges login node:
 
-$ wget http://kernel.ubuntu.com/~cking/tarballs/stress-ng/stress-ng-0.09.34.tar.xz
-$ tar xvf stress-ng-0.09.34.tar.xz
-$ cd stress-ng-0.09.34
-$ make
+```
+$ wget http://kernel.ubuntu.com/~cking/tarballs/stress-ng/stress-ng-0.09.34.tar.xz  
+$ tar xvf stress-ng-0.09.34.tar.xz  
+$ cd stress-ng-0.09.34  
+$ make  
+```
 
-Request 1 node, 4 cores on RM partition for 8 hours:
-$ interact -p RM -N 1 -n 4 -t 8:00:00
+Request 1 node, 4 cores on RM partition for 8 hours: 
+```
+$ interact -p RM -N 1 -n 4 -t 8:00:00  
+```
 
-Measure Total Time of Execution of stress-ng python script through MPI:
-/usr/bin/time -v mpirun -n 2 python3 helloworld.py
+Measure Total Time of Execution of stress-ng python script through MPI:  
+```
+/usr/bin/time -v mpirun -n 2 python3 helloworld.py  
+```
 
-To see core usage on each node:
-$ ssh r001
+To see core usage on each node: 
+```
+$ ssh r001  
 $ htop
+```
 
 note: helloworld.py is located in the repo [here](https://github.com/radical-group/koubbe/blob/master/HPO/HyperSpace/First%20benchmark/docs/Guides/stress-ng/helloworld.py)
 
 ## Installation of mpi4py on XSEDE Bridges using GCC compiler
 
 If Anaconda (or Miniconda) not installed:  
+```
 $ wget https://repo.continuum.io/miniconda/Miniconda3-latest-Linux-x86_64.sh  
 $ bash Miniconda3-latest-Linux-x86_64.sh
+```
 
 Else:  
+```
 $ conda create --name \<VE name\> python=3.7  
 $ conda activate \<VE name\>  
 $ wget https://bitbucket.org/mpi4py/mpi4py/downloads/mpi4py-3.0.3.tar.gz  
 $ tar -zxf mpi4py-3.0.3.tar.gz  
 $ cd mpi4py-3.0.3  
+```
 
 modify mpi.cfg as instructed in [mpi4py installation](https://mpi4py.readthedocs.io/en/stable/install.html#using-pip-or-easy-install):
 
+```
 \# Open MPI example  
 \# ----------------  
 [openmpi]  
@@ -154,11 +185,29 @@ mpicxx               = %(mpi_dir)s/bin/mpicxx
 #libraries           = mpi  
 library_dirs         = %(mpi_dir)s/lib64:/opt/packages/gcc/9.2.0/bin/gcc  
 runtime_library_dirs = %(library_dirs)s  
+```
 
+```
 $ python setup.py build --mpi=openmpi  
 $ python setup.py install  
+```
 
- ## Reference
+## Reference
+
+The local machine used throughout the proyects is a virtual machine with Ubuntu 16.04.6 LTS. 
+
+The radical-stack used is:
+```
+  python               : 3.7.6
+  pythonpath           : 
+  virtualenv           : /home/karahbit/ve-rct3
+
+  radical.analytics    : 0.90.7
+  radical.entk         : 1.0.2
+  radical.pilot        : 1.1.1
+  radical.saga         : 1.1.2
+  radical.utils        : 1.1.1
+ ```
 
 For specific references, please visit each section's topic.
 
