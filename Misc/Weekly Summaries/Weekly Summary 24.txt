@@ -1,0 +1,7 @@
+This week I successfully submitted the jobs regarding my experiments with Singularity containerization of MPI applications via RP on Bridges HPC cluster.
+
+While I wait for my results, I dedicated a few days to update documentation and instructions about everything I have been doing in the lab. You can see the readme on my Github repo:
+
+https://github.com/radical-group/koubbe/blob/master/README.md
+
+Moreover, I attended the Containers @ TACC seminar this Friday, in where they talk about Docker, Singularity and MPI parallelism on TACC Stampede2.
