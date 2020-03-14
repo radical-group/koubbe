@@ -1,0 +1,15 @@
+FACTS:
+I followed some tutorials regarding Python unit testing in order to help Greg write some unit tests 
+for the FACTS main code. I also offered him help regarding the transition to Python 3, so that is in
+the works as well.
+
+Containers:
+I finally finished obtaining results from Bridges about the performance comparison of containerized 
+MPI applications. You can see it on the slides in the Container section of my GitHub repo.
+
+HPO:
+I started retaking work on the HPO library. For this, I am planning on submitting HyperSpace tasks
+via RCT to verify correct functionality. After this, I will start with the implementation of the library.
+
+Misc:
+Finished last touches of my GitHub repo documentation of what I have so far.
