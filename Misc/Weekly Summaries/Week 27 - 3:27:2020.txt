@@ -1,0 +1,14 @@
+Containers:
+- Regarding MPI stressing and running on Comet, unfortunately I have been trying
+  to request resources to submit my jobs all week but they are giving priority to 
+  COVID-19 research, so I am waiting in the meantime.
+
+HPO:
+- I read the respective papers again to refresh myself in this area.
+- Integrated HyperSpace with EnTK and submitted jobs locally succesully, with
+  following issue:
+- Work done on HyperSpace is a bit outdated, does not work anymore out of the
+  box, and needs to be rewritten in order to support newer libraries. I have
+  been in touch with Todd Young (developer of HyperSpace) regarding this matter.
+  In any case, I need to take this into consideration at the time of implementing
+  radical.hpo to provide support for the newest packages.

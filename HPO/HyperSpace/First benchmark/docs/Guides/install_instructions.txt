@@ -1,0 +1,40 @@
+Create a virtual environment:
+
+ $ virtualenv -p python3 ve-radical.hpo
+ $ source ve-radical.hpo/bin/activate
+ # install seaborn for results visualization later on
+ $ pip install seaborn
+
+Install OpenMPI from source (if it's not installed already):
+
+ $ mkdir ve-radical.hpo/share/openmpi-4.0.3
+ $ wget https://download.open-mpi.org/release/open-mpi/v4.0/openmpi-4.0.3.tar.gz
+ $ tar xvzf openmpi-4.0.3.tar.gz && rm openmpi-4.0.3.tar.gz
+ $ cd openmpi-4.0.3
+ 
+ # Compile
+ # use flag --enable-static to enable .a file for Open MPI library
+ $ ./configure --prefix=/home/karahbit/ve-radical.hpo/share/openmpi-4.0.3 --enable-static
+ $ make
+
+ # Install
+ $ make install
+
+ # Modify shell environment variables. We need to add the following environment variables to the shell environment setup script (/etc/profile for global install and ~/.bashrc for local install):
+
+ $ export OMPI=/home/karahbit/ve-radical.hpo/share/openmpi-4.0.3
+ $ export PATH=$OMPI/bin:$PATH
+ $ export LD_LIBRARY_PATH=$OMPI/lib:$LD_LIBRARY_PATH
+
+ # Copy all files of /home/karahbit/ve-radical.hpo/share/openmpi-4.0.3 and /etc/profile or ~/.bashrc to every node in the cluster.
+
+Install HyperSpace (and mpi4py):
+
+ $ git clone https://github.com/yngtodd/hyperspace.git
+ $ cd hyperspace
+ $ pip install .
+ $ pip install scikit-optimize==0.5.2
+
+ Try it:
+
+ $ mpirun -n 4 python benchmarks/styblinskitang/hyperdrive/benchmark.py --ndims 2 --results /home/karahbit/hyperspace_results
