@@ -5,7 +5,7 @@ Containers:
 
 HPO:
 - I read the respective papers again to refresh myself in this area.
-- Integrated HyperSpace with EnTK and submitted jobs locally succesully, with
+- Integrated HyperSpace with EnTK and submitted jobs locally succesfully, with
   following issue:
 - Work done on HyperSpace is a bit outdated, does not work anymore out of the
   box, and needs to be rewritten in order to support newer libraries. I have

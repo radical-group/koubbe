@@ -1,0 +1,13 @@
+Containers:
+1. I started writing a full walkthrough that is going to be on RP documentation
+   page.
+
+HPO:
+1. I elaborated a first approach document to tackle hyperparamter optimization
+   for CHEERS, a new project assigned to me.
+2. I am working on the next steps for said project, which involves writing a 
+   simple program for HPO that uses EnTK for a toy model.
+
+Misc:
+1. I started collecting the required documents for graduation, and I am
+   currently waiting for the signatures.

@@ -1,0 +1,71 @@
+{\rtf1\ansi\ansicpg1252\cocoartf2512
+\cocoatextscaling0\cocoaplatform0{\fonttbl\f0\fswiss\fcharset0 Helvetica;}
+{\colortbl;\red255\green255\blue255;}
+{\*\expandedcolortbl;;}
+\margl1440\margr1440\vieww22180\viewh15380\viewkind0
+\pard\tx720\tx1440\tx2160\tx2880\tx3600\tx4320\tx5040\tx5760\tx6480\tx7200\tx7920\tx8640\pardirnatural\partightenfactor0
+
+\f0\fs24 \cf0 Brief Overview:\
+\
+The CHEERS project is a software application that uses machine learning and high-performance computing in order to perform material analysis, specifically in this case, determine the level of sugar and alcohol in red wines.\
+\
+The ML model used is SVM, which looks to set the largest margin rate and lower the misclassification rate between sugar and alcohol, providing the classification scores along with their labels.\
+\
+We want to perform hyperparameter optimization.\
+\
+\
+\
+Initial Statements:\
+\
+1. If it is a ML model that we have, we will need train/test datasets.\
+\
+R: It is, and we have them.\
+\
+2. The ground truth data for target variables include: Date, Tank, A420, A520, Alcohol, Sugar, Tannins, Inoculation, Color, Varietal.\
+\
+3. The parameters of \'93features\'94 are: Tank, A420, A520, Alcohol, Sugar, Tannins, Inoculation as seen in https://github.com/radical-collaboration/FastFingerPrinting/blob/feature/dataread_per_task/src/galloOSIOPT/code/GalloModel-Parallel.py#L155\
+\
+\
+\
+Initial Questions:\
+\
+1. Do we have an objective function or a machine learning model? If machine learning model, which? In any case, this answer will not matter for the hyperparameter optimization.\
+\
+R: ML model: SVM, along with training/testing datasets.\
+\
+2. What parameters are fixed, what are variable?\
+\
+R: The free parameters in the model are C and epsilon, according to https://scikit-learn.org/stable/modules/generated/sklearn.svm.SVR.html\
+\
+3. What is my parameter search space (upper and lower bounds for each hyperparameter)?\
+\
+R: I can obtain the bounds from https://github.com/radical-collaboration/FastFingerPrinting/blob/feature/dataread_per_task/src/galloOSIOPT/code/models.py#L109\
+\
+4. What are sugar (and alcohol) search levels? number of processes? \
+\
+R: Search levels are specified by developers to perform the scan on a deeper level, while number of processes is just as it sounds, defines the number of processes to be used when running the code in parallel according to https://github.com/radical-collaboration/FastFingerPrinting/blob/feature/dataread_per_task/src/galloOSIOPT/code/models.py#L155\
+\
+\
+\
+Initial Functional Requirements:\
+\
+1. Which HPO algorithm must be satisfied (grid search, SMBO, K-Means, etc.)?\
+	- The ML is well defined\
+	- Training/testing datasets are provided\
+	- Which validation protocol to be used (cross-validation?)\
+	- Parameter search space needs to be defined\
+	- Optimization function needs to be defined (Gaussian process with guided sampling?)\
+2. Must use RADICAL-EnTK \
+\
+Initial Non-Functional Requirements:\
+\
+1. The code must be simple\
+2. The code must be easy to maintain\
+\
+Initial Scalability Requirements:\
+\
+1. It must use the maximum number of cores available on the largest XSEDE machine without significant overhead.\
+\
+\
+\
+UPDATE 3/30/2020: Can we take the hyperparameter scan and convert it to a search? As a first update, we will describe the problem, present our statements and state the initial approach: we are taking the hyperparameter scan from the code and use HyperSpace to convert it to a search since we already have a well defined ML model and provided datasets\'85we would only need to define the search space according to the free parameters of the model (see above, question 2) and give it a try.}
