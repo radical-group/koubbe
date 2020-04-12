@@ -56,7 +56,7 @@ To see queue's names (partitions), run from bridges:
 sinfo
 squeue -u karahbit
 squeue -u karahbit --long
-squeue --start -u karahbit --long
+squeue --start -u karahbit --longca
 To se project names, run from bridges:
 projects
 

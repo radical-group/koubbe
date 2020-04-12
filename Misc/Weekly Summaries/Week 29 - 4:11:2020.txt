@@ -1,0 +1,21 @@
+Containers:
+- Launched containerized MPI appliactions on Comet through EnTK
+- Started documentation on RP page
+
+FACTS:
+- Started working on containerizing. Still debating whether we should
+  containerize the framwork itself along with its dependencies or just the 
+  executable.
+
+HPO:
+- Launched a simple parameter optimization program on Comet through EnTK
+
+Misc:
+- I started putting together the work that I have been doing in order to write
+ my technical report
+
+Deadlines:
+Submission of first draft to Shantenu and Matteo for review: 4/20/2020
+Submission to the Graduate Director for his signature: 4/24/2020
+Submission to the SGS: 5/01/2020
+Last day of work: 6/01/2020

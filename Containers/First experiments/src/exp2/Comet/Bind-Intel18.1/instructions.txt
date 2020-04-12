@@ -1,0 +1,34 @@
+Works in Bind mode for Intel MPI 2018.1.163:
+
+On Comet login node:
+
+$ module purge
+
+$ module load intel singularity
+
+$ export PATH=/opt/intel/2018.1.163/compilers_and_libraries_2018.1.163/linux/mpi/intel64/bin/:$PATH
+
+$ export LD_LIBRARY_PATH=/opt/intel/2018.1.163/compilers_and_libraries_2018.1.163/linux/mpi/intel64/lib:$LD_LIBRARY_PATH
+
+$ export SINGULARITYENV_PREPEND_PATH=/opt/intel/2018.1.163/compilers_and_libraries_2018.1.163/linux/mpi/intel64/bin/
+
+$ export SINGULARITYENV_LD_LIBRARY_PATH=/opt/intel/2018.1.163/compilers_and_libraries_2018.1.163/linux/mpi/intel64/lib
+
+$ srun --partition=compute --pty --nodes=2 --ntasks-per-node=24 -t 00:30:00 --wait=0 --export=ALL /bin/bash
+
+
+On Comet compute node:
+
+$ module purge
+
+$ module load intel singularity
+
+$ mpicc mpi_hello_world.c -o hello_world_intel
+
+For proper Intel MPI behavior, you must set the environment variable I_MPI_JOB_RESPECT_PROCESS_PLACEMENT to 0. Otherwise the mpirun task placement settings you give will be ignored:
+
+$ export I_MPI_JOB_RESPECT_PROCESS_PLACEMENT=0
+
+$ mpirun -n 4 -ppn 2 singularity exec --bind /opt/intel/2018.1.163/compilers_and_libraries_2018.1.163/linux/mpi/intel64 $HOME/centos-openmpi.sif $HOME/hello_world_intel
+
+/opt/sdsc/bin/ibrun -n 48 -o 0 /home/karahbit/hello_world_intel

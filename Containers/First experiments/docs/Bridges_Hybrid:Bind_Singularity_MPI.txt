@@ -1,0 +1,184 @@
+On Bridges login node:
+
+$ module load singularity
+
+$ singularity build centos-openmpi.sif docker://centos:centos7
+ 
+$ wget https://raw.githubusercontent.com/wesleykendall/mpitutorial/gh-pages/tutorials/mpi-hello-world/code/mpi_hello_world.c
+
+$ interact -p RM -N 2 -n 8 -t 8:00:00
+
+
+
+
+
+
+
+On compute node (Intel MPI, works for bind mode):
+
+$ module load singularity
+
+$ export SINGULARITYENV_PREPEND_PATH=/opt/intel/compilers_and_libraries_2019.5.281/linux/mpi/intel64/bin/
+
+$ export SINGULARITYENV_LD_LIBRARY_PATH=/opt/intel/compilers_and_libraries_2019.5.281/linux/mpi/intel64/lib:/opt/intel/compilers_and_libraries_2019.5.281/linux/mpi/intel64/libfabric/lib
+
+$ mpicc mpi_hello_world.c -o hello_world_intel
+
+$ mpirun -n 4 -ppn 2 singularity exec --bind /opt/intel/compilers_and_libraries_2019.5.281/linux/mpi/intel64 --bind /opt/intel/compilers_and_libraries_2019.5.281/linux/mpi/intel64/libfabric/lib $HOME/centos-openmpi.sif $HOME/hello_world_intel
+
+or this works too:
+
+$ mpirun -n 4 -ppn 2 singularity exec --bind /opt/intel/compilers_and_libraries_2019.5.281/linux/mpi/intel64 $HOME/centos-openmpi.sif $HOME/hello_world_intel
+
+For proper Intel MPI behavior, you must set the environment variable I_MPI_JOB_RESPECT_PROCESS_PLACEMENT to 0. Otherwise the mpirun task placement settings you give will be ignored.
+BASH:
+export I_MPI_JOB_RESPECT_PROCESS_PLACEMENT=0
+
+
+
+
+
+
+
+On compute node (gcc openmpi-2.1.2-hfi, ABI compatible with Open MPImo 2.1.2, works for both hybrid and bind mode but single node only :( ):
+
+$ module unload intel
+
+$ module load gcc singularity mpi/gcc_openmpi
+
+$ export TMPDIR=/tmp     (known issue)
+
+$ export SINGULARITYENV_PREPEND_PATH=/usr/mpi/gcc/openmpi-2.1.2-hfi/bin 
+(prepend so it gets picked before anything else that is in the container)
+
+$ export SINGULARITYENV_LD_LIBRARY_PATH=/usr/mpi/gcc/openmpi-2.1.2-hfi/lib64:/lib64:$HOME:/etc/libibverbs.d
+
+or this works to (since /lib64 and /etc/libibverbs.d are already searchable within SINGULARITYENV_LD_LIBRARY_PATH, I just need to bind mount them into the container):
+
+$ export SINGULARITYENV_LD_LIBRARY_PATH=/usr/mpi/gcc/openmpi-2.1.2-hfi/lib64:$HOME
+
+$ ln -s /usr/lib64/libtinfo.so.5 $HOME/libtinfo.so.6      (missing symbolic link, known issue)
+
+$ mpicc mpi_hello_world.c -o hello_world_openmpi
+
+
+STILL TESTING MULTI-NODE (not working):
+
+$ mpirun -n 4 --map-by ppr:2:node -mca btl ^openib singularity exec --bind /usr/mpi/gcc/openmpi-2.1.2-hfi --bind /lib64 --bind $HOME --bind /etc/libibverbs.d $HOME/centos-openmpi.sif $HOME/hello_world_openmpi
+
+or this works too (since $HOME, $WORK and $TMPDIR are bind mounted by default to the container):
+
+$ mpirun -n 4 --map-by ppr:2:node -mca btl ^openib singularity exec --bind /usr/mpi/gcc/openmpi-2.1.2-hfi --bind /lib64 --bind /etc/libibverbs.d $HOME/centos-openmpi.sif $HOME/hello_world_openmpi
+
+The -mca CLI option could also be:
+-mca btl self,tcp
+
+
+If OS on host is Centos7, it would make things easier if container also is Centos7 and even then, I should not be binding /lib64.
+
+
+
+
+
+
+
+On compute node (gcc mvapich2-2.3b-hfi, ABI compatible with MPICH-3.2, works for both hybrid and bind mode):
+
+Bind mode:
+
+$ module purge
+
+$ module load psc_path slurm/default singularity mpi/gcc_mvapich
+
+$ export SINGULARITYENV_PREPEND_PATH=/usr/mpi/gcc/mvapich2-2.3b-hfi/bin
+
+$ export SINGULARITYENV_LD_LIBRARY_PATH=/usr/mpi/gcc/mvapich2-2.3b-hfi/lib:$HOME
+
+$ ln -s /usr/lib64/libtinfo.so.5 $HOME/libtinfo.so.6      (missing symbolic link, known issue)
+
+$ mpicc mpi_hello_world.c -o hello_world_mpich
+
+$ mpirun -n 4 -ppn 2 singularity exec --bind /usr/mpi/gcc/mvapich2-2.3b-hfi --bind /lib64 --bind /etc/libibverbs.d $HOME/centos-openmpi.sif $HOME/hello_world_mpich 
+
+Hybrid mode:
+
+$ sbatch my_job.sh
+
+
+
+
+
+
+
+Notes:
+
+If there is still complaining about libraries, try to find them with:
+$ whereis lib...
+or
+$ locate lib...
+and then bind mount them to the container, appending it to the SINGULARITYENV_LD_LIBRARY_PATH if necessary.
+
+Use 
+$ ldd /usr/mpi/gcc/openmpi-2.1.2-hfi/bin/mpirun, for example, to see required libraries by the executable
+or 
+$ objdump -p /usr/mpi/gcc/openmpi-2.1.2-hfi/bin/mpirun
+
+To see the path of an executable:
+$ type -a command
+
+
+
+
+
+
+
+mpi4py through conda (works but conda mpich 3.3.2 is way way slower, maximum bandwidth will be orders of magnitude lower, MB/s instead of GB/s):
+
+$ conda update conda
+$ conda create -n mpi python=3.7
+$ conda activate mpi
+$ conda install mpi4py
+$ interact -p RM -N 2 -n 8 -t 8:00:00
+$ conda activate mpi
+$ export SINGULARITYENV_PREPEND_PATH=$HOME/miniconda3/bin
+$ export SINGULARITYENV_LD_LIBRARY_PATH=$HOME/miniconda3/lib
+$ mpirun -n 4 -ppn 2 singularity exec $HOME/centos-openmpi.sif python $HOME/mpi_hello.py
+
+
+
+
+
+
+
+mpi4py through conda (Bridges gcc_openmpi-2.1.2):
+
+$ conda update conda
+$ conda create -n mpi python=3.7
+$ conda activate mpi
+$ wget https://bitbucket.org/mpi4py/mpi4py/downloads/mpi4py-3.0.3.tar.gz
+$ tar -zxf mpi4py-3.0.3.tar.gz
+$ cd mpi4py-3.0.3
+
+modify mpi.cfg:
+
+# Open MPI example
+# ----------------
+[openmpi]
+mpi_dir              = /usr/mpi/gcc/openmpi-2.1.2-hfi
+mpicc                = %(mpi_dir)s/bin/mpicc
+mpicxx               = %(mpi_dir)s/bin/mpicxx
+#include_dirs         = %(mpi_dir)s/include
+#libraries            = mpi
+library_dirs         = %(mpi_dir)s/lib64:/opt/packages/gcc/9.2.0/bin/gcc
+runtime_library_dirs = %(library_dirs)s
+
+$ python setup.py build --mpi=openmpi
+$ python setup.py install
+$ interact -p RM -N 2 -n 8 -t 8:00:00
+$ conda activate mpi
+$ export SINGULARITYENV_PREPEND_PATH=$HOME/miniconda3/envs/mpi/bin
+$ export SINGULARITYENV_LD_LIBRARY_PATH=$HOME/miniconda3/envs/mpi/lib
+$ mpirun -n 5 -mca btl ^openib singularity exec --bind /usr/mpi/gcc/openmpi-2.1.2-hfi --bind /lib64 --bind /etc/libibverbs.d $HOME/centos-openmpi.sif python $HOME/mpi_hello.py
+
+
+It is failing on multinode just like using same Open MPI but in Bind mode :(
