@@ -106,12 +106,22 @@ We are going to run a Singularity containerized MPI executable on Bind mode [(wh
 ```
  $ ./mpi_rp.sh
  ```
- 
-note: For further instructions on how to build the container and install/compile the executable, go [here](https://github.com/radical-group/koubbe/blob/master/Containers/First%20experiments/src/exp2/Bind-Intel19.5/instructions.txt)
- 
-note2: mpi_rp.sh is located [here](https://github.com/radical-group/koubbe/blob/master/Containers/First%20experiments/src/exp2/Bind-Intel19.5/mpi_rp.sh)
 
-note3: modify [mpi_rp.py](https://github.com/radical-group/koubbe/blob/master/Containers/First%20experiments/src/exp2/Bind-Intel19.5/mpi_rp.py) accordingly to run via RP the executable or the containerized executable.
+ ##### On Bridges:
+ 
+note: For further instructions on how to build the container and install/compile the executable, go [here](https://github.com/radical-group/koubbe/blob/master/Containers/First%20experiments/src/exp2/Bridges/Bind-Intel19.5/instructions.txt)
+ 
+note2: mpi_rp.sh is located [here](https://github.com/radical-group/koubbe/blob/master/Containers/First%20experiments/src/exp2/Bridges/Bind-Intel19.5/mpi_rp.sh)
+
+note3: modify [mpi_rp.py](https://github.com/radical-group/koubbe/blob/master/Containers/First%20experiments/src/exp2/Bridges/Bind-Intel19.5/mpi_rp.py) accordingly to run via RP the executable or the containerized executable.
+
+##### On Comet:
+
+note: For further instructions on how to build the container and install/compile the executable, go [here](https://github.com/radical-group/koubbe/blob/master/Containers/First%20experiments/src/exp2/Comet/Bind-Intel18.1/instructions.txt)
+ 
+note2: mpi_rp.sh is located [here](https://github.com/radical-group/koubbe/blob/master/Containers/First%20experiments/src/exp2/Comet/Bind-Intel18.1/mpi_rp.sh)
+
+note3: modify [mpi_rp.py](https://github.com/radical-group/koubbe/blob/master/Containers/First%20experiments/src/exp2/Comet/Bind-Intel18.1/mpi_rp.py) accordingly to run via RP the executable or the containerized executable.
 
 ## FACTS
 
@@ -201,9 +211,9 @@ The radical-stack used is:
 
   radical.analytics    : 0.90.7
   radical.entk         : 1.0.2
-  radical.pilot        : 1.1.1
-  radical.saga         : 1.1.2
-  radical.utils        : 1.1.1
+  radical.pilot        : 1.3.0
+  radical.saga         : 1.3.0
+  radical.utils        : 1.3.0
  ```
 
 For specific references, please visit each section's topic.
