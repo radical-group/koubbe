@@ -23,7 +23,7 @@ Also: Do setup a password-less ssh login from the Target Machine to itself (for 
 
 How to access Bridges?
 
-1) From Jetstream Atmosphere: Generate certificate for 72 hours ==> myproxy-logon -s myproxy.xsede.org -l karahbit -t 72
+1) From Jetstream Atmosphere: Generate certificate for 168 hours ==> myproxy-logon -s myproxy.xsede.org -l karahbit -t 168
 (enter XSEDE profile password)
 2) From Jetstream Atmosphere: 
 sudo ln -s /usr/local/globus-6/bin/gsiscp /usr/bin/gsiscp
@@ -56,7 +56,7 @@ To see queue's names (partitions), run from bridges:
 sinfo
 squeue -u karahbit
 squeue -u karahbit --long
-squeue --start -u karahbit --longca
+squeue --start -u karahbit --long
 To se project names, run from bridges:
 projects
 

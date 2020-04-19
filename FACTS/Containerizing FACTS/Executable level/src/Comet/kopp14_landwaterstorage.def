@@ -1,0 +1,40 @@
+Bootstrap: docker
+From: centos:centos7
+Stage: build
+
+%labels
+
+    APPLICATION_NAME centos
+
+    SINGULARITY_VERSION 3.5
+
+    AUTHOR_NAME George Koubbe
+    AUTHOR_EMAIL gkoubbe@rutgers.edu
+
+    LAST_UPDATED 20200418
+
+%files
+
+%post
+    echo "Installing required packages..."
+
+    # Add software repositories
+    yum -y install epel-release
+
+    # Installing PIP
+    yum -y install python3-pip
+
+    # Install development tools
+    yum -y install python3-devel
+    yum -y groupinstall "Development Tools"
+
+    # Update all software packages to their latest versions
+    yum -y check-update && yum -y update
+
+    # Install common software packages
+    yum -y install python3
+    pip3 install numpy scipy netCDF4 pyyaml matplotlib
+
+    # Cleanup
+    package-cleanup -q --leaves | xargs -l1 yum -y remove
+    yum -y clean all

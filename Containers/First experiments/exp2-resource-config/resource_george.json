@@ -29,7 +29,7 @@
         "agent_launch_method"         : "SSH",
         "task_launch_method"          : "SSH",
         "mpi_launch_method"           : "MPIRUN",
-        "pre_bootstrap_0"             : ["module purge",
+        "pre_bootstrap_0"             : ["module reset",
                                          "module load gcc",
                                          "module load slurm",
                                          "module load anaconda3",
@@ -72,12 +72,7 @@
         "agent_launch_method"         : "SSH",
         "task_launch_method"          : "SSH",
         "mpi_launch_method"           : "MPIRUN",
-        "pre_bootstrap_0"             : ["module load intel",
-                                         "module load python"
-                                        ],
-        "pre_bootstrap_1"             : ["export PATH=/opt/intel/2018.1.163/compilers_and_libraries_2018.1.163/linux/mpi/intel64/bin/:$PATH",
-                                         "export LD_LIBRARY_PATH=/opt/intel/2018.1.163/compilers_and_libraries_2018.1.163/linux/mpi/intel64/lib:$LD_LIBRARY_PATH"
-                                        ],
+        "pre_bootstrap_0"             : ["module load python"],
         "default_remote_workdir"      : "/oasis/scratch/comet/$USER/temp_project",
         "valid_roots"                 : ["/oasis/scratch/comet"],
       # "valid_roots"                 : ["/home"],

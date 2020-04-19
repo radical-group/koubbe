@@ -1,0 +1,11 @@
+# Experiment to test on XSEDE resources
+
+landwaterstorage1:
+    module_set: "kopp14"
+    module: "landwaterstorage"
+    options:
+        dotriangular: 0
+        includepokherl: 0
+        nsamps: 20000
+        seed: 1234
+        site_ids: 12,10

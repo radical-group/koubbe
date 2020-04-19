@@ -3,6 +3,8 @@
 - To transfer files from Local host to remote Host:
 	$ scp ~/Desktop/1.py karahbit@138.201.86.166:~
 
+hostname -f will show hostname
+
 
 - If the remote resource connection is through gsissh, transfer from local machine to remote like this:
 	$ gsiscp -P 2222 ~/do_nothing.py karahbit@bridges.psc.xsede.org:~
@@ -47,3 +49,9 @@ cp -R * /home/tom/backup
 - To run a shell script:
 $ chmod +x script_name.sh
 $ ./script_name.sh
+
+
+- if virtualenv says PermissionError: [Errno 13] Permission denied: '/usr/local/...'
+$ chmod -R a+rX /usr/local/
+R: recursive a+rX: a: all, + add permissions, r: read, X: executable if executable is set for owner
+Permissions were disabled for all users under /usr/local
