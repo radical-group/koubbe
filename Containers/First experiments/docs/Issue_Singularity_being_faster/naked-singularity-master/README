@@ -1,0 +1,53 @@
+README
+
+    naked-singularity
+
+DESCRIPTION
+
+    A repository of definition for building Singularity* containers 
+    around the software applications, frameworks, and libraries you need
+    to run on high-performance computing systems.
+
+    * http://singularity.lbl.gov/
+
+USAGE
+
+     1. Install Singularity on your local desktop, laptop, or virtual 
+        machine.
+
+            ./naked-singularity.sh install
+
+     2. Build a simple Ubuntu Singularity container.
+
+            ./naked-singularity.sh build -s comet -a ubuntu -d ubuntu.def 
+
+     3. Uninstall Singularity from your local desktop, laptop, or 
+        virtual machine.
+
+            ./naked-singularity.sh uninstall
+
+STATUS
+
+    A work in progress. 
+
+CONTRIBUTE
+
+    If you would like to contribute one of your own Singularity 
+    definition files for a target application and system, please 
+    submit a pull request.
+
+AUTHOR
+
+    Marty Kandes, Ph.D.
+    Computational & Data Science Research Specialist
+    High-Performance Computing User Services Group
+    San Diego Supercomputer Center
+    University of California, San Diego
+
+VERSION
+
+    0.9.8
+
+LAST UPDATED
+
+    Friday, March 20th, 2020

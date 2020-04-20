@@ -1,0 +1,252 @@
+Bootstrap: debootstrap
+MirrorURL: http://us.archive.ubuntu.com/ubuntu
+OSVersion: bionic
+
+%labels
+
+    APPLICATION_NAME tensorflow
+    APPLICATION_VERSION 1.15.2
+    APPLICATION_URL https://www.tensorflow.org/
+
+    SINGULARITY_VERSION 2.6.1
+    SINGULARITY_IMAGE_SIZE 20480
+
+    AUTHOR_NAME Marty Kandes
+    AUTHOR_EMAIL mkandes@sdsc.edu
+
+    LAST_UPDATED 20200311
+
+%setup
+
+%environment
+
+    # Set system locale
+    export LC_ALL=C
+
+    # Set paths to OpenMPI binaries and libraries
+    export PATH="/opt/openmpi-3.1.4/bin:${PATH}"
+    export LD_LIBRARY_PATH="/opt/openmpi-3.1.4/lib:${LD_LIBRARY_PATH}"
+
+    # Set paths to OSU Microbenchmarks binaries
+    export PATH="/opt/omb-5.6.2/collective:${PATH}"
+    export PATH="/opt/omb-5.6.2/one-sided:${PATH}"
+    export PATH="/opt/omb-5.6.2/pt2pt:${PATH}"
+    export PATH="/opt/omb-5.6.2/startup:${PATH}"
+
+    # Set default miniconda environment
+    export PATH="/opt/miniconda3/bin:${PATH}"
+
+%post -c /bin/bash
+
+    # Set system locale
+    export LC_ALL=C
+
+    # Install system metapackages
+    apt-get -y install ubuntu-standard
+    apt-get -y install ubuntu-server
+
+    # Add repositories
+    add-apt-repository -y "deb ${MIRRORURL} ${OSVERSION} main"
+    add-apt-repository -y "deb ${MIRRORURL} ${OSVERSION} universe"
+    add-apt-repository -y "deb ${MIRRORURL} ${OSVERSION} multiverse"
+    add-apt-repository -y "deb ${MIRRORURL} ${OSVERSION} restricted"
+
+    add-apt-repository -y "deb ${MIRRORURL} ${OSVERSION}-updates main"
+    add-apt-repository -y "deb ${MIRRORURL} ${OSVERSION}-updates universe"
+    add-apt-repository -y "deb ${MIRRORURL} ${OSVERSION}-updates multiverse"
+    add-apt-repository -y "deb ${MIRRORURL} ${OSVERSION}-updates restricted"
+
+    add-apt-repository -y "deb ${MIRRORURL} ${OSVERSION}-backports main"
+    add-apt-repository -y "deb ${MIRRORURL} ${OSVERSION}-backports universe"
+    add-apt-repository -y "deb ${MIRRORURL} ${OSVERSION}-backports multiverse"
+    add-apt-repository -y "deb ${MIRRORURL} ${OSVERSION}-backports restricted"
+
+    add-apt-repository -y "deb ${MIRRORURL} ${OSVERSION}-security main"
+    add-apt-repository -y "deb ${MIRRORURL} ${OSVERSION}-security universe"
+    add-apt-repository -y "deb ${MIRRORURL} ${OSVERSION}-security multiverse"
+    add-apt-repository -y "deb ${MIRRORURL} ${OSVERSION}-security restricted"
+
+    # Upgrade all packages to their latest versions
+    apt-get -y update && apt-get -y upgrade
+
+    # Install common packages from 'main'
+    apt-get -y install autoconf
+    apt-get -y install automake
+    apt-get -y install build-essential
+    apt-get -y install cmake
+    apt-get -y install libtool
+    apt-get -y install gfortran
+    apt-get -y install pkg-config
+    apt-get -y install wget
+    apt-get -y install zip
+
+    # Install expect to automate responses for interactive build questions
+    apt-get -y install expect
+
+    # Use /tmp to store temporary files within the container during the
+    # bootstraping process
+    cd /tmp
+
+    # Install miniconda3
+    wget https://repo.continuum.io/miniconda/Miniconda3-latest-Linux-x86_64.sh
+    chmod +x Miniconda3-latest-Linux-x86_64.sh
+    ./Miniconda3-latest-Linux-x86_64.sh -b -p /opt/miniconda3
+
+    # Install basic drivers for user space access to Ethernet, RDMA,
+    # and Infiniband. See https://community.mellanox.com/docs/DOC-2431
+    apt-get -y install dkms
+    apt-get -y install infiniband-diags
+    apt-get -y install libibverbs-dev
+    apt-get -y install ibacm
+    apt-get -y install librdmacm-dev
+    apt-get -y install libmlx4-dev
+    apt-get -y install libmlx5-dev
+    apt-get -y install mstflint
+    apt-get -y install libibcm-dev
+    apt-get -y install libibmad-dev
+    apt-get -y install libibumad-dev
+    apt-get -y install opensm
+    apt-get -y install srptools
+
+    # Install additional tools
+    apt-get -y install ibutils
+    apt-get -y install ibverbs-utils
+    apt-get -y install rdmacm-utils
+    apt-get -y install perftest
+    apt-get -y install numactl
+    apt-get -y install libnuma-dev
+
+    # Install libnl
+    apt-get -y install libnl-3-200
+    apt-get -y install libnl-route-3-200
+    apt-get -y install libnl-route-3-dev
+    apt-get -y install libnl-utils
+
+    # Install OpenMPI dependencies
+    apt-get -y install zlib1g-dev
+
+    # Download, build, and install OpenMPI
+    wget https://download.open-mpi.org/release/open-mpi/v3.1/openmpi-3.1.4.tar.gz
+    tar -xzvf openmpi-3.1.4.tar.gz
+    cd openmpi-3.1.4
+    ./configure --prefix=/opt/openmpi-3.1.4 --with-cuda
+    make all install
+
+    # Set paths to OpenMPI binaries and libraries
+    export PATH="/opt/openmpi-3.1.4/bin:${PATH}"
+    export LD_LIBRARY_PATH="/opt/openmpi-3.1.4/lib:${LD_LIBRARY_PATH}"
+
+    cd /tmp
+w
+    # Download, build, and install OSU Microbenchmarks
+    wget http://mvapich.cse.ohio-state.edu/download/mvapich/osu-micro-benchmarks-5.6.2.tar.gz
+    tar -xzvf osu-micro-benchmarks-5.6.2.tar.gz
+    cd osu-micro-benchmarks-5.6.2
+    ./configure --prefix='/opt/omb-5.6.2' CC='mpicc' CXX='mpicxx'
+    make
+    make install
+
+    # Reorganize OSU Microbenchmarks directory structure
+    cd /opt/omb-5.6.2
+    mv libexec/osu-micro-benchmarks/mpi/collective ./
+    mv libexec/osu-micro-benchmarks/mpi/one-sided ./
+    mv libexec/osu-micro-benchmarks/mpi/pt2pt ./
+    mv libexec/osu-micro-benchmarks/mpi/startup ./
+    rm -rf libexec
+
+    # Set paths to OSU Microbenchmarks binaries
+    export PATH="/opt/omb-5.6.2/collective:${PATH}"
+    export PATH="/opt/omb-5.6.2/one-sided:${PATH}"
+    export PATH="/opt/omb-5.6.2/pt2pt:${PATH}"
+    export PATH="/opt/omb-5.6.2/startup:${PATH}"
+
+    cd /opt
+
+    # Setup conda environment
+    export PATH="/opt/miniconda3/bin:${PATH}"
+
+    # Install dependencies for Bazel
+    apt-get -y install g++ 
+    apt-get -y install unzip
+    apt-get -y install zip
+    apt-get -y install openjdk-11-jdk
+
+    # Download, build, and install Bazel
+    mkdir -p bazel
+    cd bazel 
+    wget https://github.com/bazelbuild/bazel/releases/download/0.25.3/bazel-0.25.3-dist.zip
+    unzip -o bazel-0.25.3-dist.zip
+    export EXTRA_BAZEL_ARGS="--host_javabase=@local_jdk//:jdk"
+    ./compile.sh
+
+    # Set path to Bazel
+    export PATH="/opt/bazel/output:${PATH}"
+
+    # Install common python packages
+    conda install -y jupyterlab
+    conda install -y numpy
+    conda install -y matplotlib
+    conda install -y pandas
+    conda install -y plotly
+    conda install -y scipy
+    conda install -y scikit-learn
+    conda install -y scikit-image
+    conda install -y seaborn
+    conda install -y statsmodels
+    conda install -y opencv
+
+    # Install additional python packages
+    conda install -y astropy
+    conda install -y biopython
+    conda install -y h5py
+    conda install -y nltk
+    conda install -y sympy
+
+    cd /opt
+
+    # Install dependencies for TensorFlow
+    conda install -y pip
+    conda install -y six
+    conda install -y numpy
+    conda install -y wheel
+    conda install -y setuptools
+    conda install -y mock
+    conda install -y future
+
+    pip install keras_applications --no-deps
+    pip install keras_preprocessing --no-deps
+
+    # Download, build, and install TensorFlow
+    git clone https://github.com/tensorflow/tensorflow
+    cd tensorflow
+    git checkout v1.15.2
+
+    export PYTHON_BIN_PATH='/opt/miniconda3/bin/python'
+    export PYTHON_LIB_PATH='/opt/miniconda3/lib/python3.7/site-packages'
+    export TF_ENABLE_XLA=1
+    export TF_NEED_OPENCL_SYCL=0
+    export TF_NEED_ROCM=0
+    export TF_NEED_CUDA=0
+    export TF_DOWNLOAD_CLANG=0
+    export TF_NEED_MPI=1
+    export MPI_HOME='/opt/openmpi-3.1.4'
+    export CC_OPT_FLAGS='-mtune=generic'
+    export TF_SET_ANDROID_WORKSPACE=0
+
+    # Clear /home/root/.cache prior to bazel build. Otherwise, previous
+    # builds may cause some conflicts. See 'dangling symbolic links' at
+    # https://github.com/tensorflow/tensorflow/issues/13928
+    rm -rf /home/root/.cache
+
+    bazel build --local_resources 2048,.5,1.0 -c opt --config=mkl --config=verbs --config=numa //tensorflow/tools/pip_package:build_pip_package
+    bazel-bin/tensorflow/tools/pip_package/build_pip_package tensorflow_pkg
+    pip install tensorflow_pkg/tensorflow-1.15.2-cp37-cp37m-linux_x86_64.whl
+
+    # Update database for mlocate
+    updatedb
+
+%files
+
+%runscript
+
+%test
