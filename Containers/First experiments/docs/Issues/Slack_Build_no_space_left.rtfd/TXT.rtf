@@ -1,0 +1,92 @@
+{\rtf1\ansi\ansicpg1252\cocoartf2512
+\cocoatextscaling0\cocoaplatform0{\fonttbl\f0\fswiss\fcharset0 Helvetica;}
+{\colortbl;\red255\green255\blue255;\red22\green21\blue22;}
+{\*\expandedcolortbl;;\cssrgb\c11373\c10980\c11373;}
+\margl1440\margr1440\vieww10800\viewh8400\viewkind0
+\deftab720
+\pard\pardeftab720\sl440\partightenfactor0
+
+\f0\fs30 \cf2 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec2 George Koubbe  5:21 PM\
+What does it mean the following error at the time of the build?\
+FATAL:   While performing build: while creating SIF: while creating container: writing data object for SIF file: copying data object file to SIF file: write centos-naked.simg: no space left on device\
+\
+\
+\
+\
+\
+\
+Dave Trudgian (Sylabs)  5:45 PM\
+Wherever your build is taking place it out of disk space.\
+5:45\
+How and where are you building the image?\
+5:45\
+Sometimes you might see this if the build is to /tmp and your Linux host has /tmp mounted as a tmpfs (in memory) filesystem that is limited by memory size.\
+\
+George Koubbe  5:46 PM\
+@Dave Trudgian (Sylabs) I am using sudo singularity build centos-naked.simg centos.def in the $HOME dir of my linux machine\
+5:47\
+@Dave Trudgian (Sylabs) I,m sorry, but I don\'92t know what you mean by your last comment about /tmp\
+\
+Dave Trudgian (Sylabs)  5:47 PM\
+What does df -h show?\
+\
+George Koubbe  5:48 PM\
+@Dave Trudgian (Sylabs)\
+karahbit@js-104-191:~$ df -h\
+Filesystem      Size  Used Avail Use% Mounted on\
+udev            2.0G     0  2.0G   0% /dev\
+tmpfs           396M   42M  354M  11% /run\
+/dev/sda1        20G   17G  2.7G  87% /\
+tmpfs           2.0G  552K  2.0G   1% /dev/shm\
+tmpfs           5.0M     0  5.0M   0% /run/lock\
+tmpfs           2.0G     0  2.0G   0% /sys/fs/cgroup\
+tmpfs           396M   12K  396M   1% /run/user/113\
+tmpfs           396M     0  396M   0% /run/user/0\
+tmpfs           396M     0  396M   0% /run/user/1000\
+\
+Dave Trudgian (Sylabs)  5:48 PM\
+You don't have much space left there: 2.7G / 87% used\
+\
+George Koubbe  5:49 PM\
+@Dave Trudgian (Sylabs) I am still learning about all these things, as you can see\
+\
+mkandes  5:49 PM\
+@George Koubbe: You are likely running out of space. I think uncompressed this container is a few GBs. When compressed, it's about 1 GB.\
+5:49\
+[mkandes@comet-ln2 ~]$ ls -lahtr /share/apps/compute/singularity/images/centos/centos-v7.7.1908-20200129.simg\
+-rwxr-xr-x 1 mkandes use300 1.1G Jan 30 13:15 /share/apps/compute/singularity/images/centos/centos-v7.7.1908-20200129.simg\
+[mkandes@comet-ln2 ~]$\
+\
+George Koubbe  5:50 PM\
+@mkandes Hello there! So I should have enough space, no?\
+\
+mkandes  5:51 PM\
+If you want to try reducing space, you may want to consider removing some of the metapacakges ...\
+5:51\
+   # Install system metapackages\
+    yum -y groupinstall "Development Tools"\
+    yum -y groupinstall "Additional Development"\
+    yum -y groupinstall "Compatibility Libraries"\
+\
+George Koubbe  5:51 PM\
+@mkandes Don\'92t I need those for the IntelMPI?\
+\
+mkandes  5:52 PM\
+During the build process though, things will not be compressed. So it seems like you're riding the line of having enough space right now.\
+5:52\
+Yeah, you might need some of the packages they provide. I don't know which ones. I'd probably try only removing the second two.\
+5:53\
+and keeping the first. That'll probably be enough.\
+\
+George Koubbe  5:53 PM\
+@mkandes Can I try removing Miniconda instead?\
+\
+George Koubbe  5:54 PM\
+@mkandes Also, what did @Dave Trudgian (Sylabs) mean by the /tmp and tmpfs?\
+\
+1 reply\
+Today at 5:58 PMView thread\
+\
+mkandes  5:54 PM\
+Yes, you can do that too. I don't think it's much space though since it is a bare bones install. It's more for preplacement than actual use. But yes, you can remove it too if you don't need it. These are definition files just structured for us to easily support many different use cases.}

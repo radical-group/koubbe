@@ -55,3 +55,11 @@ $ ./script_name.sh
 $ chmod -R a+rX /usr/local/
 R: recursive a+rX: a: all, + add permissions, r: read, X: executable if executable is set for owner
 Permissions were disabled for all users under /usr/local
+
+
+- To show all files with their permissions and size:
+$ ls -lahtr
+
+
+- To show information about the filesystem, use:
+$ df -h

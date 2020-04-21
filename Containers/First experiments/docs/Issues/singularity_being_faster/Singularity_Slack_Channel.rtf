@@ -88,31 +88,4 @@ mkandes\'a0\
 \
 One of the Singularity developers said:\
 Dave Trudgian (Sylabs)\'a0\
-sometimes a container can be faster because the SIF is a single file, and I/O on that single file is more efficient on HPC parallel filesystems than natively accessing lots of files. There is less metadata overhead for the IO with the containerized version.\
-\
-\
-Another person said:\
-George Koubbe  1 day ago\
-Update: There is something going on behind the scenes with my job scheduler that is messing my paths up. After adding the following to the beginning of my python script, numpy was detected\
-import sys\
-sys.path.insert(0, '/usr/local/lib64/python3.6/site-packages')\
-(edited)\
-\
-Pontus Freyhult  15 hours ago\
-As you seem to be onto, the environment can play tricks on you.\
-For troubleshooting, it's often useful to report what env outputs. When trying to work out why things are broken, -e/--cleanenv may also be useful.\
-When writing containers, it's often a good idea to make sure to manage the variables that affects your tools. While it may seem unneeded if your only building a container for yourself, I'd still argue that it's useful down the line (so things does not start acting weird just because you've loaded a module you have not normally or similar).\
-[While I try to encourage those I interact with and help with containers, I must also admit that it does not tend to be a huge problem, more rare one-off issues like this.]\
-\
-George Koubbe  12 minutes ago\
-This is great advice and much appreciated! If you don\'92t mind me asking, what does --cleanenv do? (edited) \
-\
-As in https://sylabs.io/guides/3.5/user-guide/environment_and_metadata.html\
-\
-The --cleanenv option can be used to remove the host environment and execute a container with a minimal environment. Without the --cleanenv flag, the environment on the host system will be present within the container at run time.\
-\
-If you need to change the $PATH of your container at run time there are a few special environmental variables you can use:\
-\
-SINGULARITYENV_PREPEND_PATH=/good/stuff/at/beginning to prepend directories to the beginning of the $PATH\
-SINGULARITYENV_APPEND_PATH=/good/stuff/at/end to append directories to the end of the $PATH\
-SINGULARITYENV_PATH=/a/new/path to override the $PATH within the container}
+sometimes a container can be faster because the SIF is a single file, and I/O on that single file is more efficient on HPC parallel filesystems than natively accessing lots of files. There is less metadata overhead for the IO with the containerized version.}

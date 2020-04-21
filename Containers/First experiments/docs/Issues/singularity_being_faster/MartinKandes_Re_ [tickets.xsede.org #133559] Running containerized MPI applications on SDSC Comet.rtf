@@ -1,185 +1,159 @@
 {\rtf1\ansi\ansicpg1252\cocoartf2512
 \cocoatextscaling0\cocoaplatform0{\fonttbl\f0\fnil\fcharset0 HelveticaNeue;\f1\fswiss\fcharset0 Helvetica;}
 {\colortbl;\red255\green255\blue255;\red0\green0\blue0;\red0\green0\blue0;\red69\green60\blue204;
-\red53\green134\blue255;\red20\green160\blue194;\red29\green184\blue14;}
+\red20\green160\blue194;\red29\green184\blue14;}
 {\*\expandedcolortbl;;\cssrgb\c0\c0\c0\cname textColor;\cssrgb\c0\c0\c0;\cssrgb\c34510\c33725\c83922;
-\cssrgb\c25490\c61176\c100000;\cssrgb\c0\c68627\c80392;\cssrgb\c7059\c75294\c5490;}
+\cssrgb\c0\c68627\c80392;\cssrgb\c7059\c75294\c5490;}
 \vieww20140\viewh12540\viewkind0
 \pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\pardirnatural\partightenfactor0
 
-\f0\fs24 \cf2 From: George Koubbe <glk35@scarletmail.rutgers.edu>\
-Subject: Re: [tickets.xsede.org #133559] Running containerized MPI applications on SDSC Comet\
-Date: April 19, 2020 at 7:01:56 PM EDT\
-To: help@xsede.org\
+\f0\fs24 \cf2 From: "Martin Kandes via RT" <help@xsede.org>\
+Subject: [tickets.xsede.org #133559] Running containerized MPI applications on SDSC Comet\
+Date: April 20, 2020 at 12:41:51 PM EDT\
+To: glk35@scarletmail.rutgers.edu\
+Reply-To: help@xsede.org\
 \pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\pardirnatural\partightenfactor0
 
 \f1 \cf2 \
 \pard\pardeftab720\partightenfactor0
 \cf3 \expnd0\expndtw0\kerning0
-Martin,\
 \
-Also, I have tried using the definition files for CentOS7 that you have on your Github profile, under both the \'93centos\'94 and \'93naked-singularity\'94 repositories, but none of them worked (they produce my old results). It would be helpful if you could share the definition file you used for the container creation as well as the command you used to build it.\
-\
-Thank you,\
-George.\
-\
-\pard\pardeftab720\partightenfactor0
-\cf4 On Apr 19, 2020, at 5:57 PM, George Koubbe <{\field{\*\fldinst{HYPERLINK "mailto:glk35@scarletmail.rutgers.edu"}}{\fldrslt \cf5 \ul \ulc5 glk35@scarletmail.rutgers.edu}}> wrote:\
-Dear Martin,\
-\
-I have narrowed down my problem to the container itself.\
-\
-I just replicated your experiments and it worked as expected. However, I also replicated mine, but this time with the container centos.simg that you provide, and my experiments also yield the same results as yours.\
-\
-It\'92s worth noting that:\
-\
-1) It did not make a difference if the executable is compiled inside or outside the container\
-2) The container I create is only through the command (I don\'92t do anything else): $\'a0singularity build centos7.sif {\field{\*\fldinst{HYPERLINK "docker://centos:centos7"}}{\fldrslt \cf5 \ul \ulc5 docker://centos:centos7}}\
-\
-Having said this, what is the difference between the container you build and the one I pull, that makes such a drastic difference in the results?\'a0\
-\
-Thank you,\
-George.\
-\
-\pard\pardeftab720\partightenfactor0
-\cf6 On Apr 18, 2020, at 6:20 PM, Martin Kandes via RT <{\field{\*\fldinst{HYPERLINK "mailto:help@xsede.org"}}{\fldrslt \cf5 \ul \ulc5 help@xsede.org}}> wrote:\
-\
-Sat Apr 18 17:20:07 2020: Request 133559 was acted upon.\
+Mon Apr 20 11:41:51 2020: Request 133559 was acted upon.\
 Transaction: Correspondence added by mckandes\
 \'a0\'a0\'a0\'a0\'a0\'a0Queue: 0-SDSC\
 \'a0\'a0\'a0\'a0Subject: Running containerized MPI applications on SDSC Comet\
 \'a0\'a0\'a0\'a0\'a0\'a0Owner: mckandes\
-\'a0Requestors: {\field{\*\fldinst{HYPERLINK "mailto:glk35@scarletmail.rutgers.edu"}}{\fldrslt \cf5 \ul \ulc5 glk35@scarletmail.rutgers.edu}}\
+\'a0Requestors: glk35@scarletmail.rutgers.edu\
 \'a0\'a0\'a0\'a0\'a0Status: open\
-Ticket URL: {\field{\*\fldinst{HYPERLINK "https://portal.xsede.org/group/xup/tickets/-/tickets/133559"}}{\fldrslt \cf5 \ul \ulc5 https://portal.xsede.org/group/xup/tickets/-/tickets/133559}} \
+Ticket URL: https://portal.xsede.org/group/xup/tickets/-/tickets/133559 \
 \
 \
 Hi George,\
 \
-I've placed a copy of my example batch job scripts that compile and run your MPI hello, world code here [1]. \
+The container available in the examples directory I provided you was the one built using the latest version from the 'naked-singularity' repository. It's also available here on Comet [1]. The 'centos' one is a slightly updated version, but should not be significantly different in functionality. \
 \
-As you can see in the standard output files from each job, there is really no significant difference in the performance when everything is setup correctly. i.e., I think the low runtimes you reported in the Singularity Slack channel were probably either incorrect and/or not an apples-to-apples comparison. \
+The primary difference between our container and the one from DockerHub is that the one from DockerHub is a very barebones OS. As I already mentioned, it doesn't even have a gcc compiler and supporting libraries, which were needed to support the Intel compilers and IntelMPI being mounted in the container. And yes, it shouldn't really make a difference between compiling within the container or outside the container as the software environments should be pretty close in nature. However, if I compile and run a code within a container, I usually just compile inside the container as it's the safer option.\
 \
-Anyhow, have a look at how I've set things up and let me know if you have any questions. Note, however, the container being used is not the same one you pulled from DockerHub. This one is our standard CentOS 7 Singularity container. I needed a gcc compiler in the container and the DockerHub one does not have one installed by default.\
+Anyhow, I'm not quite sure what went wrong with your build of our CentOS 7 container that might been causing a problem. What version of Singularity are you building the container with? Is it built on a Linux system?\
 \
 Marty Kandes\
 SDSC User Services Group\
 \
 [1]\
 \
-/share/apps/examples/singularity/bind-host-compilers-mpi\
+[mkandes@comet-ln2 ~]$ ls /share/apps/compute/singularity/images/centos/\
+centos-openmpi.simg\
+centos.simg\
+centos-v6.10-20190916.simg\
+centos-v7.6.1810-20190513.simg\
+centos-v7.6.1810-openmpi-v1.8.4-20190514.simg\
+centos-v7.7.1908-20190914.simg\
+centos-v7.7.1908-20190919.simg\
+centos-v7.7.1908-20200129.simg\
+centos-v7.7.1908-openmpi-v1.8.4-20190919.simg\
+centos-v7.7.1908-openmpi-v3.1.4-20200211.simg\
+[mkandes@comet-ln2 ~]$\
 \
-On Fri Apr 17 19:30:30 2020, {\field{\*\fldinst{HYPERLINK "mailto:glk35@scarletmail.rutgers.edu"}}{\fldrslt \cf5 \ul \ulc5 glk35@scarletmail.rutgers.edu}} wrote:\
+On Sun Apr 19 18:02:01 2020, glk35@scarletmail.rutgers.edu wrote:\
 \pard\pardeftab720\partightenfactor0
-\cf7 Thank you Martin, I appreciate your support.\
+\cf4 Martin,\
 \
+Also, I have tried using the definition files for CentOS7 that you\
+\'a0\'a0have on your Github profile, under both the \'93centos\'94 and \'93naked-\
+\'a0\'a0singularity\'94 repositories, but none of them worked (they produce my\
+\'a0\'a0old results). It would be helpful if you could share the definition\
+\'a0\'a0file you used for the container creation as well as the command you\
+\'a0\'a0used to build it.\
+\
+Thank you,\
 George.\
 \
-On Apr 17, 2020, at 8:15 PM, Martin Kandes via RT <{\field{\*\fldinst{HYPERLINK "mailto:help@xsede.org"}}{\fldrslt \cf5 \ul \ulc5 help@xsede.org}}>\
-wrote:\
-\
-\
-Fri Apr 17 19:15:18 2020: Request 133559 was acted upon.\
-Transaction: Correspondence added by mckandes\
-\'a0\'a0\'a0\'a0\'a0Queue: 0-SDSC\
-\'a0\'a0\'a0Subject: Re: [{\field{\*\fldinst{HYPERLINK "http://tickets.xsede.org/"}}{\fldrslt \cf5 \ul \ulc5 tickets.xsede.org}} #133559] Running containerized\
-MPI applications on SDSC Comet\
-\'a0\'a0\'a0\'a0\'a0Owner: mckandes\
-Requestors: {\field{\*\fldinst{HYPERLINK "mailto:glk35@scarletmail.rutgers.edu"}}{\fldrslt \cf5 \ul \ulc5 glk35@scarletmail.rutgers.edu}}\
-\'a0\'a0\'a0\'a0Status: open\
-Ticket URL: {\field{\*\fldinst{HYPERLINK "https://portal.xsede.org/group/xup/tickets/-"}}{\fldrslt \cf5 \ul \ulc5 https://portal.xsede.org/group/xup/tickets/-}}\
-/tickets/133559\
-\
-\
-Hi George,\
-\
-There\'92s still at least one more issue I\'92m trying to sort out. I\
-don\'92t know if I\'92ll get back to it tonight, but definitely will work on\
-it again tomorrow and keep you posted.\
-\
-Marty Kandes\
-SDSC User Services Group\
-\
-Get Outlook for iOS<{\field{\*\fldinst{HYPERLINK "https://aka.ms/o0ukef"}}{\fldrslt \cf5 \ul \ulc5 https://aka.ms/o0ukef}}>\
-________________________________\
-From: Mahidhar Tatineni via RT <{\field{\*\fldinst{HYPERLINK "mailto:help@xsede.org"}}{\fldrslt \cf5 \ul \ulc5 help@xsede.org}}>\
-Sent: Thursday, April 16, 2020 10:19:20 PM\
-To: Kandes, Martin <{\field{\*\fldinst{HYPERLINK "mailto:mkandes@sdsc.edu"}}{\fldrslt \cf5 \ul \ulc5 mkandes@sdsc.edu}}>\
-Subject: [{\field{\*\fldinst{HYPERLINK "http://tickets.xsede.org/"}}{\fldrslt \cf5 \ul \ulc5 tickets.xsede.org}} #133559] Running containerized MPI\
-applications on SDSC Comet\
-\
-\
-Fri Apr 17 00:19:20 2020: Request 133559 was acted upon.\
-Transaction: Given to mckandes by mahidhar\
-\'a0\'a0\'a0\'a0\'a0Queue: 0-SDSC\
-\'a0\'a0\'a0Subject: Running containerized MPI applications on SDSC Comet\
-\'a0\'a0\'a0\'a0\'a0Owner: mckandes\
-Requestors: {\field{\*\fldinst{HYPERLINK "mailto:glk35@scarletmail.rutgers.edu"}}{\fldrslt \cf5 \ul \ulc5 glk35@scarletmail.rutgers.edu}}\
-\'a0\'a0\'a0\'a0Status: open\
-Ticket <URL:\
 \pard\pardeftab720\partightenfactor0
-{\field{\*\fldinst{HYPERLINK "https://urldefense.com/v3/__https://tickets.xsede.org/Ticket/Display.html?id=133559__;!!Mih3wA!SgBMtwhKbJt3FH5TIS5xI2azjn5PGWoC_znC8KPQn-"}}{\fldrslt \cf5 \ul \ulc5 https://urldefense.com/v3/__https://tickets.xsede.org/Ticket/Display.html?id=133559__;!!Mih3wA!SgBMtwhKbJt3FH5TIS5xI2azjn5PGWoC_znC8KPQn-}}\
-2nOMdZ3ikPm94px2MBcFY$ \'a0>\
+\cf5 On Apr 19, 2020, at 5:57 PM, George Koubbe\
+\pard\pardeftab720\partightenfactor0
+\cf4 \'a0\'a0<glk35@scarletmail.rutgers.edu> wrote:\
+\pard\pardeftab720\partightenfactor0
+\cf5 \
+Dear Martin,\
 \
-This transaction appears to have no content\
+I have narrowed down my problem to the container itself.\
 \
+I just replicated your experiments and it worked as expected.\
+\pard\pardeftab720\partightenfactor0
+\cf4 \'a0\'a0However, I also replicated mine, but this time with the container\
+\'a0\'a0centos.simg that you provide, and my experiments also yield the\
+\'a0\'a0same results as yours.\
+\pard\pardeftab720\partightenfactor0
+\cf5 \
+It\'92s worth noting that:\
 \
+1) It did not make a difference if the executable is compiled inside\
+\pard\pardeftab720\partightenfactor0
+\cf4 \'a0\'a0or outside the container\
+\pard\pardeftab720\partightenfactor0
+\cf5 2) The container I create is only through the command (I don\'92t do\
+\pard\pardeftab720\partightenfactor0
+\cf4 \'a0\'a0anything else): $ singularity build centos7.sif\
+\'a0\'a0docker://centos:centos7 <docker://centos:centos7>\
+\pard\pardeftab720\partightenfactor0
+\cf5 \
+Having said this, what is the difference between the container you\
+\pard\pardeftab720\partightenfactor0
+\cf4 \'a0\'a0build and the one I pull, that makes such a drastic difference in\
+\'a0\'a0the results?\
+\pard\pardeftab720\partightenfactor0
+\cf5 \
+Thank you,\
+George.\
+\
+\pard\pardeftab720\partightenfactor0
+\cf6 On Apr 18, 2020, at 6:20 PM, Martin Kandes via RT <help@xsede.org\
+\pard\pardeftab720\partightenfactor0
+\cf4 \'a0\'a0<mailto:help@xsede.org>> wrote:\
 \pard\pardeftab720\partightenfactor0
 \cf6 \
 \
-\pard\pardeftab720\partightenfactor0
-\cf4 \
-\pard\pardeftab720\partightenfactor0
-\cf3 \
-\
-\page \pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\pardirnatural\partightenfactor0
-
-\f0 \cf2 \kerning1\expnd0\expndtw0 From: George Koubbe <glk35@scarletmail.rutgers.edu>\
-Subject: Re: [tickets.xsede.org #133559] Running containerized MPI applications on SDSC Comet\
-Date: April 19, 2020 at 5:57:45 PM EDT\
-To: help@xsede.org\
-\pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\pardirnatural\partightenfactor0
-
-\f1 \cf2 \
-\pard\pardeftab720\partightenfactor0
-\cf3 \expnd0\expndtw0\kerning0
-Dear Martin,\
-\
-I have narrowed down my problem to the container itself.\
-\
-I just replicated your experiments and it worked as expected. However, I also replicated mine, but this time with the container centos.simg that you provide, and my experiments also yield the same results as yours.\
-\
-It\'92s worth noting that:\
-\
-1) It did not make a difference if the executable is compiled inside or outside the container\
-2) The container I create is only through the command (I don\'92t do anything else): $\'a0singularity build centos7.sif {\field{\*\fldinst{HYPERLINK "docker://centos:centos7"}}{\fldrslt \cf5 \ul \ulc5 docker://centos:centos7}}\
-\
-Having said this, what is the difference between the container you build and the one I pull, that makes such a drastic difference in the results?\'a0\
-\
-Thank you,\
-George.\
-\
-\pard\pardeftab720\partightenfactor0
-\cf4 On Apr 18, 2020, at 6:20 PM, Martin Kandes via RT <{\field{\*\fldinst{HYPERLINK "mailto:help@xsede.org"}}{\fldrslt \cf5 \ul \ulc5 help@xsede.org}}> wrote:\
-\
 Sat Apr 18 17:20:07 2020: Request 133559 was acted upon.\
 Transaction: Correspondence added by mckandes\
-\'a0\'a0\'a0\'a0\'a0\'a0Queue: 0-SDSC\
-\'a0\'a0\'a0\'a0Subject: Running containerized MPI applications on SDSC Comet\
-\'a0\'a0\'a0\'a0\'a0\'a0Owner: mckandes\
-\'a0Requestors: {\field{\*\fldinst{HYPERLINK "mailto:glk35@scarletmail.rutgers.edu"}}{\fldrslt \cf5 \ul \ulc5 glk35@scarletmail.rutgers.edu}}\
-\'a0\'a0\'a0\'a0\'a0Status: open\
-Ticket URL: {\field{\*\fldinst{HYPERLINK "https://portal.xsede.org/group/xup/tickets/-/tickets/133559"}}{\fldrslt \cf5 \ul \ulc5 https://portal.xsede.org/group/xup/tickets/-/tickets/133559}} \
-\
+\'a0\'a0\'a0\'a0\'a0Queue: 0-SDSC\
+\'a0\'a0\'a0Subject: Running containerized MPI applications on SDSC Comet\
+\'a0\'a0\'a0\'a0\'a0Owner: mckandes\
+Requestors: glk35@scarletmail.rutgers.edu\
+\pard\pardeftab720\partightenfactor0
+\cf4 \'a0\'a0<mailto:glk35@scarletmail.rutgers.edu>\
+\pard\pardeftab720\partightenfactor0
+\cf6 \'a0\'a0\'a0\'a0Status: open\
+Ticket URL: https://portal.xsede.org/group/xup/tickets/-\
+\pard\pardeftab720\partightenfactor0
+\cf4 \'a0\'a0/tickets/133559 <https://portal.xsede.org/group/xup/tickets/-\
+\'a0\'a0/tickets/133559>\
+\pard\pardeftab720\partightenfactor0
+\cf6 \
 \
 Hi George,\
 \
-I've placed a copy of my example batch job scripts that compile and run your MPI hello, world code here [1]. \
-\
-As you can see in the standard output files from each job, there is really no significant difference in the performance when everything is setup correctly. i.e., I think the low runtimes you reported in the Singularity Slack channel were probably either incorrect and/or not an apples-to-apples comparison. \
-\
-Anyhow, have a look at how I've set things up and let me know if you have any questions. Note, however, the container being used is not the same one you pulled from DockerHub. This one is our standard CentOS 7 Singularity container. I needed a gcc compiler in the container and the DockerHub one does not have one installed by default.\
-\
+I've placed a copy of my example batch job scripts that compile and\
+\pard\pardeftab720\partightenfactor0
+\cf4 \'a0\'a0run your MPI hello, world code here [1].\
+\pard\pardeftab720\partightenfactor0
+\cf6 \
+As you can see in the standard output files from each job, there is\
+\pard\pardeftab720\partightenfactor0
+\cf4 \'a0\'a0really no significant difference in the performance when everything\
+\'a0\'a0is setup correctly. i.e., I think the low runtimes you reported in\
+\'a0\'a0the Singularity Slack channel were probably either incorrect and/or\
+\'a0\'a0not an apples-to-apples comparison.\
+\pard\pardeftab720\partightenfactor0
+\cf6 \
+Anyhow, have a look at how I've set things up and let me know if\
+\pard\pardeftab720\partightenfactor0
+\cf4 \'a0\'a0you have any questions. Note, however, the container being used is\
+\'a0\'a0not the same one you pulled from DockerHub. This one is our\
+\'a0\'a0standard CentOS 7 Singularity container. I needed a gcc compiler in\
+\'a0\'a0the container and the DockerHub one does not have one installed by\
+\'a0\'a0default.\
+\pard\pardeftab720\partightenfactor0
+\cf6 \
 Marty Kandes\
 SDSC User Services Group\
 \
@@ -187,73 +161,95 @@ SDSC User Services Group\
 \
 /share/apps/examples/singularity/bind-host-compilers-mpi\
 \
-On Fri Apr 17 19:30:30 2020, {\field{\*\fldinst{HYPERLINK "mailto:glk35@scarletmail.rutgers.edu"}}{\fldrslt \cf5 \ul \ulc5 glk35@scarletmail.rutgers.edu}} wrote:\
+On Fri Apr 17 19:30:30 2020, glk35@scarletmail.rutgers.edu\
+\pard\pardeftab720\partightenfactor0
+\cf4 \'a0\'a0<mailto:glk35@scarletmail.rutgers.edu> wrote:\
 \pard\pardeftab720\partightenfactor0
 \cf6 Thank you Martin, I appreciate your support.\
 \
 George.\
 \
+On Apr 17, 2020, at 8:15 PM, Martin Kandes via RT <help@xsede.org\
 \pard\pardeftab720\partightenfactor0
-\cf7 On Apr 17, 2020, at 8:15 PM, Martin Kandes via RT <{\field{\*\fldinst{HYPERLINK "mailto:help@xsede.org"}}{\fldrslt \cf5 \ul \ulc5 help@xsede.org}}>\
+\cf4 \'a0\'a0<mailto:help@xsede.org>>\
 \pard\pardeftab720\partightenfactor0
 \cf6 wrote:\
-\pard\pardeftab720\partightenfactor0
-\cf7 \
+\
 \
 Fri Apr 17 19:15:18 2020: Request 133559 was acted upon.\
 Transaction: Correspondence added by mckandes\
-\'a0\'a0\'a0\'a0\'a0Queue: 0-SDSC\
-\'a0\'a0\'a0Subject: Re: [{\field{\*\fldinst{HYPERLINK "http://tickets.xsede.org/"}}{\fldrslt \cf5 \ul \ulc5 tickets.xsede.org}} #133559] Running containerized\
+\'a0\'a0\'a0\'a0Queue: 0-SDSC\
+\'a0\'a0Subject: Re: [tickets.xsede.org <http://tickets.xsede.org/>\
+\pard\pardeftab720\partightenfactor0
+\cf4 \'a0\'a0#133559] Running containerized\
 \pard\pardeftab720\partightenfactor0
 \cf6 MPI applications on SDSC Comet\
+\'a0\'a0\'a0\'a0Owner: mckandes\
+Requestors: glk35@scarletmail.rutgers.edu\
 \pard\pardeftab720\partightenfactor0
-\cf7 \'a0\'a0\'a0\'a0\'a0Owner: mckandes\
-Requestors: {\field{\*\fldinst{HYPERLINK "mailto:glk35@scarletmail.rutgers.edu"}}{\fldrslt \cf5 \ul \ulc5 glk35@scarletmail.rutgers.edu}}\
-\'a0\'a0\'a0\'a0Status: open\
-Ticket URL: {\field{\*\fldinst{HYPERLINK "https://portal.xsede.org/group/xup/tickets/-"}}{\fldrslt \cf5 \ul \ulc5 https://portal.xsede.org/group/xup/tickets/-}}\
+\cf4 \'a0\'a0<mailto:glk35@scarletmail.rutgers.edu>\
+\pard\pardeftab720\partightenfactor0
+\cf6 \'a0\'a0\'a0Status: open\
+Ticket URL: https://portal.xsede.org/group/xup/tickets/-\
+\pard\pardeftab720\partightenfactor0
+\cf4 \'a0\'a0<https://portal.xsede.org/group/xup/tickets/->\
 \pard\pardeftab720\partightenfactor0
 \cf6 /tickets/133559\
-\pard\pardeftab720\partightenfactor0
-\cf7 \
+\
 \
 Hi George,\
 \
 There\'92s still at least one more issue I\'92m trying to sort out. I\
+don\'92t know if I\'92ll get back to it tonight, but definitely will\
 \pard\pardeftab720\partightenfactor0
-\cf6 don\'92t know if I\'92ll get back to it tonight, but definitely will work on\
-it again tomorrow and keep you posted.\
+\cf4 \'a0\'a0work on\
 \pard\pardeftab720\partightenfactor0
-\cf7 \
+\cf6 it again tomorrow and keep you posted.\
+\
 Marty Kandes\
 SDSC User Services Group\
 \
-Get Outlook for iOS<{\field{\*\fldinst{HYPERLINK "https://aka.ms/o0ukef"}}{\fldrslt \cf5 \ul \ulc5 https://aka.ms/o0ukef}}>\
-________________________________\
-From: Mahidhar Tatineni via RT <{\field{\*\fldinst{HYPERLINK "mailto:help@xsede.org"}}{\fldrslt \cf5 \ul \ulc5 help@xsede.org}}>\
-Sent: Thursday, April 16, 2020 10:19:20 PM\
-To: Kandes, Martin <{\field{\*\fldinst{HYPERLINK "mailto:mkandes@sdsc.edu"}}{\fldrslt \cf5 \ul \ulc5 mkandes@sdsc.edu}}>\
-Subject: [{\field{\*\fldinst{HYPERLINK "http://tickets.xsede.org/"}}{\fldrslt \cf5 \ul \ulc5 tickets.xsede.org}} #133559] Running containerized MPI\
+Get Outlook for iOS<https://aka.ms/o0ukef\
+\pard\pardeftab720\partightenfactor0
+\cf4 \'a0\'a0<https://aka.ms/o0ukef>>\
+\pard\pardeftab720\partightenfactor0
+\cf6 ________________________________\
+From: Mahidhar Tatineni via RT <help@xsede.org\
+\pard\pardeftab720\partightenfactor0
+\cf4 \'a0\'a0<mailto:help@xsede.org>>\
+\pard\pardeftab720\partightenfactor0
+\cf6 Sent: Thursday, April 16, 2020 10:19:20 PM\
+To: Kandes, Martin <mkandes@sdsc.edu <mailto:mkandes@sdsc.edu>>\
+Subject: [tickets.xsede.org <http://tickets.xsede.org/> #133559]\
+\pard\pardeftab720\partightenfactor0
+\cf4 \'a0\'a0Running containerized MPI\
 \pard\pardeftab720\partightenfactor0
 \cf6 applications on SDSC Comet\
-\pard\pardeftab720\partightenfactor0
-\cf7 \
+\
 \
 Fri Apr 17 00:19:20 2020: Request 133559 was acted upon.\
 Transaction: Given to mckandes by mahidhar\
-\'a0\'a0\'a0\'a0\'a0Queue: 0-SDSC\
-\'a0\'a0\'a0Subject: Running containerized MPI applications on SDSC Comet\
-\'a0\'a0\'a0\'a0\'a0Owner: mckandes\
-Requestors: {\field{\*\fldinst{HYPERLINK "mailto:glk35@scarletmail.rutgers.edu"}}{\fldrslt \cf5 \ul \ulc5 glk35@scarletmail.rutgers.edu}}\
-\'a0\'a0\'a0\'a0Status: open\
+\'a0\'a0\'a0\'a0Queue: 0-SDSC\
+\'a0\'a0Subject: Running containerized MPI applications on SDSC Comet\
+\'a0\'a0\'a0\'a0Owner: mckandes\
+Requestors: glk35@scarletmail.rutgers.edu\
+\pard\pardeftab720\partightenfactor0
+\cf4 \'a0\'a0<mailto:glk35@scarletmail.rutgers.edu>\
+\pard\pardeftab720\partightenfactor0
+\cf6 \'a0\'a0\'a0Status: open\
 Ticket <URL:\
+\
 \pard\pardeftab720\partightenfactor0
-{\field{\*\fldinst{HYPERLINK "https://urldefense.com/v3/__https://tickets.xsede.org/Ticket/Display.html?id=133559__;!!Mih3wA!SgBMtwhKbJt3FH5TIS5xI2azjn5PGWoC_znC8KPQn-"}}{\fldrslt \cf5 \ul \ulc5 https://urldefense.com/v3/__https://tickets.xsede.org/Ticket/Display.html?id=133559__;!!Mih3wA!SgBMtwhKbJt3FH5TIS5xI2azjn5PGWoC_znC8KPQn-}}\cf6 \
-2nOMdZ3ikPm94px2MBcFY$ \'a0>\
+\cf4 \'a0\'a0https://urldefense.com/v3/__https://tickets.xsede.org/Ticket/Display.html?id=133559__;!!Mih3wA!SgBMtwhKbJt3FH5TIS5xI2azjn5PGWoC_znC8KPQn-\
+\'a0\'a0<https://urldefense.com/v3/__https://tickets.xsede.org/Ticket/Display.html?id=133559__;!!Mih3wA!SgBMtwhKbJt3FH5TIS5xI2azjn5PGWoC_znC8KPQn-\
 \pard\pardeftab720\partightenfactor0
-\cf7 \
+\cf5 \
+\pard\pardeftab720\partightenfactor0
+\cf6 2nOMdZ3ikPm94px2MBcFY$ \'a0>\
+\
 This transaction appears to have no content\
 \pard\pardeftab720\partightenfactor0
-\cf6 \
+\cf5 \
 \
 \pard\pardeftab720\partightenfactor0
 \cf4 \
@@ -261,13 +257,13 @@ This transaction appears to have no content\
 \pard\pardeftab720\partightenfactor0
 \cf3 \
 \
-\page \pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\pardirnatural\partightenfactor0
+\page \pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\pardeftab720\pardirnatural\partightenfactor0
 
 \f0 \cf2 \kerning1\expnd0\expndtw0 From: George Koubbe <glk35@scarletmail.rutgers.edu>\
 Subject: Re: [tickets.xsede.org #133559] Running containerized MPI applications on SDSC Comet\
 Date: April 18, 2020 at 8:52:17 PM EDT\
 To: help@xsede.org\
-\pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\pardirnatural\partightenfactor0
+\pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\pardeftab720\pardirnatural\partightenfactor0
 
 \f1 \cf2 \
 \pard\pardeftab720\partightenfactor0
@@ -309,42 +305,42 @@ SDSC User Services Group\
 /share/apps/examples/singularity/bind-host-compilers-mpi\
 \
 \pard\pardeftab720\partightenfactor0
-\cf6 On Fri Apr 17 19:30:30 2020, glk35@scarletmail.rutgers.edu wrote:\
+\cf5 On Fri Apr 17 19:30:30 2020, glk35@scarletmail.rutgers.edu wrote:\
 Thank you Martin, I appreciate your support.\
 \
 George.\
 \
 \pard\pardeftab720\partightenfactor0
-\cf7 On Apr 17, 2020, at 8:15 PM, Martin Kandes via RT <help@xsede.org>\
+\cf6 On Apr 17, 2020, at 8:15 PM, Martin Kandes via RT <help@xsede.org>\
 \pard\pardeftab720\partightenfactor0
-\cf6 wrote:\
+\cf5 wrote:\
 \pard\pardeftab720\partightenfactor0
-\cf7 \
+\cf6 \
 \
 Fri Apr 17 19:15:18 2020: Request 133559 was acted upon.\
 Transaction: Correspondence added by mckandes\
 \'a0\'a0\'a0\'a0Queue: 0-SDSC\
 \'a0\'a0Subject: Re: [tickets.xsede.org #133559] Running containerized\
 \pard\pardeftab720\partightenfactor0
-\cf6 MPI applications on SDSC Comet\
+\cf5 MPI applications on SDSC Comet\
 \pard\pardeftab720\partightenfactor0
-\cf7 \'a0\'a0\'a0\'a0Owner: mckandes\
+\cf6 \'a0\'a0\'a0\'a0Owner: mckandes\
 Requestors: glk35@scarletmail.rutgers.edu\
 \'a0\'a0\'a0Status: open\
 Ticket URL: https://portal.xsede.org/group/xup/tickets/-\
 \pard\pardeftab720\partightenfactor0
-\cf6 /tickets/133559\
+\cf5 /tickets/133559\
 \pard\pardeftab720\partightenfactor0
-\cf7 \
+\cf6 \
 \
 Hi George,\
 \
 There\'92s still at least one more issue I\'92m trying to sort out. I\
 \pard\pardeftab720\partightenfactor0
-\cf6 don\'92t know if I\'92ll get back to it tonight, but definitely will work on\
+\cf5 don\'92t know if I\'92ll get back to it tonight, but definitely will work on\
 it again tomorrow and keep you posted.\
 \pard\pardeftab720\partightenfactor0
-\cf7 \
+\cf6 \
 Marty Kandes\
 SDSC User Services Group\
 \
@@ -355,9 +351,9 @@ Sent: Thursday, April 16, 2020 10:19:20 PM\
 To: Kandes, Martin <mkandes@sdsc.edu>\
 Subject: [tickets.xsede.org #133559] Running containerized MPI\
 \pard\pardeftab720\partightenfactor0
-\cf6 applications on SDSC Comet\
+\cf5 applications on SDSC Comet\
 \pard\pardeftab720\partightenfactor0
-\cf7 \
+\cf6 \
 \
 Fri Apr 17 00:19:20 2020: Request 133559 was acted upon.\
 Transaction: Given to mckandes by mahidhar\
@@ -368,25 +364,25 @@ Requestors: glk35@scarletmail.rutgers.edu\
 \'a0\'a0\'a0Status: open\
 Ticket <URL:\
 \pard\pardeftab720\partightenfactor0
-\cf6 https://urldefense.com/v3/__https://tickets.xsede.org/Ticket/Display.html?id=133559__;!!Mih3wA!SgBMtwhKbJt3FH5TIS5xI2azjn5PGWoC_znC8KPQn-\
+\cf5 https://urldefense.com/v3/__https://tickets.xsede.org/Ticket/Display.html?id=133559__;!!Mih3wA!SgBMtwhKbJt3FH5TIS5xI2azjn5PGWoC_znC8KPQn-\
 2nOMdZ3ikPm94px2MBcFY$ \'a0>\
 \pard\pardeftab720\partightenfactor0
-\cf7 \
+\cf6 \
 This transaction appears to have no content\
 \pard\pardeftab720\partightenfactor0
-\cf6 \
+\cf5 \
 \
 \pard\pardeftab720\partightenfactor0
 \cf4 \
 \
-\pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\pardirnatural\partightenfactor0
+\pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\pardeftab720\pardirnatural\partightenfactor0
 
 \f0 \cf2 \kerning1\expnd0\expndtw0 From: "Martin Kandes via RT" <help@xsede.org>\
 Subject: Re: [tickets.xsede.org #133559] Running containerized MPI applications on SDSC Comet\
 Date: April 17, 2020 at 8:15:20 PM EDT\
 To: glk35@scarletmail.rutgers.edu\
 Reply-To: help@xsede.org\
-\pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\pardirnatural\partightenfactor0
+\pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\pardeftab720\pardirnatural\partightenfactor0
 
 \f1 \cf2 \
 \pard\pardeftab720\partightenfactor0
@@ -428,14 +424,14 @@ Ticket <URL: https://urldefense.com/v3/__https://tickets.xsede.org/Ticket/Displa
 \
 This transaction appears to have no content\
 \
-\page \pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\pardirnatural\partightenfactor0
+\page \pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\pardeftab720\pardirnatural\partightenfactor0
 
 \f0 \cf2 \kerning1\expnd0\expndtw0 From: "Martin Kandes via RT" <help@xsede.org>\
 Subject: Re: [tickets.xsede.org #133559] Running containerized MPI applications on SDSC Comet\
 Date: April 16, 2020 at 10:01:40 PM EDT\
 To: glk35@scarletmail.rutgers.edu\
 Reply-To: help@xsede.org\
-\pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\pardirnatural\partightenfactor0
+\pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\pardeftab720\pardirnatural\partightenfactor0
 
 \f1 \cf2 \
 \pard\pardeftab720\partightenfactor0
@@ -575,14 +571,14 @@ George Koubbe.\
 \
 \
 \
-\page \pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\pardirnatural\partightenfactor0
+\page \pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\pardeftab720\pardirnatural\partightenfactor0
 
 \f0 \cf2 \kerning1\expnd0\expndtw0 From: "Martin Kandes via RT" <help@xsede.org>\
 Subject: Re: [tickets.xsede.org #133559] Running containerized MPI applications on SDSC Comet\
 Date: April 16, 2020 at 9:57:46 PM EDT\
 To: glk35@scarletmail.rutgers.edu\
 Reply-To: help@xsede.org\
-\pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\pardirnatural\partightenfactor0
+\pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\pardeftab720\pardirnatural\partightenfactor0
 
 \f1 \cf2 \
 \pard\pardeftab720\partightenfactor0
