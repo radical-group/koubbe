@@ -9,7 +9,7 @@
 
 \f0\fs24 \cf2 From: "Martin Kandes via RT" <help@xsede.org>\
 Subject: [tickets.xsede.org #133559] Running containerized MPI applications on SDSC Comet\
-Date: April 20, 2020 at 12:41:51 PM EDT\
+Date: April 21, 2020 at 7:04:10 PM EDT\
 To: glk35@scarletmail.rutgers.edu\
 Reply-To: help@xsede.org\
 \pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\pardirnatural\partightenfactor0
@@ -18,7 +18,7 @@ Reply-To: help@xsede.org\
 \pard\pardeftab720\partightenfactor0
 \cf3 \expnd0\expndtw0\kerning0
 \
-Mon Apr 20 11:41:51 2020: Request 133559 was acted upon.\
+Tue Apr 21 18:04:08 2020: Request 133559 was acted upon.\
 Transaction: Correspondence added by mckandes\
 \'a0\'a0\'a0\'a0\'a0\'a0Queue: 0-SDSC\
 \'a0\'a0\'a0\'a0Subject: Running containerized MPI applications on SDSC Comet\
@@ -28,20 +28,310 @@ Transaction: Correspondence added by mckandes\
 Ticket URL: https://portal.xsede.org/group/xup/tickets/-/tickets/133559 \
 \
 \
-Hi George,\
+George,\
 \
-The container available in the examples directory I provided you was the one built using the latest version from the 'naked-singularity' repository. It's also available here on Comet [1]. The 'centos' one is a slightly updated version, but should not be significantly different in functionality. \
+A side note: I finally had a look over the project you're working on. It looks pretty interesting. So is the idea here that you might --bind mount the local compilers/mpi on a resource into users containers when the container runs on that resource? If so, I'm still thinking this would be more complicated to support than simply having a set of static containers to choose from that would be compatible the compiler/mpi you find/discover at a resource. But maybe I'm missing something here.\
 \
-The primary difference between our container and the one from DockerHub is that the one from DockerHub is a very barebones OS. As I already mentioned, it doesn't even have a gcc compiler and supporting libraries, which were needed to support the Intel compilers and IntelMPI being mounted in the container. And yes, it shouldn't really make a difference between compiling within the container or outside the container as the software environments should be pretty close in nature. However, if I compile and run a code within a container, I usually just compile inside the container as it's the safer option.\
+Marty Kandes\
+SDSC User Services Group\
 \
-Anyhow, I'm not quite sure what went wrong with your build of our CentOS 7 container that might been causing a problem. What version of Singularity are you building the container with? Is it built on a Linux system?\
+On Tue Apr 21 17:51:28 2020, mckandes wrote:\
+\pard\pardeftab720\partightenfactor0
+\cf4 Hi George,\
+\
+I'm a bit at a loss of what the issue is here. I do acknowledge there\
+\'a0\'a0is some sort of performance difference between the 3 containers I'm\
+\'a0\'a0testing with here, one of them is your version of the container.\
+\'a0\'a0But each of them is effectively the same.\
+\
+I did confirm the performance improvement on the Hello, World test\
+\'a0\'a0problem with your container [1]. Your numbers are the lower\
+\'a0\'a0runtimes in the middle. But as you can see, they do fluctuate to\
+\'a0\'a0the average as well for all containers.\
+\
+To move away from the simple Hello, World test problem, I then ran the\
+\'a0\'a0OSU Microbenchmarks for both bandwidth [2] and latency [3]. As you\
+\'a0\'a0can see here, the results are more consistent, with your container\
+\'a0\'a0underperforming. The fundamental problem seems to be that your\
+\'a0\'a0container does not properly utilize Comet's infiniband network.\
+\'a0\'a0This can be seen in the high latency [4]. The latency should be on\
+\'a0\'a0the order of 1 us at small message sizes [5].\
+\
+Now, what's causing this difference? I don't know. The only difference\
+\'a0\'a0I see right now is that your container was built with Singularity\
+\'a0\'a03.5.0, while my two ones are with 2.6.1 and 3.5.2.\
+\
+Do you want to try maybe updating your Singularity to 3.5.2? Also, how\
+\'a0\'a0did you install your copy of Singularity 3.5.0? Did you compile\
+\'a0\'a0from source? Or is that a binary executable that you downloaded and\
+\'a0\'a0installed?\
 \
 Marty Kandes\
 SDSC User Services Group\
 \
 [1]\
 \
-[mkandes@comet-ln2 ~]$ ls /share/apps/compute/singularity/images/centos/\
+[mkandes@comet-ln2 bind-host-compilers-mpi]$ cat intelmpi-\
+\'a0\'a0singularity.o* | grep real\
+real 6.43\
+real 7.35\
+real 6.98\
+real 6.94\
+real 6.70\
+real 6.42\
+real 1.51\
+real 1.71\
+real 2.20\
+real 6.94\
+real 6.32\
+real 6.15\
+real 6.18\
+real 6.42\
+real 20.95\
+\
+[2]\
+\
+[mkandes@comet-ln2 bind-host-compilers-mpi]$ cat intelmpi-singularity-\
+\'a0\'a0omb-bw.o* | grep real\
+real 4.10\
+real 4.42\
+real 10.72\
+real 9.13\
+real 8.17\
+real 16.22\
+real 21.17\
+real 11.26\
+real 15.07\
+real 5.65\
+real 5.64\
+real 5.64\
+real 4.07\
+real 2.73\
+[mkandes@comet-ln2 bind-host-compilers-mpi]$\
+\
+[3]\
+\
+[mkandes@comet-ln2 bind-host-compilers-mpi]$ cat intelmpi-singularity-\
+\'a0\'a0omb-latency.o* | grep real\
+real 6.89\
+real 6.94\
+real 6.65\
+real 7.10\
+real 7.10\
+real 25.54\
+real 31.74\
+real 27.32\
+real 25.73\
+real 26.23\
+real 8.38\
+real 9.11\
+real 8.49\
+real 8.83\
+real 8.22\
+[mkandes@comet-ln2 bind-host-compilers-mpi]$\
+\
+[4]\
+\
+# OSU MPI Latency Test v5.6.2\
+# Size \'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0Latency (us)\
+0 \'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a018.24\
+1 \'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a018.24\
+2 \'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a018.24\
+4 \'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a018.24\
+8 \'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a018.30\
+16 \'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a018.34\
+32 \'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a018.52\
+64 \'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a020.52\
+128 \'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a024.59\
+256 \'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a034.53\
+512 \'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a032.56\
+1024 \'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a039.36\
+2048 \'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a026.09\
+4096 \'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a026.81\
+8192 \'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a079.39\
+16384 \'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0100.26\
+32768 \'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0125.25\
+65536 \'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0136.19\
+131072 \'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0318.85\
+262144 \'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0348.84\
+524288 \'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0570.59\
+1048576 \'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a01036.50\
+2097152 \'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a01923.67\
+4194304 \'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a03803.62\
+real 26.23\
+user 0.02\
+sys 0.01\
+\
+[5]\
+\
+# OSU MPI Latency Test v5.6.2\
+# Size \'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0Latency (us)\
+0 \'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a01.18\
+1 \'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a01.22\
+2 \'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a01.18\
+4 \'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a01.21\
+8 \'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a01.22\
+16 \'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a01.20\
+32 \'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a01.30\
+64 \'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a02.09\
+128 \'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a02.05\
+256 \'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a02.10\
+512 \'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a02.22\
+1024 \'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a02.47\
+2048 \'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a03.00\
+4096 \'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a03.65\
+8192 \'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a04.72\
+16384 \'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a06.11\
+32768 \'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a09.38\
+65536 \'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a014.90\
+131072 \'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a026.15\
+262144 \'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a048.69\
+524288 \'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0316.88\
+1048576 \'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0431.61\
+2097152 \'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0659.63\
+4194304 \'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a01137.41\
+real 6.65\
+user 0.02\
+sys 0.01\
+\
+On Mon Apr 20 19:09:55 2020, glk35@scarletmail.rutgers.edu wrote:\
+\pard\pardeftab720\partightenfactor0
+\cf5 Martin,\
+\
+Definitely, the path to my current working directory is:\
+\
+/home/karahbit/test/not_working\
+\
+Once there, the exact commands I am running to see results are:\
+\
+$ srun --partition=debug --pty --nodes=2 --ntasks-per-node=24 -t\
+\'a0\'a000:30:00 --wait=0 --export=ALL /bin/bash\
+\
+$ module purge\
+\
+$ module load intel intelmpi\
+\
+$ export\
+\
+\pard\pardeftab720\partightenfactor0
+\cf4 \'a0\'a0SINGULARITYENV_PREPEND_PATH=/opt/intel/2018.1.163/compilers_and_libraries_2018.1.163/linux/mpi/intel64/bin:/opt/intel/2018.1.163/compilers_and_libraries_2018.1.163/linux/bin/intel64\
+\pard\pardeftab720\partightenfactor0
+\cf5 \
+$ export\
+\
+\pard\pardeftab720\partightenfactor0
+\cf4 \'a0\'a0SINGULARITYENV_LD_LIBRARY_PATH=/etc/libibverbs.d:/opt/intel/2018.1.163/compilers_and_libraries_2018.1.163/linux/mpi/intel64/lib:/opt/intel/2018.1.163/compilers_and_libraries_2018.1.163/linux/compiler/lib/intel64_lin:/opt/intel/2018.1.163/compilers_and_libraries_2018.1.163/linux/ipp/../compiler/lib/intel64:/opt/intel/2018.1.163/compilers_and_libraries_2018.1.163/linux/ipp/lib/intel64:/opt/intel/2018.1.163/compilers_and_libraries_2018.1.163/linux/mkl/lib/intel64:/opt/intel/2018.1.163/compilers_and_libraries_2018.1.163/linux/tbb/lib/intel64/gcc4.4\
+\pard\pardeftab720\partightenfactor0
+\cf5 \
+$ time -p mpirun singularity exec --bind /opt centos-repo.simg\
+\'a0\'a0./hello_world_intel\
+\
+\
+And I see the following result:\
+\
+\
+\
+I appreciate your support on this matter,\
+George.\
+\
+\pard\pardeftab720\partightenfactor0
+\cf6 On Apr 20, 2020, at 8:00 PM, Martin Kandes via RT <help@xsede.org>\
+\pard\pardeftab720\partightenfactor0
+\cf5 \'a0\'a0wrote:\
+\pard\pardeftab720\partightenfactor0
+\cf6 \
+\
+Mon Apr 20 19:00:13 2020: Request 133559 was acted upon.\
+Transaction: Correspondence added by mckandes\
+\'a0\'a0\'a0\'a0\'a0Queue: 0-SDSC\
+\'a0\'a0\'a0Subject: Running containerized MPI applications on SDSC Comet\
+\'a0\'a0\'a0\'a0\'a0Owner: mckandes\
+Requestors: glk35@scarletmail.rutgers.edu\
+\'a0\'a0\'a0\'a0Status: user_wait\
+Ticket URL: https://portal.xsede.org/group/xup/tickets/-\
+\pard\pardeftab720\partightenfactor0
+\cf5 \'a0\'a0/tickets/133559\
+\pard\pardeftab720\partightenfactor0
+\cf6 \
+\
+George,\
+\
+I'm still not seeing a problem using a newer *.sif-based formatted\
+\pard\pardeftab720\partightenfactor0
+\cf5 \'a0\'a0container. Can you provide we with a path to your working\
+\pard\pardeftab720\partightenfactor0
+\cf4 \'a0\'a0directory\
+\pard\pardeftab720\partightenfactor0
+\cf5 \'a0\'a0on Comet where I can review the output files for your tests?\
+\pard\pardeftab720\partightenfactor0
+\cf4 \'a0\'a0There\
+\pard\pardeftab720\partightenfactor0
+\cf5 \'a0\'a0might be some clues as to why you're seeing a different runtime.\
+\pard\pardeftab720\partightenfactor0
+\cf6 \
+Thanks,\
+\
+Marty Kandes\
+SDSC User Services Group\
+\
+On Mon Apr 20 11:41:51 2020, mckandes wrote:\
+Hi George,\
+\
+The container available in the examples directory I provided you\
+\pard\pardeftab720\partightenfactor0
+\cf5 \'a0\'a0was\
+\pard\pardeftab720\partightenfactor0
+\cf6 \'a0the one built using the latest version from the 'naked-\
+\pard\pardeftab720\partightenfactor0
+\cf5 \'a0\'a0singularity'\
+\pard\pardeftab720\partightenfactor0
+\cf6 \'a0repository. It's also available here on Comet [1]. The 'centos'\
+\pard\pardeftab720\partightenfactor0
+\cf5 \'a0\'a0one\
+\pard\pardeftab720\partightenfactor0
+\cf6 \'a0is a slightly updated version, but should not be significantly\
+\'a0different in functionality.\
+\
+The primary difference between our container and the one from\
+\'a0DockerHub is that the one from DockerHub is a very barebones\
+\pard\pardeftab720\partightenfactor0
+\cf4 \'a0\'a0OS.\
+\pard\pardeftab720\partightenfactor0
+\cf5 \'a0\'a0As\
+\pard\pardeftab720\partightenfactor0
+\cf6 \'a0I already mentioned, it doesn't even have a gcc compiler and\
+\'a0supporting libraries, which were needed to support the Intel\
+\'a0compilers and IntelMPI being mounted in the container. And yes,\
+\pard\pardeftab720\partightenfactor0
+\cf5 \'a0\'a0it\
+\pard\pardeftab720\partightenfactor0
+\cf6 \'a0shouldn't really make a difference between compiling within the\
+\'a0container or outside the container as the software environments\
+\'a0should be pretty close in nature. However, if I compile and run\
+\pard\pardeftab720\partightenfactor0
+\cf4 \'a0\'a0a\
+\pard\pardeftab720\partightenfactor0
+\cf6 \'a0code within a container, I usually just compile inside the\
+\'a0container as it's the safer option.\
+\
+Anyhow, I'm not quite sure what went wrong with your build of our\
+\'a0CentOS 7 container that might been causing a problem. What\
+\pard\pardeftab720\partightenfactor0
+\cf5 \'a0\'a0version\
+\pard\pardeftab720\partightenfactor0
+\cf6 \'a0of Singularity are you building the container with? Is it built\
+\pard\pardeftab720\partightenfactor0
+\cf5 \'a0\'a0on\
+\pard\pardeftab720\partightenfactor0
+\cf6 \'a0a Linux system?\
+\
+Marty Kandes\
+SDSC User Services Group\
+\
+[1]\
+\
+[mkandes@comet-ln2 ~]$ ls\
+\'a0/share/apps/compute/singularity/images/centos/\
 centos-openmpi.simg\
 centos.simg\
 centos-v6.10-20190916.simg\
@@ -55,105 +345,146 @@ centos-v7.7.1908-openmpi-v3.1.4-20200211.simg\
 [mkandes@comet-ln2 ~]$\
 \
 On Sun Apr 19 18:02:01 2020, glk35@scarletmail.rutgers.edu wrote:\
-\pard\pardeftab720\partightenfactor0
-\cf4 Martin,\
+Martin,\
 \
-Also, I have tried using the definition files for CentOS7 that you\
-\'a0\'a0have on your Github profile, under both the \'93centos\'94 and \'93naked-\
-\'a0\'a0singularity\'94 repositories, but none of them worked (they produce my\
-\'a0\'a0old results). It would be helpful if you could share the definition\
-\'a0\'a0file you used for the container creation as well as the command you\
-\'a0\'a0used to build it.\
+Also, I have tried using the definition files for CentOS7 that\
+\pard\pardeftab720\partightenfactor0
+\cf4 \'a0\'a0you\
+\pard\pardeftab720\partightenfactor0
+\cf6 \'a0have on your Github profile, under both the \'93centos\'94 and\
+\pard\pardeftab720\partightenfactor0
+\cf4 \'a0\'a0\'93naked-\
+\pard\pardeftab720\partightenfactor0
+\cf6 \'a0singularity\'94 repositories, but none of them worked (they\
+\pard\pardeftab720\partightenfactor0
+\cf4 \'a0\'a0produce\
+\pard\pardeftab720\partightenfactor0
+\cf6 \'a0my\
+\'a0old results). It would be helpful if you could share the\
+\'a0definition\
+\'a0file you used for the container creation as well as the\
+\pard\pardeftab720\partightenfactor0
+\cf4 \'a0\'a0command\
+\pard\pardeftab720\partightenfactor0
+\cf6 \'a0you\
+\'a0used to build it.\
 \
 Thank you,\
 George.\
 \
-\pard\pardeftab720\partightenfactor0
-\cf5 On Apr 19, 2020, at 5:57 PM, George Koubbe\
-\pard\pardeftab720\partightenfactor0
-\cf4 \'a0\'a0<glk35@scarletmail.rutgers.edu> wrote:\
-\pard\pardeftab720\partightenfactor0
-\cf5 \
+On Apr 19, 2020, at 5:57 PM, George Koubbe\
+\'a0<glk35@scarletmail.rutgers.edu> wrote:\
+\
 Dear Martin,\
 \
 I have narrowed down my problem to the container itself.\
 \
 I just replicated your experiments and it worked as expected.\
+\'a0However, I also replicated mine, but this time with the\
 \pard\pardeftab720\partightenfactor0
-\cf4 \'a0\'a0However, I also replicated mine, but this time with the container\
-\'a0\'a0centos.simg that you provide, and my experiments also yield the\
-\'a0\'a0same results as yours.\
+\cf5 \'a0\'a0container\
 \pard\pardeftab720\partightenfactor0
-\cf5 \
+\cf6 \'a0centos.simg that you provide, and my experiments also yield\
+\pard\pardeftab720\partightenfactor0
+\cf4 \'a0\'a0the\
+\pard\pardeftab720\partightenfactor0
+\cf6 \'a0same results as yours.\
+\
 It\'92s worth noting that:\
 \
-1) It did not make a difference if the executable is compiled inside\
+1) It did not make a difference if the executable is compiled\
+\'a0inside\
+\'a0or outside the container\
+2) The container I create is only through the command (I don\'92t\
 \pard\pardeftab720\partightenfactor0
-\cf4 \'a0\'a0or outside the container\
+\cf4 \'a0\'a0do\
 \pard\pardeftab720\partightenfactor0
-\cf5 2) The container I create is only through the command (I don\'92t do\
+\cf6 \'a0anything else): $ singularity build centos7.sif\
+\'a0docker://centos:centos7 <docker://centos:centos7>\
+\
+Having said this, what is the difference between the container\
 \pard\pardeftab720\partightenfactor0
-\cf4 \'a0\'a0anything else): $ singularity build centos7.sif\
-\'a0\'a0docker://centos:centos7 <docker://centos:centos7>\
+\cf5 \'a0\'a0you\
 \pard\pardeftab720\partightenfactor0
-\cf5 \
-Having said this, what is the difference between the container you\
+\cf6 \'a0build and the one I pull, that makes such a drastic difference\
 \pard\pardeftab720\partightenfactor0
-\cf4 \'a0\'a0build and the one I pull, that makes such a drastic difference in\
-\'a0\'a0the results?\
+\cf5 \'a0\'a0in\
 \pard\pardeftab720\partightenfactor0
-\cf5 \
+\cf6 \'a0the results?\
+\
 Thank you,\
 George.\
 \
+On Apr 18, 2020, at 6:20 PM, Martin Kandes via RT\
 \pard\pardeftab720\partightenfactor0
-\cf6 On Apr 18, 2020, at 6:20 PM, Martin Kandes via RT <help@xsede.org\
+\cf5 \'a0\'a0<help@xsede.org\
 \pard\pardeftab720\partightenfactor0
-\cf4 \'a0\'a0<mailto:help@xsede.org>> wrote:\
-\pard\pardeftab720\partightenfactor0
-\cf6 \
+\cf6 \'a0<mailto:help@xsede.org>> wrote:\
+\
 \
 Sat Apr 18 17:20:07 2020: Request 133559 was acted upon.\
 Transaction: Correspondence added by mckandes\
-\'a0\'a0\'a0\'a0\'a0Queue: 0-SDSC\
-\'a0\'a0\'a0Subject: Running containerized MPI applications on SDSC Comet\
-\'a0\'a0\'a0\'a0\'a0Owner: mckandes\
+\'a0\'a0\'a0\'a0Queue: 0-SDSC\
+\'a0\'a0Subject: Running containerized MPI applications on SDSC\
+\pard\pardeftab720\partightenfactor0
+\cf4 \'a0\'a0Comet\
+\pard\pardeftab720\partightenfactor0
+\cf6 \'a0\'a0\'a0\'a0Owner: mckandes\
 Requestors: glk35@scarletmail.rutgers.edu\
-\pard\pardeftab720\partightenfactor0
-\cf4 \'a0\'a0<mailto:glk35@scarletmail.rutgers.edu>\
-\pard\pardeftab720\partightenfactor0
-\cf6 \'a0\'a0\'a0\'a0Status: open\
+\'a0<mailto:glk35@scarletmail.rutgers.edu>\
+\'a0\'a0\'a0Status: open\
 Ticket URL: https://portal.xsede.org/group/xup/tickets/-\
-\pard\pardeftab720\partightenfactor0
-\cf4 \'a0\'a0/tickets/133559 <https://portal.xsede.org/group/xup/tickets/-\
-\'a0\'a0/tickets/133559>\
-\pard\pardeftab720\partightenfactor0
-\cf6 \
+\'a0/tickets/133559 <https://portal.xsede.org/group/xup/tickets/-\
+\'a0/tickets/133559>\
+\
 \
 Hi George,\
 \
-I've placed a copy of my example batch job scripts that compile and\
+I've placed a copy of my example batch job scripts that\
 \pard\pardeftab720\partightenfactor0
-\cf4 \'a0\'a0run your MPI hello, world code here [1].\
+\cf4 \'a0\'a0compile\
 \pard\pardeftab720\partightenfactor0
-\cf6 \
-As you can see in the standard output files from each job, there is\
+\cf6 \'a0and\
+\'a0run your MPI hello, world code here [1].\
+\
+As you can see in the standard output files from each job,\
 \pard\pardeftab720\partightenfactor0
-\cf4 \'a0\'a0really no significant difference in the performance when everything\
-\'a0\'a0is setup correctly. i.e., I think the low runtimes you reported in\
-\'a0\'a0the Singularity Slack channel were probably either incorrect and/or\
-\'a0\'a0not an apples-to-apples comparison.\
+\cf4 \'a0\'a0there\
 \pard\pardeftab720\partightenfactor0
-\cf6 \
-Anyhow, have a look at how I've set things up and let me know if\
+\cf6 \'a0is\
+\'a0really no significant difference in the performance when\
+\'a0everything\
+\'a0is setup correctly. i.e., I think the low runtimes you\
 \pard\pardeftab720\partightenfactor0
-\cf4 \'a0\'a0you have any questions. Note, however, the container being used is\
-\'a0\'a0not the same one you pulled from DockerHub. This one is our\
-\'a0\'a0standard CentOS 7 Singularity container. I needed a gcc compiler in\
-\'a0\'a0the container and the DockerHub one does not have one installed by\
-\'a0\'a0default.\
+\cf4 \'a0\'a0reported\
 \pard\pardeftab720\partightenfactor0
-\cf6 \
+\cf6 \'a0in\
+\'a0the Singularity Slack channel were probably either incorrect\
+\'a0and/or\
+\'a0not an apples-to-apples comparison.\
+\
+Anyhow, have a look at how I've set things up and let me know\
+\pard\pardeftab720\partightenfactor0
+\cf4 \'a0\'a0if\
+\pard\pardeftab720\partightenfactor0
+\cf6 \'a0you have any questions. Note, however, the container being\
+\pard\pardeftab720\partightenfactor0
+\cf4 \'a0\'a0used\
+\pard\pardeftab720\partightenfactor0
+\cf6 \'a0is\
+\'a0not the same one you pulled from DockerHub. This one is our\
+\'a0standard CentOS 7 Singularity container. I needed a gcc\
+\pard\pardeftab720\partightenfactor0
+\cf4 \'a0\'a0compiler\
+\pard\pardeftab720\partightenfactor0
+\cf6 \'a0in\
+\'a0the container and the DockerHub one does not have one\
+\pard\pardeftab720\partightenfactor0
+\cf4 \'a0\'a0installed\
+\pard\pardeftab720\partightenfactor0
+\cf6 \'a0by\
+\'a0default.\
+\
 Marty Kandes\
 SDSC User Services Group\
 \
@@ -162,102 +493,117 @@ SDSC User Services Group\
 /share/apps/examples/singularity/bind-host-compilers-mpi\
 \
 On Fri Apr 17 19:30:30 2020, glk35@scarletmail.rutgers.edu\
-\pard\pardeftab720\partightenfactor0
-\cf4 \'a0\'a0<mailto:glk35@scarletmail.rutgers.edu> wrote:\
-\pard\pardeftab720\partightenfactor0
-\cf6 Thank you Martin, I appreciate your support.\
+\'a0<mailto:glk35@scarletmail.rutgers.edu> wrote:\
+Thank you Martin, I appreciate your support.\
 \
 George.\
 \
-On Apr 17, 2020, at 8:15 PM, Martin Kandes via RT <help@xsede.org\
-\pard\pardeftab720\partightenfactor0
-\cf4 \'a0\'a0<mailto:help@xsede.org>>\
-\pard\pardeftab720\partightenfactor0
-\cf6 wrote:\
+On Apr 17, 2020, at 8:15 PM, Martin Kandes via RT\
+\'a0<help@xsede.org\
+\'a0<mailto:help@xsede.org>>\
+wrote:\
 \
 \
 Fri Apr 17 19:15:18 2020: Request 133559 was acted upon.\
 Transaction: Correspondence added by mckandes\
-\'a0\'a0\'a0\'a0Queue: 0-SDSC\
-\'a0\'a0Subject: Re: [tickets.xsede.org <http://tickets.xsede.org/>\
+\'a0\'a0\'a0Queue: 0-SDSC\
+\'a0Subject: Re: [tickets.xsede.org\
 \pard\pardeftab720\partightenfactor0
-\cf4 \'a0\'a0#133559] Running containerized\
+\cf4 \'a0\'a0<http://tickets.xsede.org/>\
 \pard\pardeftab720\partightenfactor0
-\cf6 MPI applications on SDSC Comet\
-\'a0\'a0\'a0\'a0Owner: mckandes\
+\cf6 \'a0#133559] Running containerized\
+MPI applications on SDSC Comet\
+\'a0\'a0\'a0Owner: mckandes\
 Requestors: glk35@scarletmail.rutgers.edu\
-\pard\pardeftab720\partightenfactor0
-\cf4 \'a0\'a0<mailto:glk35@scarletmail.rutgers.edu>\
-\pard\pardeftab720\partightenfactor0
-\cf6 \'a0\'a0\'a0Status: open\
+\'a0<mailto:glk35@scarletmail.rutgers.edu>\
+\'a0\'a0Status: open\
 Ticket URL: https://portal.xsede.org/group/xup/tickets/-\
-\pard\pardeftab720\partightenfactor0
-\cf4 \'a0\'a0<https://portal.xsede.org/group/xup/tickets/->\
-\pard\pardeftab720\partightenfactor0
-\cf6 /tickets/133559\
+\'a0<https://portal.xsede.org/group/xup/tickets/->\
+/tickets/133559\
 \
 \
 Hi George,\
 \
-There\'92s still at least one more issue I\'92m trying to sort out. I\
-don\'92t know if I\'92ll get back to it tonight, but definitely will\
+There\'92s still at least one more issue I\'92m trying to sort\
 \pard\pardeftab720\partightenfactor0
-\cf4 \'a0\'a0work on\
+\cf4 \'a0\'a0out.\
 \pard\pardeftab720\partightenfactor0
-\cf6 it again tomorrow and keep you posted.\
+\cf5 \'a0\'a0I\
+\pard\pardeftab720\partightenfactor0
+\cf6 don\'92t know if I\'92ll get back to it tonight, but definitely\
+\pard\pardeftab720\partightenfactor0
+\cf4 \'a0\'a0will\
+\pard\pardeftab720\partightenfactor0
+\cf6 \'a0work on\
+it again tomorrow and keep you posted.\
 \
 Marty Kandes\
 SDSC User Services Group\
 \
 Get Outlook for iOS<https://aka.ms/o0ukef\
-\pard\pardeftab720\partightenfactor0
-\cf4 \'a0\'a0<https://aka.ms/o0ukef>>\
-\pard\pardeftab720\partightenfactor0
-\cf6 ________________________________\
+\'a0<https://aka.ms/o0ukef>>\
+________________________________\
 From: Mahidhar Tatineni via RT <help@xsede.org\
+\'a0<mailto:help@xsede.org>>\
+Sent: Thursday, April 16, 2020 10:19:20 PM\
+To: Kandes, Martin <mkandes@sdsc.edu\
 \pard\pardeftab720\partightenfactor0
-\cf4 \'a0\'a0<mailto:help@xsede.org>>\
+\cf5 \'a0\'a0<mailto:mkandes@sdsc.edu>>\
 \pard\pardeftab720\partightenfactor0
-\cf6 Sent: Thursday, April 16, 2020 10:19:20 PM\
-To: Kandes, Martin <mkandes@sdsc.edu <mailto:mkandes@sdsc.edu>>\
-Subject: [tickets.xsede.org <http://tickets.xsede.org/> #133559]\
-\pard\pardeftab720\partightenfactor0
-\cf4 \'a0\'a0Running containerized MPI\
-\pard\pardeftab720\partightenfactor0
-\cf6 applications on SDSC Comet\
+\cf6 Subject: [tickets.xsede.org <http://tickets.xsede.org/>\
+\'a0#133559]\
+\'a0Running containerized MPI\
+applications on SDSC Comet\
 \
 \
 Fri Apr 17 00:19:20 2020: Request 133559 was acted upon.\
 Transaction: Given to mckandes by mahidhar\
-\'a0\'a0\'a0\'a0Queue: 0-SDSC\
-\'a0\'a0Subject: Running containerized MPI applications on SDSC Comet\
-\'a0\'a0\'a0\'a0Owner: mckandes\
+\'a0\'a0\'a0Queue: 0-SDSC\
+\'a0Subject: Running containerized MPI applications on SDSC\
+\'a0Comet\
+\'a0\'a0\'a0Owner: mckandes\
 Requestors: glk35@scarletmail.rutgers.edu\
-\pard\pardeftab720\partightenfactor0
-\cf4 \'a0\'a0<mailto:glk35@scarletmail.rutgers.edu>\
-\pard\pardeftab720\partightenfactor0
-\cf6 \'a0\'a0\'a0Status: open\
+\'a0<mailto:glk35@scarletmail.rutgers.edu>\
+\'a0\'a0Status: open\
 Ticket <URL:\
 \
+\
+\
+\pard\pardeftab720\partightenfactor0
+\cf5 \
 \pard\pardeftab720\partightenfactor0
 \cf4 \'a0\'a0https://urldefense.com/v3/__https://tickets.xsede.org/Ticket/Display.html?id=133559__;!!Mih3wA!SgBMtwhKbJt3FH5TIS5xI2azjn5PGWoC_znC8KPQn-\
-\'a0\'a0<https://urldefense.com/v3/__https://tickets.xsede.org/Ticket/Display.html?id=133559__;!!Mih3wA!SgBMtwhKbJt3FH5TIS5xI2azjn5PGWoC_znC8KPQn-\
+\pard\pardeftab720\partightenfactor0
+\cf6 \
+\
 \pard\pardeftab720\partightenfactor0
 \cf5 \
 \pard\pardeftab720\partightenfactor0
-\cf6 2nOMdZ3ikPm94px2MBcFY$ \'a0>\
+\cf4 \'a0\'a0<https://urldefense.com/v3/__https://tickets.xsede.org/Ticket/Display.html?id=133559__;!!Mih3wA!SgBMtwhKbJt3FH5TIS5xI2azjn5PGWoC_znC8KPQn-\
+\pard\pardeftab720\partightenfactor0
+\cf6 \
+2nOMdZ3ikPm94px2MBcFY$ \'a0>\
 \
 This transaction appears to have no content\
+\
+\
+\
+\
+\
+\
+\
+\
+\
+\
 \pard\pardeftab720\partightenfactor0
 \cf5 \
-\
 \pard\pardeftab720\partightenfactor0
 \cf4 \
 \
 \pard\pardeftab720\partightenfactor0
 \cf3 \
 \
-\page \pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\pardeftab720\pardirnatural\partightenfactor0
+\pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\pardeftab720\pardirnatural\partightenfactor0
 
 \f0 \cf2 \kerning1\expnd0\expndtw0 From: George Koubbe <glk35@scarletmail.rutgers.edu>\
 Subject: Re: [tickets.xsede.org #133559] Running containerized MPI applications on SDSC Comet\
