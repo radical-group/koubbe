@@ -1,0 +1,8 @@
+For the past week and the beginning of this week, I was mostly busy elaborating 
+the contianer report, and finishing all the respective experiments. After that,
+I also took the opportunity to perform bandwitdh/latency Singularity tests on
+Comet, which I still need to show my results for. I also finished writing 
+Singularity documentation for RP, and I need to put it on the wiki page.
+
+That's pretty much it, as I'm looking toward retaking the cheers hpo work at
+the moment.
