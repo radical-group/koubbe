@@ -1,0 +1,5 @@
+- Link on GitHub to questions posted by Greg regarding EnTK
+- How are we going to distribute containers to end users?
+R: We’ll use Docker Hub equivalent for Singularity, with every container being specific to the application and remote resource.
+- Where on RP website should I start writing Singularity documentation?
+R: Create a new wiki page at https://github.com/radical-cybertools/radical.pilot/wiki

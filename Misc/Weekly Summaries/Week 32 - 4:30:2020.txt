@@ -1,0 +1,18 @@
+FACTS:
+- During the meeting this weekend, we addressed Greg's questions regarding EnTK 
+  API and also discussed some further steps regarding Singularity, like How are we
+  going to distribute containers to end users
+
+Concordia meeting:
+I agreed to investigate further the following topics regarding Singularity:
+- Again, what are all the possible reasons for Singularity’s constant overhead? 
+  I/O? Filesystem? Container bootstrapping?
+- Experiment with bandwidth/latency MPI inside the container
+- Experiment with Bind and Hybrid mode performance comparison 
+
+CHEERS hpo progress:
+- I am behind on reporting progress for this project. I need to accelerate the 
+  pace and provide a meaningful update in the next coming days.
+
+  Misc:
+  - Graduation is done! All papers have been submitted, nothing else to do here.
