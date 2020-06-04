@@ -1,0 +1,12 @@
+Hey @karahbit, when asking about the minimum number of MPI ranks per optimization, do you mean the total number of ranks required by hyperspace for a given problem, or do you mean the the number of ranks assigned to a given Bayesian optimization loop? Each Bayesian optimization loop gets one MPI rank, but hyperspace runs many of those in parallel, and the total number of ranks is given by 2^{D} where D is the dimension of your search space.
+
+In the simplest case, it is possible to run the algorithm over a single search dimension. Say this search space is the following:
+
+x = [0, 1, 2, 3]
+Hyperspace would divide that search space into two subintervals
+
+x_0 = [0, 1, 2]
+x_1 = [1, 2, 3]
+Then it will run two parallel Bayesian optimization steps, one for each subinterval of the search space. Each Bayesian optimization step gets its own MPI rank.
+
+You are right each Bayesian optimization step requires only one core. The optimization at each rank is handled by scikit-optimize, and it only needs a single core.

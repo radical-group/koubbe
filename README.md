@@ -175,15 +175,15 @@ Else:
 $ conda create --name \<VE name\> python=3.7  
 $ conda activate \<VE name\>  
 $ wget https://bitbucket.org/mpi4py/mpi4py/downloads/mpi4py-3.0.3.tar.gz  
-$ tar -zxf mpi4py-3.0.3.tar.gz  
+$ tar -zxf mpi4py-3.0.3.tar.gz && rm mpi4py-3.0.3.tar.gz
 $ cd mpi4py-3.0.3  
 ```
 
 modify mpi.cfg as instructed in [mpi4py installation](https://mpi4py.readthedocs.io/en/stable/install.html#using-pip-or-easy-install):
 
 ```
-\# Open MPI example  
-\# ----------------  
+# Open MPI example  
+# ----------------  
 [openmpi]  
 mpi_dir              = /usr/mpi/gcc/openmpi-2.1.2-hfi  
 mpicc                = %(mpi_dir)s/bin/mpicc  

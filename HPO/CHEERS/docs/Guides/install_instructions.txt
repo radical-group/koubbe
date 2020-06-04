@@ -1,0 +1,120 @@
+Easy install on XSEDE Comet with mvapich2 (this is the one to use):
+
+$ pip3 install virtualenv --user
+$ add virtualenv to .bashrc:
+	export PATH="/home/karahbit/.local/bin:$PATH"
+$ source .bashrc
+$ virtualenv -p python3 ve-cheers
+$ module load mpi4py
+$ source ve-cheers/bin/activate
+$ pip install seaborn scikit-optimize==0.5.2
+$ cd ~/hyperspace
+$ pip install .
+$ export MV2_ENABLE_AFFINITY=0
+$ srun --partition=debug --pty --nodes=2 --ntasks-per-node=24 -t 00:30:00 --wait=0 --export=ALL /bin/bash
+$ mpirun -n 4 python benchmarks/styblinskitang/hyperdrive/benchmark.py --ndims 2 --results /home/karahbit/hyperspace_results
+
+
+
+
+Install HyperSpace on XSEDE Comet with mvapich2:
+
+ $ wget https://repo.continuum.io/miniconda/Miniconda3-latest-Linux-x86_64.sh
+ $ bash Miniconda3-latest-Linux-x86_64.sh
+ $ source .bashrc
+ $ conda create --name ve-cheers python=3
+ $ conda activate ve-cheers
+ $ conda install -c conda-forge seaborn scikit-optimize==0.5.2
+ $ git clone https://github.com/yngtodd/hyperspace.git
+
+Install mpi4py first so it does not complain about not finding proper MPI libraries:
+ $ wget https://bitbucket.org/mpi4py/mpi4py/downloads/mpi4py-3.0.3.tar.gz
+ $ tar -xzvf mpi4py-3.0.3.tar.gz && rm mpi4py-3.0.3.tar.gz
+ $ cd mpi4py-3.0.3
+
+ # modify mpi.cfg as instructed in [mpi4py installation](https://mpi4py.readthedocs.io/en/stable/install.html#using-pip-or-easy-install):
+
+ ```
+# MVAPICH MPI example  
+# ----------------  
+[mvapich]  
+mpi_dir              = /opt/mvapich2/intel/ib/ 
+mpicc                = %(mpi_dir)s/bin/mpicc  
+mpicxx               = %(mpi_dir)s/bin/mpicxx  
+library_dirs         = %(mpi_dir)s/lib:/opt/intel/2018.1.163/lib/intel64:/etc/libibverbs.d
+runtime_library_dirs = %(library_dirs)s
+ ```
+
+ $ python setup.py build --mpi=mvapich
+ $ pip install .
+
+ $ cd ~/hyperspace
+ $ pip install .
+
+Try it:
+
+ $ srun --partition=debug --pty --nodes=2 --ntasks-per-node=24 -t 00:30:00 --wait=0 --export=ALL /bin/bash
+ $ conda activate ve-cheers
+ $ export MV2_ENABLE_AFFINITY=0
+ $ mpirun -n 4 python benchmarks/styblinskitang/hyperdrive/benchmark.py --ndims 2 --results /home/karahbit/hyperspace_results
+
+
+
+
+Install HyperSpace on XSEDE Comet with Intel MPI:
+
+ $ wget https://repo.continuum.io/miniconda/Miniconda3-latest-Linux-x86_64.sh
+ $ bash Miniconda3-latest-Linux-x86_64.sh
+ $ source .bashrc
+ $ conda create --name ve-cheers python=3
+ $ conda activate ve-cheers
+ $ conda install -c conda-forge seaborn scikit-optimize==0.5.2
+ $ git clone https://github.com/yngtodd/hyperspace.git
+
+Install mpi4py first so it does not complain about not finding proper MPI libraries:
+ $ wget https://bitbucket.org/mpi4py/mpi4py/downloads/mpi4py-3.0.3.tar.gz
+ $ tar -xzvf mpi4py-3.0.3.tar.gz && rm mpi4py-3.0.3.tar.gz
+ $ cd mpi4py-3.0.3
+
+ # modify mpi.cfg as instructed in [mpi4py installation](https://mpi4py.readthedocs.io/en/stable/install.html#using-pip-or-easy-install):
+
+ ```
+# Intel MPI example  
+# ----------------  
+[intelmpi]  
+mpi_dir              = /opt/intel/2018.1.163/compilers_and_libraries_2018.1.163/linux/mpi/intel64
+mpicc                = %(mpi_dir)s/bin/mpicc  
+mpicxx               = %(mpi_dir)s/bin/mpicxx  
+library_dirs         = %(mpi_dir)s/lib
+runtime_library_dirs = %(library_dirs)s
+ ```
+
+ $ cd ~/hyperspace
+ $ pip install .
+
+Try it:
+
+ $ export I_MPI_JOB_RESPECT_PROCESS_PLACEMENT=0
+ $ srun --partition=debug --pty --nodes=2 --ntasks-per-node=24 -t 00:30:00 --wait=0 --export=ALL /bin/bash
+ $ conda activate ve-cheers
+ $ module swap mvapich2_ib/2.3.2 intelmpi
+ $ mpirun -n 4 python benchmarks/styblinskitang/hyperdrive/benchmark.py --ndims 2 --results /home/karahbit/hyperspace_results
+
+
+
+
+Note:
+
+If you run this at scale (lot of nodes) it might be best to switch the "mpirun" to "ibrun":
+
+ibrun --npernode 2 python3 -m mpi4py.bench helloworld
+
+
+
+
+Note:
+
+/home/karahbit/miniconda3/envs/ve-cheers/lib/python3.8/site-packages/sklearn/externals/joblib/__init__.py:15: FutureWarning: sklearn.externals.joblib is deprecated in 0.21 and will be removed in 0.23. Please import this functionality directly from joblib, which can be installed with: pip install joblib. If this warning is raised when loading pickled models, you may need to re-serialize those models with scikit-learn 0.21+.
+  warnings.warn(msg, category=FutureWarning)
+/home/karahbit/miniconda3/envs/ve-cheers/lib/python3.8/site-packages/sklearn/utils/deprecation.py:144: FutureWarning: The sklearn.metrics.scorer module is  deprecated in version 0.22 and will be removed in version 0.24. The corresponding classes / functions should instead be imported from sklearn.metrics. Anything that cannot be imported from sklearn.metrics is now part of the private API.
+  warnings.warn(message, FutureWarning)

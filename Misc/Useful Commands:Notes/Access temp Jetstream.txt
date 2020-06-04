@@ -1,0 +1,26 @@
+MacOS: Access new temporary Jetstream VM until three.radical-project.org is up and running:
+
+On local machine
+
+1) Generate ssh keys:
+ $ ssh-keygen -t ed25519 -a 100
+
+2) Copy the public key to the remote machine (I must have an account here already):
+ $ ssh-copy-id -i ~/.ssh/id_ed25519.pub karahbit@129.114.17.185
+
+3) Avoid enter the password every time by adding the following to the .ssh/config (create one if it doesn't exist):
+
+Host *
+	AddKeysToAgent yes 
+	IdentityFile ~/.ssh/id_ed25519
+
+Alternatively, On a *nix system (therefore also on MacOS) you can​ do the same with:
+ $ ssh-agent -t 3600 ~/.ssh/id_ed25519
+
+4) Forward the agent to the remote machine automatically every time by adding the following to your .ssh/conf:
+
+Host 129.114.17.185
+	ForwardAgent yes
+
+5) Log in to the remote machine and start working:
+ $ ssh karahbit@129.114.17.185

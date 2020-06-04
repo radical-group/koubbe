@@ -14,7 +14,8 @@ Install OpenMPI from source (if it's not installed already):
  
  # Compile
  # use flag --enable-static to enable .a file for Open MPI library
- $ ./configure --prefix=/home/karahbit/ve-radical.hpo/share/openmpi-4.0.3 --enable-static
+ # $ ./configure --prefix=/home/karahbit/ve-radical.hpo/share/openmpi-4.0.3 --enable-static
+ $ ./configure --prefix=/home/karahbit/ve-radical.hpo/share/openmpi-4.0.3
  $ make
 
  # Install
@@ -26,7 +27,7 @@ Install OpenMPI from source (if it's not installed already):
  $ export PATH=$OMPI/bin:$PATH
  $ export LD_LIBRARY_PATH=$OMPI/lib:$LD_LIBRARY_PATH
 
- # Copy all files of /home/karahbit/ve-radical.hpo/share/openmpi-4.0.3 and /etc/profile or ~/.bashrc to every node in the cluster.
+ # In case you are running multi-node, copy all files of /home/karahbit/ve-radical.hpo/share/openmpi-4.0.3 and /etc/profile or ~/.bashrc to every node in the cluster.
 
 Install HyperSpace (and mpi4py):
 

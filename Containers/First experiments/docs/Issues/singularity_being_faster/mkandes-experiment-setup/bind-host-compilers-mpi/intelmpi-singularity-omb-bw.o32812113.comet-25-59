@@ -1,0 +1,146 @@
+Currently Loaded Modulefiles:
+  1) intel/2018.1.163      2) intelmpi/2018.1.163
+MKLROOT=/opt/intel/2018.1.163/compilers_and_libraries_2018.1.163/linux/mkl
+SLURM_CHECKPOINT_IMAGE_DIR=/share/apps/examples/singularity/bind-host-compilers-mpi
+SLURM_NODELIST=comet-25-[59,69]
+SLURM_JOB_NAME=intelmpi-singularity-omb-bw
+PDSHROOT=/opt/pdsh
+MANPATH=/opt/intel/2018.1.163/documentation_2018/en/man/common:/usr/share/man:/usr/local/share/man
+XDG_SESSION_ID=898353
+OMB_ROOT_URL=http://mvapich.cse.ohio-state.edu/download/mvapich
+SLURMD_NODENAME=comet-25-59
+SLURM_TOPOLOGY_ADDR=CORE.R24.R25.comet-25-59
+SLURM_NTASKS_PER_NODE=1
+HOSTNAME=comet-25-59
+SLURM_PRIO_PROCESS=0
+I_MPI_F77=ifort
+IPPROOT=/opt/intel/2018.1.163/compilers_and_libraries_2018.1.163/linux/ipp
+INTEL_LICENSE_FILE=/opt/intel/2018.1.163/compilers_and_libraries_2018.1.163/linux/licenses:/opt/intel/licenses:/root/intel/licenses
+SLURM_NODE_ALIASES=(null)
+L_MKL_TEMP=M_VERS
+SHELL=/bin/bash
+TERM=xterm-256color
+HISTSIZE=1000
+GDBSERVER_MIC=/opt/intel/2018.1.163/debugger_YEAR/gdb/targets/mic/bin/gdbserver
+TMPDIR=/tmp
+SLURM_TOPOLOGY_ADDR_PATTERN=switch.switch.switch.node
+SSH_CLIENT=136.26.54.198 41928 22
+LIBRARY_PATH=/opt/intel/2018.1.163/compilers_and_libraries_2018.1.163/linux/compiler/lib/intel64_lin:/opt/intel/2018.1.163/compilers_and_libraries_2018.1.163/linux/ipp/../compiler/lib/intel64:/opt/intel/2018.1.163/compilers_and_libraries_2018.1.163/linux/ipp/lib/intel64:/opt/intel/2018.1.163/compilers_and_libraries_2018.1.163/linux/mkl/lib/intel64:/opt/intel/2018.1.163/compilers_and_libraries_2018.1.163/linux/tbb/lib/intel64/gcc4.4
+FPATH=/opt/intel/2018.1.163/compilers_and_libraries_2018.1.163/linux/mkl/include
+QTDIR=/usr/lib64/qt-3.3
+QTINC=/usr/lib64/qt-3.3/include
+MIC_LD_LIBRARY_PATH=/opt/intel/2018.1.163/compilers_and_libraries_2018.1.163/linux/compiler/lib/mic:/opt/intel/2018.1.163/compilers_and_libraries_2018.1.163/linux/mkl/lib/mic:/opt/intel/2018.1.163/compilers_and_libraries_2018.1.163/linux/tbb/lib/mic
+SSH_TTY=/dev/pts/95
+ROCKSROOT=/opt/rocks/share/devel
+ANT_HOME=/opt/rocks
+QT_GRAPHICSSYSTEM_CHECKED=1
+SLURM_NNODES=2
+USER=mkandes
+LD_LIBRARY_PATH=/opt/intel/2018.1.163/compilers_and_libraries_2018.1.163/linux/mpi/intel64/lib:/opt/intel/2018.1.163/compilers_and_libraries_2018.1.163/linux/compiler/lib/intel64_lin:/opt/intel/2018.1.163/compilers_and_libraries_2018.1.163/linux/ipp/../compiler/lib/intel64:/opt/intel/2018.1.163/compilers_and_libraries_2018.1.163/linux/ipp/lib/intel64:/opt/intel/2018.1.163/compilers_and_libraries_2018.1.163/linux/mkl/lib/intel64:/opt/intel/2018.1.163/compilers_and_libraries_2018.1.163/linux/tbb/lib/intel64/gcc4.4
+LS_COLORS=rs=0:di=38;5;27:ln=38;5;51:mh=44;38;5;15:pi=40;38;5;11:so=38;5;13:do=38;5;5:bd=48;5;232;38;5;11:cd=48;5;232;38;5;3:or=48;5;232;38;5;9:mi=05;48;5;232;38;5;15:su=48;5;196;38;5;15:sg=48;5;11;38;5;16:ca=48;5;196;38;5;226:tw=48;5;10;38;5;16:ow=48;5;10;38;5;21:st=48;5;21;38;5;15:ex=38;5;34:*.tar=38;5;9:*.tgz=38;5;9:*.arc=38;5;9:*.arj=38;5;9:*.taz=38;5;9:*.lha=38;5;9:*.lz4=38;5;9:*.lzh=38;5;9:*.lzma=38;5;9:*.tlz=38;5;9:*.txz=38;5;9:*.tzo=38;5;9:*.t7z=38;5;9:*.zip=38;5;9:*.z=38;5;9:*.Z=38;5;9:*.dz=38;5;9:*.gz=38;5;9:*.lrz=38;5;9:*.lz=38;5;9:*.lzo=38;5;9:*.xz=38;5;9:*.bz2=38;5;9:*.bz=38;5;9:*.tbz=38;5;9:*.tbz2=38;5;9:*.tz=38;5;9:*.deb=38;5;9:*.rpm=38;5;9:*.jar=38;5;9:*.war=38;5;9:*.ear=38;5;9:*.sar=38;5;9:*.rar=38;5;9:*.alz=38;5;9:*.ace=38;5;9:*.zoo=38;5;9:*.cpio=38;5;9:*.7z=38;5;9:*.rz=38;5;9:*.cab=38;5;9:*.jpg=38;5;13:*.jpeg=38;5;13:*.gif=38;5;13:*.bmp=38;5;13:*.pbm=38;5;13:*.pgm=38;5;13:*.ppm=38;5;13:*.tga=38;5;13:*.xbm=38;5;13:*.xpm=38;5;13:*.tif=38;5;13:*.tiff=38;5;13:*.png=38;5;13:*.svg=38;5;13:*.svgz=38;5;13:*.mng=38;5;13:*.pcx=38;5;13:*.mov=38;5;13:*.mpg=38;5;13:*.mpeg=38;5;13:*.m2v=38;5;13:*.mkv=38;5;13:*.webm=38;5;13:*.ogm=38;5;13:*.mp4=38;5;13:*.m4v=38;5;13:*.mp4v=38;5;13:*.vob=38;5;13:*.qt=38;5;13:*.nuv=38;5;13:*.wmv=38;5;13:*.asf=38;5;13:*.rm=38;5;13:*.rmvb=38;5;13:*.flc=38;5;13:*.avi=38;5;13:*.fli=38;5;13:*.flv=38;5;13:*.gl=38;5;13:*.dl=38;5;13:*.xcf=38;5;13:*.xwd=38;5;13:*.yuv=38;5;13:*.cgm=38;5;13:*.emf=38;5;13:*.axv=38;5;13:*.anx=38;5;13:*.ogv=38;5;13:*.ogx=38;5;13:*.aac=38;5;45:*.au=38;5;45:*.flac=38;5;45:*.mid=38;5;45:*.midi=38;5;45:*.mka=38;5;45:*.mp3=38;5;45:*.mpc=38;5;45:*.ogg=38;5;45:*.ra=38;5;45:*.wav=38;5;45:*.axa=38;5;45:*.oga=38;5;45:*.spx=38;5;45:*.xspf=38;5;45:
+SINGULARITYENV_PREPEND_PATH=/opt/intel/2018.1.163/compilers_and_libraries_2018.1.163/linux/mpi/intel64/bin:/opt/intel/2018.1.163/compilers_and_libraries_2018.1.163/linux/bin/intel64
+MIC_LIBRARY_PATH=/opt/intel/2018.1.163/compilers_and_libraries_2018.1.163/linux/compiler/lib/mic:/opt/intel/2018.1.163/compilers_and_libraries_2018.1.163/linux/tbb/lib/mic
+ROCKS_ROOT=/opt/rocks
+CPATH=/opt/intel/2018.1.163/compilers_and_libraries_2018.1.163/linux/ipp/include:/opt/intel/2018.1.163/compilers_and_libraries_2018.1.163/linux/mkl/include:/opt/intel/2018.1.163/compilers_and_libraries_2018.1.163/linux/tbb/include
+SLURM_JOBID=32812113
+SLURM_NTASKS=2
+NLSPATH=/opt/intel/2018.1.163/compilers_and_libraries_2018.1.163/linux/compiler/lib/intel64_lin/locale/%l_%t/%N:/opt/intel/2018.1.163/debugger_YEAR/gdb/intel64/share/locale/%l_%t/%N
+SLURM_TASKS_PER_NODE=1(x2)
+PATH=/opt/intel/2018.1.163/compilers_and_libraries_2018.1.163/linux/mpi/intel64/bin:/opt/intel/2018.1.163/compilers_and_libraries_2018.1.163/linux/bin/intel64:/usr/lib64/qt-3.3/bin:/usr/local/bin:/bin:/usr/bin:/usr/bin:/usr/local/sbin:/usr/sbin:/opt/sdsc/bin:/opt/sdsc/sbin:/opt/ibutils/bin:/opt/pdsh/bin:/opt/rocks/bin:/opt/rocks/sbin
+MAIL=/var/spool/mail/mkandes
+MV2_ALLTOALL_TUNING=2
+SLURM_JOB_ID=32812113
+SLURM_CPUS_PER_TASK=1
+SDSCDEVEL=/opt/sdsc/devel
+TBBROOT=/opt/intel/2018.1.163/compilers_and_libraries_2018.1.163/linux/tbb
+SLURM_JOB_USER=mkandes
+PWD=/share/apps/examples/singularity/bind-host-compilers-mpi
+_LMFILES_=/opt/modulefiles/compilers/intel/2018.1.163:/opt/modulefiles/mpi/intelmpi/2018.1.163
+CUDA_VISIBLE_DEVICES=NoDevFiles
+JAVA_HOME=/usr/java/latest
+MPI_MODULE=intelmpi/2018.1.163
+GDB_CROSS=/opt/intel/2018.1.163/compilers_and_libraries_2018.1.163/linux/bin/intel64/gdb-mic
+LANG=en_US.UTF-8
+OMB_ROOT_DIR=/share/apps/examples/singularity/bind-host-compilers-mpi
+MODULEPATH=/opt/modulefiles/mpi/.intel:/opt/modulefiles/mpi:/opt/modulefiles/compilers:/opt/modulefiles/applications:/usr/share/Modules/modulefiles:/etc/modulefiles
+LOADEDMODULES=intel/2018.1.163:intelmpi/2018.1.163
+SLURM_JOB_UID=501506
+OMB_VERSION=5.6.2
+SLURM_NODEID=0
+I_MPI_F90=ifort
+SLURM_SUBMIT_DIR=/share/apps/examples/singularity/bind-host-compilers-mpi
+I_MPI_CC=icc
+SLURM_TASK_PID=18978
+SLURM_NPROCS=2
+SLURM_CPUS_ON_NODE=24
+LM_LICENSE_FILE=/opt/flexlm/license/license.dat
+MPM_LAUNCHER=/opt/intel/2018.1.163/debugger_YEAR/mpm/intel64_igfx/bin/start_mpm.sh
+SLURM_PROCID=0
+ENVIRONMENT=BATCH
+HISTCONTROL=ignoredups
+INTEL_PYTHONHOME=/opt/intel/2018.1.163/debugger_YEAR/gdb/intel64/share/gdb/python
+SLURM_JOB_NODELIST=comet-25-[59,69]
+HOME=/home/mkandes
+SHLVL=2
+I_MPI_CXX=icpc
+SLURM_LOCALID=0
+SLURM_JOB_CPUS_PER_NODE=24(x2)
+SLURM_CLUSTER_NAME=comet
+ROLLSROOT=/opt/rocks/share/devel/src/roll
+MPIHOME=/opt/intel/2018.1.163/compilers_and_libraries_2018.1.163/linux/mpi/intel64
+SLURM_GTIDS=0
+SLURM_SUBMIT_HOST=comet-ln2.sdsc.edu
+I_MPI_FC=ifort
+SLURM_JOB_PARTITION=compute
+SDSCHOME=/opt/sdsc
+LOGNAME=mkandes
+PYTHONPATH=/opt/sdsc/lib
+CVS_RSH=ssh
+QTLIB=/usr/lib64/qt-3.3/lib
+GPU_DEVICE_ORDINAL=NoDevFiles
+SSH_CONNECTION=136.26.54.198 41928 198.202.113.253 22
+XDG_DATA_DIRS=/home/mkandes/.local/share/flatpak/exports/share:/var/lib/flatpak/exports/share:/usr/local/share:/usr/share
+SLURM_JOB_NUM_NODES=2
+MODULESHOME=/usr/share/Modules
+MKL_ROOT=/opt/intel/2018.1.163/compilers_and_libraries_2018.1.163/linux/mkl
+LESSOPEN=||/usr/bin/lesspipe.sh %s
+INFOPATH=/opt/intel/2018.1.163/documentation_YEAR/en/debugger/gdb-ia/info/:/opt/intel/2018.1.163/documentation_YEAR/en/debugger/gdb-mic/info
+OMB_INSTALL_DIR=/share/apps/examples/singularity/bind-host-compilers-mpi/5.6.2/intel/2018.1.163/intelmpi/2018.1.163/mpi
+XDG_RUNTIME_DIR=/run/user/501506
+OMB_BUILD=mpi
+INCLUDE=/opt/intel/2018.1.163/compilers_and_libraries_2018.1.163/linux/mkl/include
+SINGULARITYENV_LD_LIBRARY_PATH=/etc/libibverbs.d:/opt/intel/2018.1.163/compilers_and_libraries_2018.1.163/linux/mpi/intel64/lib:/opt/intel/2018.1.163/compilers_and_libraries_2018.1.163/linux/compiler/lib/intel64_lin:/opt/intel/2018.1.163/compilers_and_libraries_2018.1.163/linux/ipp/../compiler/lib/intel64:/opt/intel/2018.1.163/compilers_and_libraries_2018.1.163/linux/ipp/lib/intel64:/opt/intel/2018.1.163/compilers_and_libraries_2018.1.163/linux/mkl/lib/intel64:/opt/intel/2018.1.163/compilers_and_libraries_2018.1.163/linux/tbb/lib/intel64/gcc4.4
+INTELHOME=/opt/intel/2018.1.163/compilers_and_libraries_2018.1.163/linux
+COMPILER_MODULE=intel/2018.1.163
+SLURM_MEM_PER_NODE=122880
+BASH_FUNC_module()=() {  eval `/usr/bin/modulecmd bash $*`
+}
+_=/bin/printenv
+# OSU MPI Bandwidth Test v5.6.2
+# Size      Bandwidth (MB/s)
+1                       2.30
+2                       4.57
+4                       9.25
+8                      18.52
+16                     37.10
+32                     69.92
+64                    129.87
+128                   254.95
+256                   499.96
+512                   978.70
+1024                 1849.16
+2048                 3184.41
+4096                 4720.76
+8192                 5643.01
+16384                5810.99
+32768                5917.32
+65536                6108.40
+131072               6126.43
+262144               6140.33
+524288               6028.62
+1048576              6150.91
+2097152              6218.43
+4194304              6251.97
+real 2.73
+user 0.02
+sys 0.01

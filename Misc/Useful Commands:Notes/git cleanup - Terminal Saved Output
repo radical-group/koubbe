@@ -1,0 +1,630 @@
+Last login: Tue Jun  2 23:32:29 on console
+(base) karahbit@Georges-MBP ~ % conda activate ve-cheers
+(ve-cheers) karahbit@Georges-MBP ~ % jupyter notebook
+[I 12:53:56.578 NotebookApp] Loading IPython parallel extension
+[I 12:53:56.579 NotebookApp] Serving notebooks from local directory: /Users/karahbit
+[I 12:53:56.580 NotebookApp] The Jupyter Notebook is running at:
+[I 12:53:56.580 NotebookApp] http://localhost:8888/?token=d397288b85d06cb5f39e3a9338a4a675b4e4869d85837a4b
+[I 12:53:56.580 NotebookApp]  or http://127.0.0.1:8888/?token=d397288b85d06cb5f39e3a9338a4a675b4e4869d85837a4b
+[I 12:53:56.580 NotebookApp] Use Control-C to stop this server and shut down all kernels (twice to skip confirmation).
+[C 12:53:56.591 NotebookApp] 
+    
+    To access the notebook, open this file in a browser:
+        file:///Users/karahbit/Library/Jupyter/runtime/nbserver-3651-open.html
+    Or copy and paste one of these URLs:
+        http://localhost:8888/?token=d397288b85d06cb5f39e3a9338a4a675b4e4869d85837a4b
+     or http://127.0.0.1:8888/?token=d397288b85d06cb5f39e3a9338a4a675b4e4869d85837a4b
+[I 12:54:23.178 NotebookApp] Kernel started: 023b95a0-0c67-4661-8008-520a3e0e6969
+[W 12:54:23.200 NotebookApp] 404 GET /nbextensions/export_embedded/main.js?v=20200603125356 (::1) 12.01ms referer=http://localhost:8888/notebooks/FastFingerPrinting/phase1/src/galloOSIOPT/hyperparams-opt/code/Hyperparams-opt.ipynb
+[I 12:54:38.143 NotebookApp] Saving file at /FastFingerPrinting/phase1/src/galloOSIOPT/hyperparams-opt/code/Hyperparams-opt.ipynb
+[I 12:54:45.211 NotebookApp] Starting buffering for 023b95a0-0c67-4661-8008-520a3e0e6969:5a8818fc3b834991a9452b09b41c151a
+^C[I 12:54:49.581 NotebookApp] interrupted
+Serving notebooks from local directory: /Users/karahbit
+1 active kernel
+The Jupyter Notebook is running at:
+http://localhost:8888/?token=d397288b85d06cb5f39e3a9338a4a675b4e4869d85837a4b
+ or http://127.0.0.1:8888/?token=d397288b85d06cb5f39e3a9338a4a675b4e4869d85837a4b
+Shutdown this notebook server (y/[n])? y
+[C 12:54:50.886 NotebookApp] Shutdown confirmed
+[I 12:54:50.887 NotebookApp] Shutting down 1 kernel
+[I 12:54:51.098 NotebookApp] Kernel shutdown: 023b95a0-0c67-4661-8008-520a3e0e6969
+(ve-cheers) karahbit@Georges-MBP ~ % cd FastFingerPrinting 
+(ve-cheers) karahbit@Georges-MBP FastFingerPrinting % git status
+On branch feature/starter_tank
+Your branch is behind 'origin/feature/starter_tank' by 2 commits, and can be fast-forwarded.
+  (use "git pull" to update your local branch)
+
+Changes not staged for commit:
+  (use "git add/rm <file>..." to update what will be committed)
+  (use "git restore <file>..." to discard changes in working directory)
+	modified:   .DS_Store
+	modified:   phase1/.DS_Store
+	modified:   phase1/src/.DS_Store
+	modified:   phase1/src/galloOSIOPT/.DS_Store
+	modified:   phase1/src/galloOSIOPT/code/.ipynb_checkpoints/GalloModel-Parallel-checkpoint.ipynb
+	modified:   phase1/src/galloOSIOPT/code/.ipynb_checkpoints/Hyperparams-opt-checkpoint.ipynb
+	modified:   phase1/src/galloOSIOPT/code/GalloModel-Parallel.ipynb
+	deleted:    phase1/src/galloOSIOPT/code/Hyperparams-opt.ipynb
+	deleted:    phase1/src/galloOSIOPT/code/__pycache__/features.cpython-37.pyc
+	deleted:    phase1/src/galloOSIOPT/code/__pycache__/features.cpython-38.pyc
+	deleted:    phase1/src/galloOSIOPT/code/__pycache__/gallodata.cpython-37.pyc
+	deleted:    phase1/src/galloOSIOPT/code/__pycache__/gallodata.cpython-38.pyc
+	deleted:    phase1/src/galloOSIOPT/code/__pycache__/metrics.cpython-37.pyc
+	deleted:    phase1/src/galloOSIOPT/code/__pycache__/metrics.cpython-38.pyc
+	deleted:    phase1/src/galloOSIOPT/code/__pycache__/models.cpython-37.pyc
+	deleted:    phase1/src/galloOSIOPT/code/__pycache__/models.cpython-38.pyc
+	deleted:    phase1/src/galloOSIOPT/code/__pycache__/synth.cpython-37.pyc
+	deleted:    phase1/src/galloOSIOPT/code/__pycache__/synth.cpython-38.pyc
+	deleted:    phase1/src/galloOSIOPT/code/cheers_svr.py
+	deleted:    phase1/src/galloOSIOPT/code/data_Alcohol.npy
+	deleted:    phase1/src/galloOSIOPT/code/data_Sugar.npy
+
+Untracked files:
+  (use "git add <file>..." to include in what will be committed)
+	phase1/src/galloOSIOPT/hyperparams-opt/
+
+no changes added to commit (use "git add" and/or "git commit -a")
+(ve-cheers) karahbit@Georges-MBP FastFingerPrinting % git add phase1/src/galloOSIOPT/hyperparams-opt/
+(ve-cheers) karahbit@Georges-MBP FastFingerPrinting % git status
+On branch feature/starter_tank
+Your branch is behind 'origin/feature/starter_tank' by 2 commits, and can be fast-forwarded.
+  (use "git pull" to update your local branch)
+
+Changes to be committed:
+  (use "git restore --staged <file>..." to unstage)
+	new file:   phase1/src/galloOSIOPT/hyperparams-opt/code/.ipynb_checkpoints/Hyperparams-opt-checkpoint.ipynb
+	new file:   phase1/src/galloOSIOPT/hyperparams-opt/code/Hyperparams-opt.ipynb
+	new file:   phase1/src/galloOSIOPT/hyperparams-opt/code/__pycache__/data_utils.cpython-37.pyc
+	new file:   phase1/src/galloOSIOPT/hyperparams-opt/code/__pycache__/features.cpython-37.pyc
+	new file:   phase1/src/galloOSIOPT/hyperparams-opt/code/__pycache__/gallodata.cpython-37.pyc
+	new file:   phase1/src/galloOSIOPT/hyperparams-opt/code/__pycache__/synth.cpython-37.pyc
+	new file:   phase1/src/galloOSIOPT/hyperparams-opt/code/cheers_svr.py
+	new file:   phase1/src/galloOSIOPT/hyperparams-opt/code/data_Alcohol.npy
+	new file:   phase1/src/galloOSIOPT/hyperparams-opt/code/data_Sugar.npy
+	new file:   phase1/src/galloOSIOPT/hyperparams-opt/code/data_utils.py
+	new file:   phase1/src/galloOSIOPT/hyperparams-opt/code/features.py
+	new file:   phase1/src/galloOSIOPT/hyperparams-opt/code/gallodata.py
+	new file:   phase1/src/galloOSIOPT/hyperparams-opt/code/synth.py
+	new file:   phase1/src/galloOSIOPT/hyperparams-opt/hyperparams-opt-results/Alcohol/hyperspace00
+	new file:   phase1/src/galloOSIOPT/hyperparams-opt/hyperparams-opt-results/Alcohol/hyperspace01
+	new file:   phase1/src/galloOSIOPT/hyperparams-opt/hyperparams-opt-results/Alcohol/hyperspace02
+	new file:   phase1/src/galloOSIOPT/hyperparams-opt/hyperparams-opt-results/Alcohol/hyperspace03
+	new file:   phase1/src/galloOSIOPT/hyperparams-opt/hyperparams-opt-results/Sugar/hyperspace00
+	new file:   phase1/src/galloOSIOPT/hyperparams-opt/hyperparams-opt-results/Sugar/hyperspace01
+	new file:   phase1/src/galloOSIOPT/hyperparams-opt/hyperparams-opt-results/Sugar/hyperspace02
+	new file:   phase1/src/galloOSIOPT/hyperparams-opt/hyperparams-opt-results/Sugar/hyperspace03
+
+Changes not staged for commit:
+  (use "git add/rm <file>..." to update what will be committed)
+  (use "git restore <file>..." to discard changes in working directory)
+	modified:   .DS_Store
+	modified:   phase1/.DS_Store
+	modified:   phase1/src/.DS_Store
+	modified:   phase1/src/galloOSIOPT/.DS_Store
+	modified:   phase1/src/galloOSIOPT/code/.ipynb_checkpoints/GalloModel-Parallel-checkpoint.ipynb
+	modified:   phase1/src/galloOSIOPT/code/.ipynb_checkpoints/Hyperparams-opt-checkpoint.ipynb
+	modified:   phase1/src/galloOSIOPT/code/GalloModel-Parallel.ipynb
+	deleted:    phase1/src/galloOSIOPT/code/Hyperparams-opt.ipynb
+	deleted:    phase1/src/galloOSIOPT/code/__pycache__/features.cpython-37.pyc
+	deleted:    phase1/src/galloOSIOPT/code/__pycache__/features.cpython-38.pyc
+	deleted:    phase1/src/galloOSIOPT/code/__pycache__/gallodata.cpython-37.pyc
+	deleted:    phase1/src/galloOSIOPT/code/__pycache__/gallodata.cpython-38.pyc
+	deleted:    phase1/src/galloOSIOPT/code/__pycache__/metrics.cpython-37.pyc
+	deleted:    phase1/src/galloOSIOPT/code/__pycache__/metrics.cpython-38.pyc
+	deleted:    phase1/src/galloOSIOPT/code/__pycache__/models.cpython-37.pyc
+	deleted:    phase1/src/galloOSIOPT/code/__pycache__/models.cpython-38.pyc
+	deleted:    phase1/src/galloOSIOPT/code/__pycache__/synth.cpython-37.pyc
+	deleted:    phase1/src/galloOSIOPT/code/__pycache__/synth.cpython-38.pyc
+	deleted:    phase1/src/galloOSIOPT/code/cheers_svr.py
+	deleted:    phase1/src/galloOSIOPT/code/data_Alcohol.npy
+	deleted:    phase1/src/galloOSIOPT/code/data_Sugar.npy
+
+(ve-cheers) karahbit@Georges-MBP FastFingerPrinting % git commit -m "cleaned up hyperparams opt notebook"
+[feature/starter_tank da5d605] cleaned up hyperparams opt notebook
+ 21 files changed, 1530 insertions(+)
+ create mode 100644 phase1/src/galloOSIOPT/hyperparams-opt/code/.ipynb_checkpoints/Hyperparams-opt-checkpoint.ipynb
+ create mode 100644 phase1/src/galloOSIOPT/hyperparams-opt/code/Hyperparams-opt.ipynb
+ create mode 100644 phase1/src/galloOSIOPT/hyperparams-opt/code/__pycache__/data_utils.cpython-37.pyc
+ create mode 100644 phase1/src/galloOSIOPT/hyperparams-opt/code/__pycache__/features.cpython-37.pyc
+ create mode 100644 phase1/src/galloOSIOPT/hyperparams-opt/code/__pycache__/gallodata.cpython-37.pyc
+ create mode 100644 phase1/src/galloOSIOPT/hyperparams-opt/code/__pycache__/synth.cpython-37.pyc
+ create mode 100644 phase1/src/galloOSIOPT/hyperparams-opt/code/cheers_svr.py
+ create mode 100644 phase1/src/galloOSIOPT/hyperparams-opt/code/data_Alcohol.npy
+ create mode 100644 phase1/src/galloOSIOPT/hyperparams-opt/code/data_Sugar.npy
+ create mode 100644 phase1/src/galloOSIOPT/hyperparams-opt/code/data_utils.py
+ create mode 100644 phase1/src/galloOSIOPT/hyperparams-opt/code/features.py
+ create mode 100644 phase1/src/galloOSIOPT/hyperparams-opt/code/gallodata.py
+ create mode 100644 phase1/src/galloOSIOPT/hyperparams-opt/code/synth.py
+ create mode 100644 phase1/src/galloOSIOPT/hyperparams-opt/hyperparams-opt-results/Alcohol/hyperspace00
+ create mode 100644 phase1/src/galloOSIOPT/hyperparams-opt/hyperparams-opt-results/Alcohol/hyperspace01
+ create mode 100644 phase1/src/galloOSIOPT/hyperparams-opt/hyperparams-opt-results/Alcohol/hyperspace02
+ create mode 100644 phase1/src/galloOSIOPT/hyperparams-opt/hyperparams-opt-results/Alcohol/hyperspace03
+ create mode 100644 phase1/src/galloOSIOPT/hyperparams-opt/hyperparams-opt-results/Sugar/hyperspace00
+ create mode 100644 phase1/src/galloOSIOPT/hyperparams-opt/hyperparams-opt-results/Sugar/hyperspace01
+ create mode 100644 phase1/src/galloOSIOPT/hyperparams-opt/hyperparams-opt-results/Sugar/hyperspace02
+ create mode 100644 phase1/src/galloOSIOPT/hyperparams-opt/hyperparams-opt-results/Sugar/hyperspace03
+(ve-cheers) karahbit@Georges-MBP FastFingerPrinting % git push phase1/src/galloOSIOPT/hyperparams-opt/code/Hyperparams-opt.ipynb
+fatal: invalid gitfile format: phase1/src/galloOSIOPT/hyperparams-opt/code/Hyperparams-opt.ipynb
+fatal: Could not read from remote repository.
+
+Please make sure you have the correct access rights
+and the repository exists.
+(ve-cheers) karahbit@Georges-MBP FastFingerPrinting % git push
+To https://github.com/radical-collaboration/FastFingerPrinting.git
+ ! [rejected]        feature/starter_tank -> feature/starter_tank (non-fast-forward)
+error: failed to push some refs to 'https://github.com/radical-collaboration/FastFingerPrinting.git'
+hint: Updates were rejected because the tip of your current branch is behind
+hint: its remote counterpart. Integrate the remote changes (e.g.
+hint: 'git pull ...') before pushing again.
+hint: See the 'Note about fast-forwards' in 'git push --help' for details.
+(ve-cheers) karahbit@Georges-MBP FastFingerPrinting % git pull
+error: Your local changes to the following files would be overwritten by merge:
+	phase1/.DS_Store
+	phase1/src/.DS_Store
+	phase1/src/galloOSIOPT/.DS_Store
+	phase1/src/galloOSIOPT/code/.ipynb_checkpoints/GalloModel-Parallel-checkpoint.ipynb
+	phase1/src/galloOSIOPT/code/.ipynb_checkpoints/Hyperparams-opt-checkpoint.ipynb
+Please commit your changes or stash them before you merge.
+Aborting
+(ve-cheers) karahbit@Georges-MBP FastFingerPrinting % git commit -m "cleaned up hyperparams opt notebook"
+On branch feature/starter_tank
+Your branch and 'origin/feature/starter_tank' have diverged,
+and have 1 and 2 different commits each, respectively.
+  (use "git pull" to merge the remote branch into yours)
+
+Changes not staged for commit:
+	modified:   .DS_Store
+	modified:   phase1/.DS_Store
+	modified:   phase1/src/.DS_Store
+	modified:   phase1/src/galloOSIOPT/.DS_Store
+	modified:   phase1/src/galloOSIOPT/code/.ipynb_checkpoints/GalloModel-Parallel-checkpoint.ipynb
+	modified:   phase1/src/galloOSIOPT/code/.ipynb_checkpoints/Hyperparams-opt-checkpoint.ipynb
+	modified:   phase1/src/galloOSIOPT/code/GalloModel-Parallel.ipynb
+	deleted:    phase1/src/galloOSIOPT/code/Hyperparams-opt.ipynb
+	deleted:    phase1/src/galloOSIOPT/code/__pycache__/features.cpython-37.pyc
+	deleted:    phase1/src/galloOSIOPT/code/__pycache__/features.cpython-38.pyc
+	deleted:    phase1/src/galloOSIOPT/code/__pycache__/gallodata.cpython-37.pyc
+	deleted:    phase1/src/galloOSIOPT/code/__pycache__/gallodata.cpython-38.pyc
+	deleted:    phase1/src/galloOSIOPT/code/__pycache__/metrics.cpython-37.pyc
+	deleted:    phase1/src/galloOSIOPT/code/__pycache__/metrics.cpython-38.pyc
+	deleted:    phase1/src/galloOSIOPT/code/__pycache__/models.cpython-37.pyc
+	deleted:    phase1/src/galloOSIOPT/code/__pycache__/models.cpython-38.pyc
+	deleted:    phase1/src/galloOSIOPT/code/__pycache__/synth.cpython-37.pyc
+	deleted:    phase1/src/galloOSIOPT/code/__pycache__/synth.cpython-38.pyc
+	deleted:    phase1/src/galloOSIOPT/code/cheers_svr.py
+	deleted:    phase1/src/galloOSIOPT/code/data_Alcohol.npy
+	deleted:    phase1/src/galloOSIOPT/code/data_Sugar.npy
+
+no changes added to commit
+(ve-cheers) karahbit@Georges-MBP FastFingerPrinting % git push
+To https://github.com/radical-collaboration/FastFingerPrinting.git
+ ! [rejected]        feature/starter_tank -> feature/starter_tank (non-fast-forward)
+error: failed to push some refs to 'https://github.com/radical-collaboration/FastFingerPrinting.git'
+hint: Updates were rejected because the tip of your current branch is behind
+hint: its remote counterpart. Integrate the remote changes (e.g.
+hint: 'git pull ...') before pushing again.
+hint: See the 'Note about fast-forwards' in 'git push --help' for details.
+(ve-cheers) karahbit@Georges-MBP FastFingerPrinting % git pul
+git: 'pul' is not a git command. See 'git --help'.
+
+The most similar commands are
+	pull
+	push
+(ve-cheers) karahbit@Georges-MBP FastFingerPrinting % git pull
+error: Your local changes to the following files would be overwritten by merge:
+	phase1/.DS_Store
+	phase1/src/.DS_Store
+	phase1/src/galloOSIOPT/.DS_Store
+	phase1/src/galloOSIOPT/code/.ipynb_checkpoints/GalloModel-Parallel-checkpoint.ipynb
+	phase1/src/galloOSIOPT/code/.ipynb_checkpoints/Hyperparams-opt-checkpoint.ipynb
+Please commit your changes or stash them before you merge.
+Aborting
+(ve-cheers) karahbit@Georges-MBP FastFingerPrinting % git pull
+error: Your local changes to the following files would be overwritten by merge:
+	phase1/.DS_Store
+	phase1/src/.DS_Store
+	phase1/src/galloOSIOPT/.DS_Store
+	phase1/src/galloOSIOPT/code/.ipynb_checkpoints/GalloModel-Parallel-checkpoint.ipynb
+	phase1/src/galloOSIOPT/code/.ipynb_checkpoints/Hyperparams-opt-checkpoint.ipynb
+Please commit your changes or stash them before you merge.
+Aborting
+(ve-cheers) karahbit@Georges-MBP FastFingerPrinting % git pull
+error: Your local changes to the following files would be overwritten by merge:
+	phase1/.DS_Store
+	phase1/src/.DS_Store
+	phase1/src/galloOSIOPT/.DS_Store
+	phase1/src/galloOSIOPT/code/.ipynb_checkpoints/GalloModel-Parallel-checkpoint.ipynb
+	phase1/src/galloOSIOPT/code/.ipynb_checkpoints/Hyperparams-opt-checkpoint.ipynb
+Please commit your changes or stash them before you merge.
+Aborting
+(ve-cheers) karahbit@Georges-MBP FastFingerPrinting % ls -all  
+total 1304
+drwxr-xr-x  11 karahbit  staff     352 May 27 12:26 .
+drwxr-xr-x+ 59 karahbit  staff    1888 Jun  3 12:53 ..
+-rw-r--r--   1 karahbit  staff    8196 Jun  3 13:04 .DS_Store
+drwxr-xr-x  15 karahbit  staff     480 Jun  3 13:03 .git
+-rw-r--r--   1 karahbit  staff    2375 May 27 12:26 .gitignore
+-rw-r--r--   1 karahbit  staff      85 May 12 17:46 README.md
+drwxr-xr-x   4 karahbit  staff     128 May 12 17:46 paper
+drwxr-xr-x   5 karahbit  staff     160 May 12 17:46 phase1
+-rw-r--r--   1 karahbit  staff  274286 May 12 17:46 report.docx
+-rw-r--r--   1 karahbit  staff  369904 May 12 17:46 report.pdf
+drwxr-xr-x  10 karahbit  staff     320 May 27 12:26 src
+(ve-cheers) karahbit@Georges-MBP FastFingerPrinting % rm .DS_Store 
+(ve-cheers) karahbit@Georges-MBP FastFingerPrinting % ls
+README.md	paper		phase1		report.docx	report.pdf	src
+(ve-cheers) karahbit@Georges-MBP FastFingerPrinting % ls -all
+total 1280
+drwxr-xr-x  10 karahbit  staff     320 Jun  3 13:05 .
+drwxr-xr-x+ 59 karahbit  staff    1888 Jun  3 12:53 ..
+drwxr-xr-x  15 karahbit  staff     480 Jun  3 13:03 .git
+-rw-r--r--   1 karahbit  staff    2375 May 27 12:26 .gitignore
+-rw-r--r--   1 karahbit  staff      85 May 12 17:46 README.md
+drwxr-xr-x   4 karahbit  staff     128 May 12 17:46 paper
+drwxr-xr-x   5 karahbit  staff     160 May 12 17:46 phase1
+-rw-r--r--   1 karahbit  staff  274286 May 12 17:46 report.docx
+-rw-r--r--   1 karahbit  staff  369904 May 12 17:46 report.pdf
+drwxr-xr-x  10 karahbit  staff     320 May 27 12:26 src
+(ve-cheers) karahbit@Georges-MBP FastFingerPrinting % ls
+README.md	paper		phase1		report.docx	report.pdf	src
+(ve-cheers) karahbit@Georges-MBP FastFingerPrinting % cd phase1 
+(ve-cheers) karahbit@Georges-MBP phase1 % ls -all
+total 16
+drwxr-xr-x   5 karahbit  staff   160 May 12 17:46 .
+drwxr-xr-x  10 karahbit  staff   320 Jun  3 13:05 ..
+-rw-r--r--   1 karahbit  staff  6148 Jun  3 13:05 .DS_Store
+drwxr-xr-x   5 karahbit  staff   160 May 12 17:46 DataAnalysis
+drwxr-xr-x   7 karahbit  staff   224 May 12 17:46 src
+(ve-cheers) karahbit@Georges-MBP phase1 % rm .DS_Store 
+(ve-cheers) karahbit@Georges-MBP phase1 % ls -all
+total 0
+drwxr-xr-x   4 karahbit  staff  128 Jun  3 13:06 .
+drwxr-xr-x  10 karahbit  staff  320 Jun  3 13:05 ..
+drwxr-xr-x   5 karahbit  staff  160 May 12 17:46 DataAnalysis
+drwxr-xr-x   7 karahbit  staff  224 May 12 17:46 src
+(ve-cheers) karahbit@Georges-MBP phase1 % git status
+On branch feature/starter_tank
+Your branch and 'origin/feature/starter_tank' have diverged,
+and have 1 and 2 different commits each, respectively.
+  (use "git pull" to merge the remote branch into yours)
+
+Changes not staged for commit:
+  (use "git add/rm <file>..." to update what will be committed)
+  (use "git restore <file>..." to discard changes in working directory)
+	deleted:    ../.DS_Store
+	deleted:    .DS_Store
+	modified:   src/.DS_Store
+	modified:   src/galloOSIOPT/.DS_Store
+	modified:   src/galloOSIOPT/code/.ipynb_checkpoints/GalloModel-Parallel-checkpoint.ipynb
+	modified:   src/galloOSIOPT/code/.ipynb_checkpoints/Hyperparams-opt-checkpoint.ipynb
+	modified:   src/galloOSIOPT/code/GalloModel-Parallel.ipynb
+	deleted:    src/galloOSIOPT/code/Hyperparams-opt.ipynb
+	deleted:    src/galloOSIOPT/code/__pycache__/features.cpython-37.pyc
+	deleted:    src/galloOSIOPT/code/__pycache__/features.cpython-38.pyc
+	deleted:    src/galloOSIOPT/code/__pycache__/gallodata.cpython-37.pyc
+	deleted:    src/galloOSIOPT/code/__pycache__/gallodata.cpython-38.pyc
+	deleted:    src/galloOSIOPT/code/__pycache__/metrics.cpython-37.pyc
+	deleted:    src/galloOSIOPT/code/__pycache__/metrics.cpython-38.pyc
+	deleted:    src/galloOSIOPT/code/__pycache__/models.cpython-37.pyc
+	deleted:    src/galloOSIOPT/code/__pycache__/models.cpython-38.pyc
+	deleted:    src/galloOSIOPT/code/__pycache__/synth.cpython-37.pyc
+	deleted:    src/galloOSIOPT/code/__pycache__/synth.cpython-38.pyc
+	deleted:    src/galloOSIOPT/code/cheers_svr.py
+	deleted:    src/galloOSIOPT/code/data_Alcohol.npy
+	deleted:    src/galloOSIOPT/code/data_Sugar.npy
+
+no changes added to commit (use "git add" and/or "git commit -a")
+(ve-cheers) karahbit@Georges-MBP phase1 % git checkout --
+D	.DS_Store
+D	phase1/.DS_Store
+M	phase1/src/.DS_Store
+M	phase1/src/galloOSIOPT/.DS_Store
+M	phase1/src/galloOSIOPT/code/.ipynb_checkpoints/GalloModel-Parallel-checkpoint.ipynb
+M	phase1/src/galloOSIOPT/code/.ipynb_checkpoints/Hyperparams-opt-checkpoint.ipynb
+M	phase1/src/galloOSIOPT/code/GalloModel-Parallel.ipynb
+D	phase1/src/galloOSIOPT/code/Hyperparams-opt.ipynb
+D	phase1/src/galloOSIOPT/code/__pycache__/features.cpython-37.pyc
+D	phase1/src/galloOSIOPT/code/__pycache__/features.cpython-38.pyc
+D	phase1/src/galloOSIOPT/code/__pycache__/gallodata.cpython-37.pyc
+D	phase1/src/galloOSIOPT/code/__pycache__/gallodata.cpython-38.pyc
+D	phase1/src/galloOSIOPT/code/__pycache__/metrics.cpython-37.pyc
+D	phase1/src/galloOSIOPT/code/__pycache__/metrics.cpython-38.pyc
+D	phase1/src/galloOSIOPT/code/__pycache__/models.cpython-37.pyc
+D	phase1/src/galloOSIOPT/code/__pycache__/models.cpython-38.pyc
+D	phase1/src/galloOSIOPT/code/__pycache__/synth.cpython-37.pyc
+D	phase1/src/galloOSIOPT/code/__pycache__/synth.cpython-38.pyc
+D	phase1/src/galloOSIOPT/code/cheers_svr.py
+D	phase1/src/galloOSIOPT/code/data_Alcohol.npy
+D	phase1/src/galloOSIOPT/code/data_Sugar.npy
+Your branch and 'origin/feature/starter_tank' have diverged,
+and have 1 and 2 different commits each, respectively.
+  (use "git pull" to merge the remote branch into yours)
+(ve-cheers) karahbit@Georges-MBP phase1 % git status      
+On branch feature/starter_tank
+Your branch and 'origin/feature/starter_tank' have diverged,
+and have 1 and 2 different commits each, respectively.
+  (use "git pull" to merge the remote branch into yours)
+
+Changes not staged for commit:
+  (use "git add/rm <file>..." to update what will be committed)
+  (use "git restore <file>..." to discard changes in working directory)
+	deleted:    ../.DS_Store
+	deleted:    .DS_Store
+	modified:   src/.DS_Store
+	modified:   src/galloOSIOPT/.DS_Store
+	modified:   src/galloOSIOPT/code/.ipynb_checkpoints/GalloModel-Parallel-checkpoint.ipynb
+	modified:   src/galloOSIOPT/code/.ipynb_checkpoints/Hyperparams-opt-checkpoint.ipynb
+	modified:   src/galloOSIOPT/code/GalloModel-Parallel.ipynb
+	deleted:    src/galloOSIOPT/code/Hyperparams-opt.ipynb
+	deleted:    src/galloOSIOPT/code/__pycache__/features.cpython-37.pyc
+	deleted:    src/galloOSIOPT/code/__pycache__/features.cpython-38.pyc
+	deleted:    src/galloOSIOPT/code/__pycache__/gallodata.cpython-37.pyc
+	deleted:    src/galloOSIOPT/code/__pycache__/gallodata.cpython-38.pyc
+	deleted:    src/galloOSIOPT/code/__pycache__/metrics.cpython-37.pyc
+	deleted:    src/galloOSIOPT/code/__pycache__/metrics.cpython-38.pyc
+	deleted:    src/galloOSIOPT/code/__pycache__/models.cpython-37.pyc
+	deleted:    src/galloOSIOPT/code/__pycache__/models.cpython-38.pyc
+	deleted:    src/galloOSIOPT/code/__pycache__/synth.cpython-37.pyc
+	deleted:    src/galloOSIOPT/code/__pycache__/synth.cpython-38.pyc
+	deleted:    src/galloOSIOPT/code/cheers_svr.py
+	deleted:    src/galloOSIOPT/code/data_Alcohol.npy
+	deleted:    src/galloOSIOPT/code/data_Sugar.npy
+
+no changes added to commit (use "git add" and/or "git commit -a")
+(ve-cheers) karahbit@Georges-MBP phase1 % git checkout -- ../.DS_Store .DS_Store src/.DS_Store src/galloOSIOPT/.DS_Store src/galloOSIOPT/code/.ipynb_checkpoints/GalloModel-Parallel-checkpoint.ipynb src/galloOSIOPT/code/.ipynb_checkpoints/Hyperparams-opt-checkpoint.ipynb src/galloOSIOPT/code/GalloModel-Parallel.ipynb src/galloOSIOPT/code/Hyperparams-opt.ipynb src/galloOSIOPT/code/__pycache__/features.cpython-37.pyc src/galloOSIOPT/code/__pycache__/features.cpython-38.pyc src/galloOSIOPT/code/__pycache__/gallodata.cpython-37.pyc src/galloOSIOPT/code/__pycache__/gallodata.cpython-38.pyc src/galloOSIOPT/code/__pycache__/metrics.cpython-37.pyc src/galloOSIOPT/code/__pycache__/metrics.cpython-38.pyc src/galloOSIOPT/code/__pycache__/models.cpython-37.pyc src/galloOSIOPT/code/__pycache__/models.cpython-38.pyc src/galloOSIOPT/code/__pycache__/synth.cpython-37.pyc src/galloOSIOPT/code/__pycache__/synth.cpython-38.pyc
+(ve-cheers) karahbit@Georges-MBP phase1 % git pull
+Removing phase1/src/galloOSIOPT/data/1006/NeoSpectra/.DS_Store
+Removing phase1/src/galloOSIOPT/data/1006/.DS_Store
+Removing phase1/src/galloOSIOPT/data/.DS_Store
+Removing phase1/src/galloOSIOPT/code/__pycache__/synth.cpython-38.pyc
+Removing phase1/src/galloOSIOPT/code/__pycache__/synth.cpython-37.pyc
+Removing phase1/src/galloOSIOPT/code/__pycache__/models.cpython-38.pyc
+Removing phase1/src/galloOSIOPT/code/__pycache__/models.cpython-37.pyc
+Removing phase1/src/galloOSIOPT/code/__pycache__/metrics.cpython-38.pyc
+Removing phase1/src/galloOSIOPT/code/__pycache__/metrics.cpython-37.pyc
+Removing phase1/src/galloOSIOPT/code/__pycache__/gallodata.cpython-38.pyc
+Removing phase1/src/galloOSIOPT/code/__pycache__/gallodata.cpython-37.pyc
+Removing phase1/src/galloOSIOPT/code/__pycache__/features.cpython-38.pyc
+Removing phase1/src/galloOSIOPT/code/__pycache__/features.cpython-37.pyc
+Removing phase1/src/galloOSIOPT/code/.ipynb_checkpoints/Hyperparams-opt-checkpoint.ipynb
+Removing phase1/src/galloOSIOPT/code/.ipynb_checkpoints/GalloModel-Parallel-checkpoint.ipynb
+Removing phase1/src/galloOSIOPT/.idea/workspace.xml
+Removing phase1/src/galloOSIOPT/.DS_Store
+Removing phase1/src/.DS_Store
+Removing phase1/.DS_Store
+Merge made by the 'recursive' strategy.
+ phase1/.DS_Store                                                                    |  Bin 6148 -> 0 bytes
+ phase1/src/.DS_Store                                                                |  Bin 6148 -> 0 bytes
+ phase1/src/galloOSIOPT/.DS_Store                                                    |  Bin 10244 -> 0 bytes
+ phase1/src/galloOSIOPT/.idea/workspace.xml                                          |  215 -------
+ phase1/src/galloOSIOPT/code/.ipynb_checkpoints/GalloModel-Parallel-checkpoint.ipynb | 1790 ----------------------------------------------------
+ phase1/src/galloOSIOPT/code/.ipynb_checkpoints/Hyperparams-opt-checkpoint.ipynb     | 1935 ---------------------------------------------------------
+ phase1/src/galloOSIOPT/code/__pycache__/features.cpython-37.pyc                     |  Bin 2101 -> 0 bytes
+ phase1/src/galloOSIOPT/code/__pycache__/features.cpython-38.pyc                     |  Bin 2109 -> 0 bytes
+ phase1/src/galloOSIOPT/code/__pycache__/gallodata.cpython-37.pyc                    |  Bin 9890 -> 0 bytes
+ phase1/src/galloOSIOPT/code/__pycache__/gallodata.cpython-38.pyc                    |  Bin 9712 -> 0 bytes
+ phase1/src/galloOSIOPT/code/__pycache__/metrics.cpython-37.pyc                      |  Bin 1536 -> 0 bytes
+ phase1/src/galloOSIOPT/code/__pycache__/metrics.cpython-38.pyc                      |  Bin 1548 -> 0 bytes
+ phase1/src/galloOSIOPT/code/__pycache__/models.cpython-37.pyc                       |  Bin 5800 -> 0 bytes
+ phase1/src/galloOSIOPT/code/__pycache__/models.cpython-38.pyc                       |  Bin 5753 -> 0 bytes
+ phase1/src/galloOSIOPT/code/__pycache__/synth.cpython-37.pyc                        |  Bin 1255 -> 0 bytes
+ phase1/src/galloOSIOPT/code/__pycache__/synth.cpython-38.pyc                        |  Bin 1251 -> 0 bytes
+ phase1/src/galloOSIOPT/data/.DS_Store                                               |  Bin 6148 -> 0 bytes
+ phase1/src/galloOSIOPT/data/1006/.DS_Store                                          |  Bin 10244 -> 0 bytes
+ phase1/src/galloOSIOPT/data/1006/NeoSpectra/.DS_Store                               |  Bin 14340 -> 0 bytes
+ src/GalloStarterTrial/scripts/ML/{instructions.md => README.md}                     |    2 +
+ 20 files changed, 2 insertions(+), 3940 deletions(-)
+ delete mode 100644 phase1/.DS_Store
+ delete mode 100644 phase1/src/.DS_Store
+ delete mode 100644 phase1/src/galloOSIOPT/.DS_Store
+ delete mode 100644 phase1/src/galloOSIOPT/.idea/workspace.xml
+ delete mode 100644 phase1/src/galloOSIOPT/code/.ipynb_checkpoints/GalloModel-Parallel-checkpoint.ipynb
+ delete mode 100644 phase1/src/galloOSIOPT/code/.ipynb_checkpoints/Hyperparams-opt-checkpoint.ipynb
+ delete mode 100644 phase1/src/galloOSIOPT/code/__pycache__/features.cpython-37.pyc
+ delete mode 100644 phase1/src/galloOSIOPT/code/__pycache__/features.cpython-38.pyc
+ delete mode 100644 phase1/src/galloOSIOPT/code/__pycache__/gallodata.cpython-37.pyc
+ delete mode 100644 phase1/src/galloOSIOPT/code/__pycache__/gallodata.cpython-38.pyc
+ delete mode 100644 phase1/src/galloOSIOPT/code/__pycache__/metrics.cpython-37.pyc
+ delete mode 100644 phase1/src/galloOSIOPT/code/__pycache__/metrics.cpython-38.pyc
+ delete mode 100644 phase1/src/galloOSIOPT/code/__pycache__/models.cpython-37.pyc
+ delete mode 100644 phase1/src/galloOSIOPT/code/__pycache__/models.cpython-38.pyc
+ delete mode 100644 phase1/src/galloOSIOPT/code/__pycache__/synth.cpython-37.pyc
+ delete mode 100644 phase1/src/galloOSIOPT/code/__pycache__/synth.cpython-38.pyc
+ delete mode 100644 phase1/src/galloOSIOPT/data/.DS_Store
+ delete mode 100644 phase1/src/galloOSIOPT/data/1006/.DS_Store
+ delete mode 100644 phase1/src/galloOSIOPT/data/1006/NeoSpectra/.DS_Store
+ rename src/GalloStarterTrial/scripts/ML/{instructions.md => README.md} (93%)
+(ve-cheers) karahbit@Georges-MBP phase1 % git push
+Enumerating objects: 42, done.
+Counting objects: 100% (42/42), done.
+Delta compression using up to 8 threads
+Compressing objects: 100% (34/34), done.
+Writing objects: 100% (34/34), 19.28 MiB | 11.80 MiB/s, done.
+Total 34 (delta 11), reused 0 (delta 0)
+remote: Resolving deltas: 100% (11/11), completed with 6 local objects.
+To https://github.com/radical-collaboration/FastFingerPrinting.git
+   bc91bcd..08d97e2  feature/starter_tank -> feature/starter_tank
+(ve-cheers) karahbit@Georges-MBP phase1 % ls
+DataAnalysis	src
+(ve-cheers) karahbit@Georges-MBP phase1 % jupyter notebook
+[I 13:13:20.080 NotebookApp] Loading IPython parallel extension
+[I 13:13:20.081 NotebookApp] Serving notebooks from local directory: /Users/karahbit/FastFingerPrinting/phase1
+[I 13:13:20.081 NotebookApp] The Jupyter Notebook is running at:
+[I 13:13:20.081 NotebookApp] http://localhost:8888/?token=b161bca8eac7774292663a1704caf794e3cecf043b91ffb9
+[I 13:13:20.081 NotebookApp]  or http://127.0.0.1:8888/?token=b161bca8eac7774292663a1704caf794e3cecf043b91ffb9
+[I 13:13:20.081 NotebookApp] Use Control-C to stop this server and shut down all kernels (twice to skip confirmation).
+[C 13:13:20.091 NotebookApp] 
+    
+    To access the notebook, open this file in a browser:
+        file:///Users/karahbit/Library/Jupyter/runtime/nbserver-3943-open.html
+    Or copy and paste one of these URLs:
+        http://localhost:8888/?token=b161bca8eac7774292663a1704caf794e3cecf043b91ffb9
+     or http://127.0.0.1:8888/?token=b161bca8eac7774292663a1704caf794e3cecf043b91ffb9
+^C[I 13:13:38.366 NotebookApp] interrupted
+Serving notebooks from local directory: /Users/karahbit/FastFingerPrinting/phase1
+0 active kernels
+The Jupyter Notebook is running at:
+http://localhost:8888/?token=b161bca8eac7774292663a1704caf794e3cecf043b91ffb9
+ or http://127.0.0.1:8888/?token=b161bca8eac7774292663a1704caf794e3cecf043b91ffb9
+Shutdown this notebook server (y/[n])? y
+[C 13:13:39.608 NotebookApp] Shutdown confirmed
+[I 13:13:39.609 NotebookApp] Shutting down 0 kernels
+(ve-cheers) karahbit@Georges-MBP phase1 % ls -all
+total 0
+drwxr-xr-x   4 karahbit  staff  128 Jun  3 13:10 .
+drwxr-xr-x  11 karahbit  staff  352 Jun  3 13:10 ..
+drwxr-xr-x   5 karahbit  staff  160 May 12 17:46 DataAnalysis
+drwxr-xr-x   6 karahbit  staff  192 Jun  3 13:10 src
+(ve-cheers) karahbit@Georges-MBP phase1 % cd src
+(ve-cheers) karahbit@Georges-MBP src % ls -all
+total 0
+drwxr-xr-x   6 karahbit  staff  192 Jun  3 13:10 .
+drwxr-xr-x   4 karahbit  staff  128 Jun  3 13:10 ..
+drwxr-xr-x   4 karahbit  staff  128 May 12 17:46 GaloRegression
+drwxr-xr-x   5 karahbit  staff  160 May 12 17:46 Spark
+drwxr-xr-x   3 karahbit  staff   96 May 12 17:46 WekaScripts
+drwxr-xr-x  10 karahbit  staff  320 Jun  3 13:10 galloOSIOPT
+(ve-cheers) karahbit@Georges-MBP src % cd galloOSIOPT 
+(ve-cheers) karahbit@Georges-MBP galloOSIOPT % ls
+Results		code		code2		code3		dask		data		hyperparams-opt	spark
+(ve-cheers) karahbit@Georges-MBP galloOSIOPT % cd hyperparams-opt 
+(ve-cheers) karahbit@Georges-MBP hyperparams-opt % ls
+code			hyperparams-opt-results
+(ve-cheers) karahbit@Georges-MBP hyperparams-opt % ls -all
+total 24
+drwxr-xr-x   5 karahbit  staff   160 May 30 18:33 .
+drwxr-xr-x  10 karahbit  staff   320 Jun  3 13:10 ..
+-rw-r--r--@  1 karahbit  staff  8196 Jun  3 12:57 .DS_Store
+drwxr-xr-x  15 karahbit  staff   480 Jun  3 12:54 code
+drwxr-xr-x   5 karahbit  staff   160 May 30 21:21 hyperparams-opt-results
+(ve-cheers) karahbit@Georges-MBP hyperparams-opt % rm .DS_Store 
+(ve-cheers) karahbit@Georges-MBP hyperparams-opt % cd code 
+(ve-cheers) karahbit@Georges-MBP code % ls
+Hyperparams-opt.ipynb	cheers_svr.py		data_Sugar.npy		features.py		groundTruthMap.log	train_test_merge.log
+__pycache__		data_Alcohol.npy	data_utils.py		gallodata.py		synth.py
+(ve-cheers) karahbit@Georges-MBP code % rm -rf __pycache__ 
+(ve-cheers) karahbit@Georges-MBP code % ls -all
+total 29136
+drwxr-xr-x  14 karahbit  staff      448 Jun  3 13:14 .
+drwxr-xr-x   4 karahbit  staff      128 Jun  3 13:14 ..
+-rw-r--r--@  1 karahbit  staff     6148 May 30 19:15 .DS_Store
+drwxr-xr-x   3 karahbit  staff       96 May 30 18:53 .ipynb_checkpoints
+-rw-r--r--   1 karahbit  staff   172855 Jun  3 12:54 Hyperparams-opt.ipynb
+-rw-r--r--@  1 karahbit  staff     1584 May 30 20:22 cheers_svr.py
+-rw-r--r--   1 karahbit  staff  6440800 May 30 22:30 data_Alcohol.npy
+-rw-r--r--   1 karahbit  staff  6440800 May 30 22:30 data_Sugar.npy
+-rw-r--r--@  1 karahbit  staff      502 May 30 19:06 data_utils.py
+-rw-r--r--   1 karahbit  staff     1789 May 12 17:46 features.py
+-rw-r--r--@  1 karahbit  staff    19702 May 15 14:38 gallodata.py
+-rw-r--r--@  1 karahbit  staff     1372 May 30 22:30 groundTruthMap.log
+-rw-r--r--   1 karahbit  staff     1628 May 12 17:46 synth.py
+-rw-r--r--@  1 karahbit  staff     3145 May 30 22:30 train_test_merge.log
+(ve-cheers) karahbit@Georges-MBP code % rm .DS_Store 
+(ve-cheers) karahbit@Georges-MBP code % rm .ipynb_checkpoints 
+rm: .ipynb_checkpoints: is a directory
+(ve-cheers) karahbit@Georges-MBP code % rm -rf .ipynb_checkpoints 
+(ve-cheers) karahbit@Georges-MBP code % git rm    
+usage: git rm [<options>] [--] <file>...
+
+    -n, --dry-run         dry run
+    -q, --quiet           do not list removed files
+    --cached              only remove from the index
+    -f, --force           override the up-to-date check
+    -r                    allow recursive removal
+    --ignore-unmatch      exit with a zero status even if nothing matched
+
+(ve-cheers) karahbit@Georges-MBP code % git status
+On branch feature/starter_tank
+Your branch is up to date with 'origin/feature/starter_tank'.
+
+Changes not staged for commit:
+  (use "git add/rm <file>..." to update what will be committed)
+  (use "git restore <file>..." to discard changes in working directory)
+	deleted:    ../../code/cheers_svr.py
+	deleted:    ../../code/data_Alcohol.npy
+	deleted:    ../../code/data_Sugar.npy
+	deleted:    .ipynb_checkpoints/Hyperparams-opt-checkpoint.ipynb
+	deleted:    __pycache__/data_utils.cpython-37.pyc
+	deleted:    __pycache__/features.cpython-37.pyc
+	deleted:    __pycache__/gallodata.cpython-37.pyc
+	deleted:    __pycache__/synth.cpython-37.pyc
+
+no changes added to commit (use "git add" and/or "git commit -a")
+(ve-cheers) karahbit@Georges-MBP code % git rm ../../code/cheers_svr.py ../../code/data_Alcohol.npy ../../code/data_Sugar.npy .ipynb_checkpoints/Hyperparams-opt-checkpoint.ipynb __pycache__/data_utils.cpython-37.pyc __pycache__/features.cpython-37.pyc __pycache__/gallodata.cpython-37.pyc __pycache__/synth.cpython-37.pyc
+rm 'phase1/src/galloOSIOPT/code/cheers_svr.py'
+rm 'phase1/src/galloOSIOPT/code/data_Alcohol.npy'
+rm 'phase1/src/galloOSIOPT/code/data_Sugar.npy'
+rm 'phase1/src/galloOSIOPT/hyperparams-opt/code/.ipynb_checkpoints/Hyperparams-opt-checkpoint.ipynb'
+rm 'phase1/src/galloOSIOPT/hyperparams-opt/code/__pycache__/data_utils.cpython-37.pyc'
+rm 'phase1/src/galloOSIOPT/hyperparams-opt/code/__pycache__/features.cpython-37.pyc'
+rm 'phase1/src/galloOSIOPT/hyperparams-opt/code/__pycache__/gallodata.cpython-37.pyc'
+rm 'phase1/src/galloOSIOPT/hyperparams-opt/code/__pycache__/synth.cpython-37.pyc'
+(ve-cheers) karahbit@Georges-MBP code % git commit -m "clean up"
+[feature/starter_tank 626f83e] clean up
+ 8 files changed, 514 deletions(-)
+ delete mode 100644 phase1/src/galloOSIOPT/code/cheers_svr.py
+ delete mode 100644 phase1/src/galloOSIOPT/code/data_Alcohol.npy
+ delete mode 100644 phase1/src/galloOSIOPT/code/data_Sugar.npy
+ delete mode 100644 phase1/src/galloOSIOPT/hyperparams-opt/code/.ipynb_checkpoints/Hyperparams-opt-checkpoint.ipynb
+ delete mode 100644 phase1/src/galloOSIOPT/hyperparams-opt/code/__pycache__/data_utils.cpython-37.pyc
+ delete mode 100644 phase1/src/galloOSIOPT/hyperparams-opt/code/__pycache__/features.cpython-37.pyc
+ delete mode 100644 phase1/src/galloOSIOPT/hyperparams-opt/code/__pycache__/gallodata.cpython-37.pyc
+ delete mode 100644 phase1/src/galloOSIOPT/hyperparams-opt/code/__pycache__/synth.cpython-37.pyc
+(ve-cheers) karahbit@Georges-MBP code % git push
+Enumerating objects: 15, done.
+Counting objects: 100% (15/15), done.
+Delta compression using up to 8 threads
+Compressing objects: 100% (8/8), done.
+Writing objects: 100% (8/8), 635 bytes | 635.00 KiB/s, done.
+Total 8 (delta 5), reused 0 (delta 0)
+remote: Resolving deltas: 100% (5/5), completed with 5 local objects.
+To https://github.com/radical-collaboration/FastFingerPrinting.git
+   08d97e2..626f83e  feature/starter_tank -> feature/starter_tank
+(ve-cheers) karahbit@Georges-MBP code % jupyter notebook 
+[I 13:18:38.063 NotebookApp] Loading IPython parallel extension
+[I 13:18:38.064 NotebookApp] Serving notebooks from local directory: /Users/karahbit/FastFingerPrinting/phase1/src/galloOSIOPT/hyperparams-opt/code
+[I 13:18:38.064 NotebookApp] The Jupyter Notebook is running at:
+[I 13:18:38.064 NotebookApp] http://localhost:8888/?token=c86c57311198d93d9252c0b0f3c739ab21652e3c9f710b27
+[I 13:18:38.064 NotebookApp]  or http://127.0.0.1:8888/?token=c86c57311198d93d9252c0b0f3c739ab21652e3c9f710b27
+[I 13:18:38.064 NotebookApp] Use Control-C to stop this server and shut down all kernels (twice to skip confirmation).
+[C 13:18:38.069 NotebookApp] 
+    
+    To access the notebook, open this file in a browser:
+        file:///Users/karahbit/Library/Jupyter/runtime/nbserver-3987-open.html
+    Or copy and paste one of these URLs:
+        http://localhost:8888/?token=c86c57311198d93d9252c0b0f3c739ab21652e3c9f710b27
+     or http://127.0.0.1:8888/?token=c86c57311198d93d9252c0b0f3c739ab21652e3c9f710b27
+[I 13:19:24.857 NotebookApp] Kernel started: 40154fa9-2fcd-409e-9a2b-9e4d51ca98f7
+[W 13:19:24.877 NotebookApp] 404 GET /nbextensions/export_embedded/main.js?v=20200603131837 (::1) 8.82ms referer=http://localhost:8888/notebooks/Hyperparams-opt.ipynb
+[I 14:15:06.364 NotebookApp] Starting buffering for 40154fa9-2fcd-409e-9a2b-9e4d51ca98f7:4d7f07cbddb14d40a0ec9dfa153b4a7a
+^C[I 14:15:11.614 NotebookApp] interrupted
+Serving notebooks from local directory: /Users/karahbit/FastFingerPrinting/phase1/src/galloOSIOPT/hyperparams-opt/code
+1 active kernel
+The Jupyter Notebook is running at:
+http://localhost:8888/?token=c86c57311198d93d9252c0b0f3c739ab21652e3c9f710b27
+ or http://127.0.0.1:8888/?token=c86c57311198d93d9252c0b0f3c739ab21652e3c9f710b27
+Shutdown this notebook server (y/[n])? y
+[C 14:15:12.821 NotebookApp] Shutdown confirmed
+[I 14:15:12.823 NotebookApp] Shutting down 1 kernel
+[I 14:15:13.133 NotebookApp] Kernel shutdown: 40154fa9-2fcd-409e-9a2b-9e4d51ca98f7
+(ve-cheers) karahbit@Georges-MBP code % git status
+On branch feature/starter_tank
+Your branch is up to date with 'origin/feature/starter_tank'.
+
+Changes not staged for commit:
+  (use "git add <file>..." to update what will be committed)
+  (use "git restore <file>..." to discard changes in working directory)
+	modified:   ../../../../../.DS_Store
+
+no changes added to commit (use "git add" and/or "git commit -a")
+(ve-cheers) karahbit@Georges-MBP code % 
+cd ../../../../..
+ls -all
+git rm .DS_Store
+git rm .DS_Store -f
+ls -all
+git status
+git push
+git commit -m "clean up"
+git push
+git status
