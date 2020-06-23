@@ -81,6 +81,16 @@ authenticate through Duo
 
 How to access Comet?
 gsissh comet.sdsc.xsede.org
+To submit EnTK Comet:
+    res_dict = {
+
+        'resource': 'xsede.comet_ssh',
+        'project' : 'TG-MCB090174',	# if it doesn't work, use 'unc100'
+        'queue' : 'compute',
+        'walltime': 90,
+        'cpus': (2**hparams)*1, # 1 core per optimization
+        'access_schema': 'gsissh'
+    }
 
 
 Check credential status
@@ -96,7 +106,7 @@ after setting up phone number:
 gsissh -p 2222 stampede2.tacc.xsede.org
 to enable python3:
 module load python3
-To submit to Stampede2:
+To submit Pilot Stampede2:
             pd_init = {'resource'   : xsede.stampede2_ssh,
                     'runtime'       : 10,  # pilot runtime (min)
                     'exit_on_error' : True,
@@ -105,3 +115,8 @@ To submit to Stampede2:
                     'access_schema' : 'gsissh',
                     'cores'         : 8
                     }
+
+
+- Location of the sandbox folder in the remote HPC cluster:
+Comet: /oasis/scratch/comet/karahbit/temp_project/radical.pilot.sandbox
+Bridges: /pylon5/mc3bggp/karahbit/radical.pilot.sandbox

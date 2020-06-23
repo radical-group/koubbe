@@ -112,9 +112,14 @@ ibrun --npernode 2 python3 -m mpi4py.bench helloworld
 
 
 
-Note:
+Notes:
 
 /home/karahbit/miniconda3/envs/ve-cheers/lib/python3.8/site-packages/sklearn/externals/joblib/__init__.py:15: FutureWarning: sklearn.externals.joblib is deprecated in 0.21 and will be removed in 0.23. Please import this functionality directly from joblib, which can be installed with: pip install joblib. If this warning is raised when loading pickled models, you may need to re-serialize those models with scikit-learn 0.21+.
   warnings.warn(msg, category=FutureWarning)
 /home/karahbit/miniconda3/envs/ve-cheers/lib/python3.8/site-packages/sklearn/utils/deprecation.py:144: FutureWarning: The sklearn.metrics.scorer module is  deprecated in version 0.22 and will be removed in version 0.24. The corresponding classes / functions should instead be imported from sklearn.metrics. Anything that cannot be imported from sklearn.metrics is now part of the private API.
   warnings.warn(message, FutureWarning)
+
+
+If having error: ModuleNotFoundError: No module named 'sklearn.externals.joblib':
+
+$ conda install scikit-learn joblib
