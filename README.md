@@ -117,11 +117,11 @@ note3: modify [mpi_rp.py](https://github.com/radical-group/koubbe/blob/master/Co
 
 ##### On Comet:
 
-note: For further instructions on how to build the container and install/compile the executable, go [here](https://github.com/radical-group/koubbe/blob/master/Containers/First%20experiments/src/exp2/Comet/Bind-Intel18.1/instructions.txt)
+note: For further instructions on how to build the container and install/compile the executable, go [here](https://github.com/radical-group/koubbe/blob/master/Containers/First%20experiments/src/exp2/Comet/Bind-IntelMPI/instructions.txt)
  
-note2: mpi_rp.sh is located [here](https://github.com/radical-group/koubbe/blob/master/Containers/First%20experiments/src/exp2/Comet/Bind-Intel18.1/mpi_rp.sh)
+note2: mpi_rp.sh is located [here](https://github.com/radical-group/koubbe/blob/master/Containers/First%20experiments/src/exp2/Comet/Bind-IntelMPI/mpi_rp.sh)
 
-note3: modify [mpi_rp.py](https://github.com/radical-group/koubbe/blob/master/Containers/First%20experiments/src/exp2/Comet/Bind-Intel18.1/mpi_rp.py) accordingly to run via RP the executable or the containerized executable.
+note3: modify [mpi_rp.py](https://github.com/radical-group/koubbe/blob/master/Containers/First%20experiments/src/exp2/Comet/Bind-IntelMPI/mpi_rp.py) accordingly to run via RP the executable or the containerized executable.
 
 ## FACTS
 
