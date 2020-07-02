@@ -125,9 +125,35 @@ note3: modify [mpi_rp.py](https://github.com/radical-group/koubbe/blob/master/Co
 
 ## FACTS
 
-My work consisted on helping out in running simple FACTS "modules" on XSEDE Bridges and verifying correct functionality. 
+### Getting started
+
+My initial work consisted on helping out in running simple FACTS "modules" on XSEDE Bridges and verifying correct functionality. 
  
-After this initial testing was done, I proceeded to package the [FACTS repo](https://github.com/radical-collaboration/facts) into a python pip package and uploaded it to the pip server for easy download of general users.
+After this testing was done, I proceeded to package the [FACTS repo](https://github.com/radical-collaboration/facts) into a python pip package and uploaded it to the pip server for easy download of general users.
+
+Lastly, I was tasked with the containerization of the FACTS framework. As it is right now, automation is achieved by creating a virtual environment and installing FACTS along with its dependencies through PIP. This framework will launch the executables for the required modules on a remote machine, being an HPC cluster, etc. 
+
+So, why do we need containers? What is the benefit that containers are going to bring to FACTS?
+
+We envision this at two levels:
+
+1) We containerize at the framework level. This will allow us to take FACTS apart into individual modules, completely independent from one another, with their own container each. The end user won’t have to know about anything else, no virtual environment, no dependencies, no other steps. We would take full advantage of the portability and reproducibility benefits of containers. Therefore, the end user can simply execute the containerized module on the local machine. We can use Docker for this purpose.
+2) We containerize at the executable level. There is a growing number of modules inside FACTS. Each module has 4 stages: pre-processing, fit, project, post-processing. Each stage has one executable (python3 script). We can use Singularity for this purpose.
+
+Few notes to keep in mind:
+
+- Input data is not going to be included in the container. We can integrate (bind mount) it to the Docker container at the time of execution. Singularity already offers integration features that make this easier.
+
+- Where are we going to obtain the containers from?	As said before, each container would be representing a FACTS module. The containers can be downloaded from Docker Hub or the Singularity equivalent, for example, with every container being specific to the application and remote resource. Lastly, the end user would just need to execute the container.
+
+### Containerization at the executable level
+
+As an initial approach, I started containerizing at the executable level (Singularity) on Comet with the kopp14 module and data that Greg sent me. Once done, I characterized performance and looked for any overheads. You can find the FACTS python script, the Singularity definition file and the FACTS pipeline configuration [here](https://github.com/radical-group/koubbe/tree/master/FACTS/Containerizing%20FACTS/Executable%20level/src/Comet). You can find the results in the last slide of the presentation [here](https://github.com/radical-group/koubbe/blob/master/Containers/First%20experiments/docs/Containers%20Initial%20Presentation.pdf). You can read how to run the container from the following file: [facts_re.sh](https://github.com/radical-group/koubbe/blob/master/FACTS/Containerizing%20FACTS/Executable%20level/src/Comet/facts_re.sh)
+
+### Containerization at the framework level
+
+This was not a requirement at the moment, but for fun I proceeded to create a Dockerfile containerizing FACTS at the framework level. You can find the file [here](https://github.com/radical-group/koubbe/blob/master/FACTS/Containerizing%20FACTS/Framework%20level/Dockerfile)
+
 
 ## Misc
 
