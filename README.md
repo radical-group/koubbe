@@ -148,7 +148,13 @@ Few notes to keep in mind:
 
 ### Containerization at the executable level
 
-As an initial approach, I started containerizing at the executable level (Singularity) on Comet with the kopp14 module and data that Greg sent me. Once done, I characterized performance and looked for any overheads. You can find the FACTS python script, the Singularity definition file and the FACTS pipeline configuration [here](https://github.com/radical-group/koubbe/tree/master/FACTS/Containerizing%20FACTS/Executable%20level/src/Comet). You can find the results in the last slide of the presentation [here](https://github.com/radical-group/koubbe/blob/master/Containers/First%20experiments/docs/Containers%20Initial%20Presentation.pdf). You can read how to run the container from the following file: [facts_re.sh](https://github.com/radical-group/koubbe/blob/master/FACTS/Containerizing%20FACTS/Executable%20level/src/Comet/facts_re.sh)
+As an initial approach, I started containerizing at the executable level (Singularity) on Comet with the kopp14 module and data that Greg sent me. Once done, I characterized performance and looked for any overheads. You can read how to run the container from the following file: [facts_re.sh](https://github.com/radical-group/koubbe/blob/master/FACTS/Containerizing%20FACTS/Executable%20level/src/Comet/facts/facts_re.sh). You can find the results in the last slide of the presentation [here](https://github.com/radical-group/koubbe/blob/master/Containers/First%20experiments/docs/Containers%20Initial%20Presentation.pdf).
+
+note: keep in mind that you would have to build the Singularity container from the definition file I provided by running the following command:
+
+```
+$ sudo singularity build kopp14_landwaterstorage.sif kopp14_landwaterstorage.def
+```
 
 ### Containerization at the framework level
 

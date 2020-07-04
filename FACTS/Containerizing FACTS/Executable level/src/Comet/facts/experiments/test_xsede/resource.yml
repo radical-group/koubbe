@@ -1,0 +1,12 @@
+rabbitmq:
+  hostname: 'localhost'
+  port: 5672
+
+resource-desc:
+  name: 'xsede.comet_ssh'
+  walltime: 30
+  cpus: 2
+  gpus: 0
+  queue: 'debug'
+  project: 'TG-MCB090174'
+  access_schema: 'gsissh'

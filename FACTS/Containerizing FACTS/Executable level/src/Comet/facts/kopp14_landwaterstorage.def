@@ -9,7 +9,7 @@ Stage: build
     SINGULARITY_VERSION 3.5
 
     AUTHOR_NAME George Koubbe
-    AUTHOR_EMAIL gkoubbe@rutgers.edu
+    AUTHOR_EMAIL g.koubbe@rutgers.edu
 
     LAST_UPDATED 20200418
 
