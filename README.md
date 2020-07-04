@@ -153,7 +153,7 @@ As an initial approach, I started containerizing at the executable level (Singul
 note: keep in mind that you would have to build the Singularity container from the definition file I provided by running the following command:
 
 ```
-$ sudo singularity build kopp14_landwaterstorage.sif kopp14_landwaterstorage.def
+$ sudo singularity build ./modules/kopp14/landwaterstorage/kopp14_landwaterstorage.sif kopp14_landwaterstorage.def
 ```
 
 ### Containerization at the framework level
