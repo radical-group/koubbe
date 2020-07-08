@@ -1,5 +1,6 @@
 from radical.entk import Pipeline, Stage, Task, AppManager
 import radical.utils as ru
+import sys
 import os
 
 # ------------------------------------------------------------------------------
@@ -40,7 +41,11 @@ class OptimizationTask(Task):
         self.name = name
         self.copy_input_data   = []
         self.copy_input_data  += ['$SHARED/data_Alcohol.npy']
+        self.copy_input_data  += ['$SHARED/cheers_svr_1params.py']
+        self.copy_input_data  += ['$SHARED/cheers_svr_2params.py']
         self.copy_input_data  += ['$SHARED/cheers_svr_3params.py']
+        self.copy_input_data  += ['$SHARED/cheers_svr_4params.py']
+        self.copy_input_data  += ['$SHARED/cheers_svr_5params.py']
         self.pre_exec    =   []
         self.pre_exec   += ['export PATH="/home/karahbit/.local/bin:$PATH"']    # for virtualenv
         self.pre_exec   += ['module load mpi4py']
@@ -55,9 +60,18 @@ class OptimizationTask(Task):
 if __name__ == '__main__':
 
     # arguments for AppManager
+    hparams = int(sys.argv[1])
 
-    hparams = 3
-    script = 'cheers_svr_3params.py'
+    if hparams == 1:
+        script = 'cheers_svr_1params.py'
+    elif hparams == 2:
+        script = 'cheers_svr_2params.py'
+    elif hparams == 3:
+        script = 'cheers_svr_3params.py'
+    elif hparams == 4:
+        script = 'cheers_svr_4params.py'
+    elif hparams == 5:
+        script = 'cheers_svr_5params.py'
     results_dir = '/home/karahbit/results'   # dir on Comet
     cur_dir = '/home/karahbit/FastFingerPrinting/phase1/src/galloOSIOPT/hyperparams-opt/code/NIRONE2-5' #  dir on local machine
 
@@ -92,7 +106,11 @@ if __name__ == '__main__':
     appman.resource_desc = res_dict
     appman.shared_data   = []
     appman.shared_data += ['%s/data_Alcohol.npy' %cur_dir]
+    appman.shared_data += ['%s/cheers_svr_1params.py' %cur_dir]
+    appman.shared_data += ['%s/cheers_svr_2params.py' %cur_dir]
     appman.shared_data += ['%s/cheers_svr_3params.py' %cur_dir]
+    appman.shared_data += ['%s/cheers_svr_4params.py' %cur_dir]
+    appman.shared_data += ['%s/cheers_svr_5params.py' %cur_dir]
                     
     # Assign the workflow as a set of Pipelines to the Application Manager
     appman.workflow = [p]

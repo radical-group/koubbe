@@ -18,8 +18,8 @@ profile events. Modified from examples under RADICAL Analytics"""
 #
 if __name__ == '__main__':
 
-    #loc = './re.session.js-104-191.jetstream-cloud.org.karahbit.018370.0027'
-    loc = "./" + sys.argv[1]
+    #loc = './re.session.js-17-185.jetstream-cloud.org.karahbit.018451.0005'
+    loc = "./" + sys.argv[1] + "/"
     src = os.path.dirname(loc)
     #src = print(os.path.dirname(os.path.abspath(__file__)))
     sid = os.path.basename(loc)
