@@ -79,11 +79,60 @@ $ conda install mpi4py (through conda this time so MPI packages get installed as
 $ conda install scikit-learn seaborn   
 ```
 
-Follow the Jupyter Notebook located in the repo [here](https://github.com/radical-group/koubbe/blob/master/HPO/HyperSpace/First%20benchmark/results/vis_results.ipynb) in order to visualize results
+Follow the Jupyter Notebook located in the repo [here](https://github.com/radical-group/koubbe/blob/master/HPO/HyperSpace/First%20benchmark/results/vis_results.ipynb) in order to visualize results.
+
+### Performing HPO for the CHEERS project
+
+For a brief overview of what the CHEERS project is, as well as experiments design and results, please visit the [CHEERS First Approach document](https://github.com/radical-group/koubbe/blob/master/HPO/CHEERS/docs/First%20approach.pdf).
+
+#### Parallel Bayesian SMBO vs Grid Search
+
+After playing around with HyperSpace and managing to get a working hyperparameter optimization code, the first thing that I did was a comparison of this approach (parallel Bayesian SMBO) against the already existing Grid Search one. You can find it here: [Andy_comparison_3params.ipynb](https://github.com/radical-group/koubbe/blob/master/HPO/CHEERS/hyperparams-opt/code/NIRONE2-5/Andy_comparison_3params.ipynb).
+
+Of course, you need to have HyperSpace installed beforehand:
+
+```
+Easy HyperSpace install on XSEDE Comet with mvapich2:
+
+$ pip3 install virtualenv --user
+$ add virtualenv to .bashrc:
+	export PATH="/home/karahbit/.local/bin:$PATH"
+$ source .bashrc
+$ virtualenv -p python3 ve-cheers
+$ module load mpi4py
+$ source ve-cheers/bin/activate
+$ pip install seaborn scikit-optimize==0.5.2
+$ git clone https://github.com/yngtodd/hyperspace.git
+$ cd ~/hyperspace
+$ pip install .
+$ export MV2_ENABLE_AFFINITY=0
+$ srun --partition=debug --pty --nodes=2 --ntasks-per-node=24 -t 00:30:00 --wait=0 --export=ALL /bin/bash
+$ mpirun -n 4 python benchmarks/styblinskitang/hyperdrive/benchmark.py --ndims 2 --results /home/karahbit/hyperspace_results
+```
+
+#### Weak Scaling experiment
+
+As a natural next step, I went ahead and performed weak scaling experiments by running the following on local machine:
+
+```
+$ ./cheers_hyperspace_entk.sh
+```
+
+note: cheers_hyperspace_entk.sh is located [here](https://github.com/radical-group/koubbe/blob/master/HPO/CHEERS/hyperparams-opt/code/NIRONE2-5/cheers_hyperspace_entk.sh).
+
+note2: modify [cheers_hyperspace_entk.py](https://github.com/radical-group/koubbe/blob/master/HPO/CHEERS/hyperparams-opt/code/NIRONE2-5/cheers_hyperspace_entk.py) according to your needs (e.g. which dataset, # of hyperparams, which remote cluster, etc.).
+
+#### Strong Scaling experiment
+
+TBD
+
+As said before, you can see the results for both experiments in [CHEERS First Approach document](https://github.com/radical-group/koubbe/blob/master/HPO/CHEERS/docs/First%20approach.pdf).
 
 ## Containers
 
  In order to see my Initial Presentation on Containers, please visit [Containers Initial Presentation](https://docs.google.com/presentation/d/1ZA0dlyVj5jCw4b_unFurkM9Q9E7sMrNNn_DfLtdanfA/edit?usp=sharing)
+
+ Moreover, to see a step-by-step walkthrough of how to create and use Singularity containers on remote clusters (e.g. Bridges) using RCT, go to the following [wiki](https://github.com/radical-cybertools/radical.pilot/wiki/Singularity-Containers).
 
 The experiments design is located [here](https://github.com/radical-group/koubbe/blob/master/Containers/First%20experiments/docs/First%20Container%20Experiments%20Design%20Dec%2012%2C%202019.pdf).
 

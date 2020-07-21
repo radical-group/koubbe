@@ -1,4 +1,4 @@
-Easy install on XSEDE Comet with mvapich2 (this is the one to use):
+Easy HyperSpace install on XSEDE Comet with mvapich2 (this is the one to use):
 
 $ pip3 install virtualenv --user
 $ add virtualenv to .bashrc:
@@ -8,6 +8,7 @@ $ virtualenv -p python3 ve-cheers
 $ module load mpi4py
 $ source ve-cheers/bin/activate
 $ pip install seaborn scikit-optimize==0.5.2
+$ git clone https://github.com/yngtodd/hyperspace.git
 $ cd ~/hyperspace
 $ pip install .
 $ export MV2_ENABLE_AFFINITY=0
