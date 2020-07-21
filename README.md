@@ -130,7 +130,9 @@ As said before, you can see the results for both experiments in [CHEERS First Ap
 
 ## Containers
 
- In order to see my Initial Presentation on Containers, please visit [Containers Initial Presentation](https://docs.google.com/presentation/d/1ZA0dlyVj5jCw4b_unFurkM9Q9E7sMrNNn_DfLtdanfA/edit?usp=sharing)
+ In order to see my Initial Presentation on Containers, please visit [Containers Initial Presentation](https://docs.google.com/presentation/d/1ZA0dlyVj5jCw4b_unFurkM9Q9E7sMrNNn_DfLtdanfA/edit?usp=sharing).
+
+ To see my final paper regarding containerization, please visit [Case Studies of executing containerized scientific applications on High-Performance Computing Platforms using RADICAL-Cybertools](https://github.com/radical-group/koubbe/blob/master/Misc/Technical%20Report/GeorgeKoubbe_Report.pdf).
 
  Moreover, to see a step-by-step walkthrough of how to create and use Singularity containers on remote clusters (e.g. Bridges) using RCT, go to the following [wiki](https://github.com/radical-cybertools/radical.pilot/wiki/Singularity-Containers).
 
