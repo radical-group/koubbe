@@ -81,5 +81,4 @@ For specific references, please visit each section's topic.
  6. https://hyperspace.readthedocs.io/en/latest
  7. https://www.open-mpi.org 
 
-Author: George Koubbe  
-https://github.com/karahbit
+Author: [George Koubbe](https://github.com/karahbit)
