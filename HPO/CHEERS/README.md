@@ -1,12 +1,12 @@
 # Hyperparameter Optimization (HPO)
 
-In order to see my Initial Presentation on HPO, please visit [HPO Initial Presentation](https://docs.google.com/presentation/d/12yYCymB0-m4qGEPdgg0XKipuziSUmEoVhI32XXhDOtc/edit?usp=sharing)
+In order to see my Initial Presentation on HPO, please visit [HPO Initial Presentation](https://github.com/karahbit/koubbe/blob/master/HPO/docs/HPO%20Initial%20Presentation.pdf)
 
-For a brief overview of what the CHEERS project is, as well as experiments design and results, please visit the [CHEERS First Approach document](https://github.com/radical-group/koubbe/blob/master/HPO/CHEERS/docs/First%20approach.pdf).
+For a brief overview of what the CHEERS project is, as well as experiments design and results, please visit the [CHEERS First Approach document](https://github.com/radical-collaboration/FastFingerPrinting/blob/feature/starter_tank/phase1/src/galloOSIOPT/hyperparams-opt/docs/First%20approach.pdf).
 
 ### Parallel Bayesian SMBO vs Grid Search
 
-After playing around with HyperSpace and managing to get a working hyperparameter optimization code, the first thing that I did was a comparison of this approach (parallel Bayesian SMBO) against the already existing Grid Search one. You can find it here: [Andy_comparison_3params.ipynb](https://github.com/radical-group/koubbe/blob/master/HPO/CHEERS/hyperparams-opt/code/NIRONE2-5/Andy_comparison_3params.ipynb).
+After playing around with HyperSpace and managing to get a working hyperparameter optimization code, the first thing that I did was a comparison of this approach (parallel Bayesian SMBO) against the already existing Grid Search one. You can find it here: [Andy_comparison_3params.ipynb](https://github.com/radical-collaboration/FastFingerPrinting/blob/feature/starter_tank/phase1/src/galloOSIOPT/hyperparams-opt/code/NIRONE2-5/Andy_comparison_3params.ipynb).
 
 Of course, you need to have HyperSpace installed beforehand:
 
@@ -37,9 +37,9 @@ As a natural next step, I went ahead and performed weak scaling experiments by r
 $ ./cheers_hyperspace_entk.sh
 ```
 
-note: cheers_hyperspace_entk.sh is located [here](https://github.com/radical-group/koubbe/blob/master/HPO/CHEERS/hyperparams-opt/code/NIRONE2-5/cheers_hyperspace_entk.sh).
+note: cheers_hyperspace_entk.sh is located [here](https://github.com/radical-collaboration/FastFingerPrinting/blob/feature/starter_tank/phase1/src/galloOSIOPT/hyperparams-opt/code/NIRONE2-5/cheers_hyperspace_entk.sh).
 
-note2: modify [cheers_hyperspace_entk.py](https://github.com/radical-group/koubbe/blob/master/HPO/CHEERS/hyperparams-opt/code/NIRONE2-5/cheers_hyperspace_entk.py) according to your needs (e.g. which dataset, # of hyperparams, which remote cluster, etc.).
+note2: modify [cheers_hyperspace_entk.py](https://github.com/radical-collaboration/FastFingerPrinting/blob/feature/starter_tank/phase1/src/galloOSIOPT/hyperparams-opt/code/NIRONE2-5/cheers_hyperspace_entk.py) according to your needs (e.g. which dataset, # of hyperparams, which remote cluster, etc.).
 
 ### Strong Scaling experiment
 
@@ -49,7 +49,10 @@ In order to perform strong scaling, we would need to create more of these functi
 
 This requires new development, thus more time. I already started experimenting with “dualdrive”, but we can’t perform strong scaling until this is done.
 
-As said before, you can see the results for both experiments in [CHEERS First Approach document](https://github.com/radical-group/koubbe/blob/master/HPO/CHEERS/docs/First%20approach.pdf).
+You can find an issue created specifically for this purpose in the HyperSpace GitHub repo:
+https://github.com/yngtodd/hyperspace/issues/31
+
+As said before, you can see the results for both experiments in [CHEERS First Approach document](https://github.com/radical-collaboration/FastFingerPrinting/blob/feature/starter_tank/phase1/src/galloOSIOPT/hyperparams-opt/docs/First%20approach.pdf).
 
 ## Reference
 
@@ -76,4 +79,7 @@ For specific references, please visit each section's topic.
  4. https://radicalpilot.readthedocs.io/en/stable
  5. https://radicalentk.readthedocs.io/en/latest
  6. https://hyperspace.readthedocs.io/en/latest
- 7. https://www.open-mpi.org
+ 7. https://www.open-mpi.org 
+
+Author: George Koubbe  
+https://github.com/karahbit
