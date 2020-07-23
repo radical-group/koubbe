@@ -124,7 +124,14 @@ note2: modify [cheers_hyperspace_entk.py](https://github.com/radical-group/koubb
 
 #### Strong Scaling experiment
 
-TBD
+HyperSpace as it is has a method called “hyperdrive” which runs each subspace/optimization on its own single rank/core. There is also “dualdrive” which runs 2 subspaces/optimizations per rank/core.
+
+In order to perform strong scaling, we would need to create more of these functions, e.g. quadrive, octadrive, etc (I made those names up), so we can run 4, 8, 16, etc. optimizations per MPI rank respectively.. Eventually, we would like to name this function something like “multidrive”, and specify the number of optimizations we would like per rank/core.
+
+This requires new development, thus more time. I already started experimenting with “dualdrive”, but we can’t perform strong scaling until this is done.
+
+You can find an issue created specifically for this purpose in the HyperSpace GitHub repo:
+https://github.com/yngtodd/hyperspace/issues/31
 
 As said before, you can see the results for both experiments in [CHEERS First Approach document](https://github.com/radical-group/koubbe/blob/master/HPO/CHEERS/docs/First%20approach.pdf).
 
@@ -312,3 +319,5 @@ For specific references, please visit each section's topic.
  9. https://containers-at-tacc.readthedocs.io/en/latest/
  10. https://www.open-mpi.org
  11. https://wiki.ubuntu.com/Kernel/Reference/stress-ng
+
+Author: [George Koubbe](https://github.com/karahbit)
