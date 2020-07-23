@@ -26,6 +26,7 @@ $ cd ~/hyperspace
 $ pip install .
 $ export MV2_ENABLE_AFFINITY=0
 $ srun --partition=debug --pty --nodes=2 --ntasks-per-node=24 -t 00:30:00 --wait=0 --export=ALL /bin/bash
+$ mkdir /home/karahbit/hyperspace_results
 $ mpirun -n 4 python benchmarks/styblinskitang/hyperdrive/benchmark.py --ndims 2 --results /home/karahbit/hyperspace_results
 ```
 
